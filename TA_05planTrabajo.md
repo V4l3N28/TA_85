@@ -3,7 +3,6 @@
 - Construcción del backend (Python-Flask)
 - Generación de rutas y restricciones de usuario para navegación en la página
 
-
 <Informe 04>:
  - Conexión del backend a la base de datos (SQLite)
   - Conexión del backend de (Python-Flask) a la base de datos para registrar y leer datos de la base de datos
