@@ -14,7 +14,7 @@ Como versión preliminar usar imágenes en vez de gráficos.
 
   - LAYOUT Página Estaciones
   
-  
+  ![images](https://user-images.githubusercontent.com/80772803/114126017-34fa6c80-98bd-11eb-9ffd-c5305066e011.png)
   
 <Informe 04>:
   - LAYOUT de página de registro y login de usuario
