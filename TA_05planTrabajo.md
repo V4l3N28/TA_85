@@ -2,6 +2,7 @@
 <Informe 03>:
 Estos tasks consisten en la realización de Layouts en HTML/CSS de las imagenes adjuntas respectivamente. 
 Como versión preliminar se usarán imágenes en vez de gráficos.
+
   - LAYOUT Multianual  
 ![Multianual](https://user-images.githubusercontent.com/80772803/114123280-9ae3f580-98b7-11eb-9f18-e79eec997410.png)
 
