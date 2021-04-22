@@ -18,3 +18,5 @@ def based():
     "temperatura_max INTEGER, "+
     "lluvias INTEGER"+
     ")")
+  #GUARDAR CAMBIOS
+    conexion.commit()
