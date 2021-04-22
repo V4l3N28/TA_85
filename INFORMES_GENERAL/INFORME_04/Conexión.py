@@ -27,3 +27,14 @@ def based():
     cursor.execute("SELECT temperatura_max FROM datos_estacion_02;")
     temperaturas_max = cursor.fetchall()
     var1= [f[0] for f in temperaturas_max]
+    
+    cursor.execute("SELECT fecha FROM datos_estacion_02;")
+    fechas = cursor.fetchall()
+    var2= [f[0] for f in fechas]
+    
+    
+    #print(temperaturas_max,"   ", fechas)
+    #Cerrar conexion a base de datos
+    conexion.close()
+
+    return(var1, var2)
