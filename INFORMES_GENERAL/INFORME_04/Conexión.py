@@ -38,3 +38,12 @@ def based():
     conexion.close()
 
     return(var1, var2)
+@app.route('/')
+def temp():
+    etiqueta = based()
+    temperaturas_max = etiqueta[0]
+    fechas= etiqueta[1]
+    weekle_temps = [("lun",12),("mart",2),("mierc",20),("jue",23),("vier",8),("sab",12),("dom",30)]
+    labels = [row[0] for row in weekle_temps]
+    values = [row[1] for row in weekle_temps]
+    return render_template("index.html",labels =fechas, values=temperaturas_max)
