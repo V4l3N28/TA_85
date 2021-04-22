@@ -3,12 +3,12 @@ import sqlite3
 app = Flask(__name__)
 #@app.route('/')
 #def index():
-#   return render_template("main.html")
+#return render_template("main.html")
 
 def based():
     #Conexión a base de datos
     conexion= sqlite3.connect('basedatos.db')
-  #Crear cursor
+    #Crear cursor
     cursor = conexion.cursor()
     #Crear tabla
     cursor.execute("CREATE TABLE IF NOT EXISTS datos_estacion_02("+
