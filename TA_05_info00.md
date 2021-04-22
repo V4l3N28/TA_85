@@ -108,4 +108,4 @@
   - información sobre herramientas configurable
   - Rotación de texto
   - Ejes múltiples
-  - Soporte DataTime
+  - Soporte DataTime 
