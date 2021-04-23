@@ -2,7 +2,10 @@ from flask import Flask, render_template
 
 app= Flask(__name__)
 
-##Conexion a \templates\HOME
+##este .py tiene la finalidad de mapear cada uno de los links con su respectiva funcion
+
+##Conexion a \templates\HOME la cual seria establecida como la pagina principal
+## este @app.route('/') siempre tiene que estar definido con un solo "/"
 @app.route('/')
 def HOME():
   return render_template("HOME.html")
@@ -41,4 +44,7 @@ def GENERAL():
 @app.route('/Estaciones/')
 def ESTACIONES():
   return render_template("ESTACIONES.html")
- 
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
