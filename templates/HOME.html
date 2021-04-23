@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Inicio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Estilo de la cabecera*/
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Contenedores */
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Estil menu navegador */
+nav {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Estilo lista del menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Estilo del contenido */
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+/* Estilo pie de pagina */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* layout interactivo - hace que el menu y el contendo se ubiquen uno encima del otro y no al lado */
+@media (max-width: 600px) {
+  section {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2>Inicio</h2>
+<p>en este ejemplo, pusimos una cabecera, dos columnas y un pie de pagina.</p>
+
+<header>
+  <h2>Proyecto</h2>
+</header>
+
+<section>
+  <nav>
+    <ul>
+      <li><a href="#">Estaciones</a></li>
+      <li><a href="#">Pronosticos</a></li>
+      <li><a href="#">General</a></li>
+    </ul>
+  </nav>
+  
+  <article>
+    <h1>Contenido</h1>
+    <p>Este es un ejemplo cascaron de lo que seria la pantalla inicia</p>
+    <p>Esta es la version mas basica donde aun no se ha implementado ni frameworks 			ni,ni conexiones entre paginas</p>
+  </article>
+</section>
+
+<footer>
+  <h3>Nombres</h3>
+  <p>Valentina Ortega Paz, Isaac Mesa Maya, Karen Valentina Obando</p>
+</footer>
+
+</body>
+</html>
