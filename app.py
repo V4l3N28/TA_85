@@ -13,10 +13,10 @@ if __name__ == "__main__":
 def HOME():
   return render_template("HOME.html")
 
-##Conexion a \templates\ventanaRegistroSESION
+##Conexion a \templates\ventanaInicioSESION
 @app.route('/IniciarSesion/')
-def ventanaRegistroSESION():
-  return render_template("ventanaRegistroSESION.html")
+def ventanaInicioSESION():
+  return render_template("ventanaInicioSESION.html")
 
 ##Conexion a \templates\entanvaRegistroUSUARIO
 @app.route('/Registrarse/')
