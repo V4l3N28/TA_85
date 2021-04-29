@@ -1,105 +1,147 @@
+<!--Todos los documentos HTML deben comenzar con una declaración <! DOCTYPE>.-->
+<!--La declaración no es una etiqueta HTML. Es una "información" para el navegador sobre qué tipo de documento esperar.-->
 <!DOCTYPE html>
+<!--El documento HTML en sí mismo comienza con <html> y termina con </html>.-->
+<!--El comando lang se usa para establecer el idioma del documento o un rango de texto-->
 <html lang="en">
+<!-- El espacio que se abre entre provee <head> </head> se usa para configurar la información general del encabezado, incluyendo su título y enlaces a scripts y hojas de estilos.-->
 <head>
-<title>Inicio</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/*Estilo de la cabecera*/
-header {
-  background-color: #666;
-  padding: 30px;
-  text-align: center;
-  font-size: 35px;
-  color: white;
-}
-
-/* Contenedores */
-section {
-  display: -webkit-flex;
-  display: flex;
-}
-
-/* Estil menu navegador */
-nav {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  background: #ccc;
-  padding: 20px;
-}
-
-/* Estilo lista del menu */
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-/* Estilo del contenido */
-article {
-  -webkit-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-  background-color: #f1f1f1;
-  padding: 10px;
-}
-
-/* Estilo pie de pagina */
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
-
-/* layout interactivo - hace que el menu y el contendo se ubiquen uno encima del otro y no al lado */
-@media (max-width: 600px) {
-  section {
-    -webkit-flex-direction: column;
-    flex-direction: column;
-  }
-}
-</style>
+  <!--Indica el título del documento.-->
+  <!--Este elemento es obligarorio y debe estar ubicado dentro del elemento head.-->
+  <title>Pronosticos</title>
+  <!--El atributo charset especifica la codificación de caracteres para el documento HTML-->
+  <!--le está diciendo a su navegador que use la codificación de caracteres UTF-8, que es un método para convertir los caracteres escritos en código legible por máquina.-->
+  <meta charset="utf-8">
+  <!--Esto significa que el navegador renderizará el ancho de la página al ancho de su propia pantalla.-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--Estos siguientes tres renglones se usan para configurar que se esta trabajando con un framework especifico, en este caso Bootstrap 3-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!--El atributo de style se usa para agregar estilos a un elemento, como color, fuente, tamaño y otras configuraciones-->
+  <!--Con este atributo se cambia la propiedad a una propiedad CSS. El valor a un valor CSS.-->
+  <!--Uno de sus cambios es por ejemplo que la manera de comentar en el espacio de <style></style> cambia de HTML a CSS-->
+  <style>
+    /* da un valor especifico a los bordes predeterminados de la navbar. */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Ajusta altura de la navbar. en pixeles*/
+    .row.content {height: 450px}
+    
+    /* se usa para establecer un menu que configura el .sidenav */
+    /* el menu incluye las configuraciones de: "height:, width:, position:, z-index:, top:, left:, background-color:, overflow-x:, padding-top:, transition:".*/
+    /* Cada una de estas configuraciones tienen sus propios comandos de ajuste*/
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* se usa para establrecer un menu que configura el .footer*/
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* en pantallas pequeñas, determina la altura en 'auto' para sidenav y el grid  */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
 </head>
+<!--La parte visible del documento HTML se encuentra entre <body> y </body>.-->
 <body>
+  <!--Define un conjunto de enlaces de navegación.-->
+  <!--'Class=' asigna nombres de clases al elemento. Por defecto, clases CSS.-->
+  <!--Con Bootstrap, una barra de navegación puede extenderse o contraerse, según el tamaño de la pantalla.-->
+  <!--En bootstrap, la barra de navegacion basica se crea con <nav class = "navbar navbar-default">-->
+  <!--Bootstrap tambien provee una opcion alterna que es la que se esta usando y se implement cambiando la clase .navbar-default a .navbar-inverse-->
+  <nav class="navbar navbar-inverse">
+      <!--El espacio entre <div> y </div> sirve para crear secciones o agrupar contenidos.-->
+      <!--Bootstrap tiene ciertas reglas en cuanto a la organizacion de su rejilla-->
+      <!--Las filas deben colocarse dentro de un .container (ancho fijo) o .container-fluid (ancho completo) para una alineación y relleno adecuados-->
+      <div class="container-fluid">
+          <!--este <div> es tiene la finalidad de colocar un boton en <nav> el cual tendira la funcionalidad de redirigir a otra pagina-->
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>                        
+              </button>
+              <a class="navbar-brand" href="#">Proyecto FP</a>
+          </div>
 
-<h2>Inicio</h2>
-<p>en este ejemplo, pusimos una cabecera, dos columnas y un pie de pagina.</p>
+          <!--este <div> es tiene la finalidad de especificar cuales serian las otras paginas a las cuales uno se puede redirigir-->
+          <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                  <!--El comando .class="active" ayuda a idetifivar en la navbar en cual de las paginas el usuario esta ubicado-->
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="#">Pronostico</a></li>
+                  <li><a href="#">Estaciones</a></li>
+                  <li><a href="#">General</a></li>
+              </ul>
 
-<header>
-  <h2>Proyecto</h2>
-</header>
-
-<section>
-  <nav>
-    <ul>
-      <!--Estructura para llamar archivos con flask "{{url_for('static',filename='styles.css')}}"-->
-      <li><a href="/Estaciones/">Estaciones</a></li>
-      <li><a href="/Pronosticos/">Pronosticos</a></li>
-      <li><a href="/General/">General</a></li>
-      <li><a href="/IniciarSesion/">Iniciar sesión</a></li>
-    </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <!--Bootstrap proporciona 260 glyphicons del conjunto Glyphicons Halflings.-->
+                  <!--Los Glyphicons se pueden utilizar en texto, botones, barras de herramientas, navegación, formularios,y otros-->
+                  <!--Se inserta un Glyphicon con <span class="glyphicon glyphicon-name"></span>-->
+                  <!--La parte del nombre en la sintaxis anterior debe reemplazarse con el nombre propio del glifo.-->
+                  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              </ul>
+          </div>
+      </div>
   </nav>
   
-  <article>
-    <h1>Contenido</h1>
-    <p>Este es un ejemplo cascaron de lo que seria la pantalla inicia</p>
-    <p>Esta es la version mas basica donde aun no se ha implementado ni frameworks 			ni,ni conexiones entre paginas</p>
-  </article>
-</section>
+  <div class="container-fluid text-center">    
+    <div class="row content">
+      <!--El sistema de cuadrícula de Bootstrap permite hasta 12 columnas en la página.-->
+      <!--Si no desea utilizar las 12 columnas individualmente, puede agrupar las columnas para crear columnas más anchas.-->
+      <!--.col-sm-2 el numero se usa para especificar cuantas de las 12 columnas quiero usar para este contenedor-->
+      <div class="col-sm-2 sidenav">
+        <!--los párrafos se definen con la etiqueta <p>-->
+         <!--La etiqueta HTML <a> define un hipervínculo.-->
+        <!--Tiene la sintaxis: <a href="url"> link text </a>-->
+        <!--El atributo más importante del elemento <a> es el atributo href, que indica el destino del enlace.-->
+        <!--'link text' es la parte que será visible para el lector.-->
+        <p><a href="#">LINK 1</a></p>
+        <p><a href="#">LINK 2</a></p>
+        <p><a href="#">LINK 3</a></p>
+      </div>
+      <!--.col-sm-8 el numero se usa para especificar cuantas de las 12 columnas quiero usar para este contenedor-->
+      <!--las columnas de la cuadrícula deben sumar hasta doce por fila. Más que eso, las columnas se apilarán sin importar la ventana gráfica.-->
+      <div class="col-sm-8 text-left"> 
+        <!--Los encabezados HTML se definen con las etiquetas <h1> a <h6>.-->
+        <!--<h1> define el encabezado más importante. <h6> define el encabezado menos importante-->
+        <!--La etiqueta <hr> se usa para dar un espacio entre textos en este caso-->
+        <h1>PLANTILLA</h1>
+        <p>plantilla hecha a partir de establecer el framework que se va a usar, para dar orden a la pagina</p>
+        <hr>
+        <h3>Test</h3>
+        <p>se usara bootstrap tres como ejemplo con la posibilidad de cambiarlo en el informe_05 </p>
+      </div>
+      <!--.col-sm-2 el numero se usa para especificar cuantas de las 12 columnas quiero usar para este contenedor-->
+      <div class="col-sm-2 sidenav">
+        <div class="well">
+          <p>Informacion Basica</p>
+        </div>
+        <div class="well">
+          <p>Informacion Basica</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<footer>
-  <h3>Nombres</h3>
-  <p>Valentina Ortega Paz, Isaac Mesa Maya, Karen Valentina Obando</p>
-</footer>
+  <footer class="container-fluid text-center">
+    <p>Pie de pagina</p>
+  </footer>
 
 </body>
 </html>

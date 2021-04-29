@@ -1,14 +1,13 @@
 <!--Todos los documentos HTML deben comenzar con una declaración <! DOCTYPE>.-->
 <!--La declaración no es una etiqueta HTML. Es una "información" para el navegador sobre qué tipo de documento esperar.-->
 <!DOCTYPE html>
-<!--El documento HTML en sí mismo comienza con <html> y termina con </html>.-->
 <!--El comando lang se usa para establecer el idioma del documento o un rango de texto-->
 <html lang="en">
 <!-- El espacio que se abre entre provee <head> </head> se usa para configurar la información general del encabezado, incluyendo su título y enlaces a scripts y hojas de estilos.-->
 <head>
     <!--Indica el título del documento.-->
     <!--Este elemento es obligarorio y debe estar ubicado dentro del elemento head.-->
-    <title>Pronosticos</title>
+    <title>Plantilla</title>
     <!--El atributo charset especifica la codificación de caracteres para el documento HTML-->
     <!--le está diciendo a su navegador que use la codificación de caracteres UTF-8, que es un método para convertir los caracteres escritos en código legible por máquina.-->
     <meta charset="utf-8">
@@ -35,9 +34,9 @@
         /* el menu incluye las configuraciones de: "height:, width:, position:, z-index:, top:, left:, background-color:, overflow-x:, padding-top:, transition:".*/
         /* Cada una de estas configuraciones tienen sus propios comandos de ajuste*/
         .sidenav {
-        padding-top: 20px;
-        background-color: #f1f1f1;
-        height: 100%;
+        padding-top: 20px; /* Colocar contenido a cierto numero de px de la parte superior */
+        background-color: #f1f1f1; /* Determina el color del fondo*/
+        height: 100%; /*Determina el largo de la pagina que va a abarcar segun el porcentaje*/
         }
         
         /* se usa para establrecer un menu que configura el .footer*/
@@ -72,6 +71,9 @@
             <!--este <div> es tiene la finalidad de colocar un boton en <nav> el cual tendira la funcionalidad de redirigir a otra pagina-->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <!--La etiqueta <span> es un contenedor en línea que se utiliza para marcar una parte de un texto o una parte de un documento.-->
+                    <!--La etiqueta <span> se puede diseñar fácilmente con CSS o se manipula con JavaScript utilizando el atributo class o id.-->
+                    <!--La etiqueta <span> es muy parecida al elemento <div>, pero <div> es un elemento a nivel de bloque y <span> es un elemento en línea.-->
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                        
@@ -96,6 +98,7 @@
                     <!--Se inserta un Glyphicon con <span class="glyphicon glyphicon-name"></span>-->
                     <!--La parte del nombre en la sintaxis anterior debe reemplazarse con el nombre propio del glifo.-->
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#">Sing in</a></li>
                 </ul>
             </div>
         </div>
