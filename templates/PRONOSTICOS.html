@@ -85,12 +85,11 @@
             <!--este <div> es tiene la finalidad de especificar cuales serian las otras paginas a las cuales uno se puede redirigir-->
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <!--El comando .class="active" ayuda a idetifivar en la navbar en cual de las paginas el usuario esta ubicado-->
-                    <!--ubicar class="active" en la pagina de actividad-->
-                    <li><a href="#">Pronostico</a></li>
-                    <li><a href="#">Estaciones</a></li>
-                    <li><a href="#">General</a></li>
+                    <li class="active"><a href="/Pronosticos/">Pronostico</a></li>
+                    <li><a href="/Estaciones/">Estaciones</a></li>
+                    <li><a href="/General/">General</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -98,8 +97,8 @@
                     <!--Los Glyphicons se pueden utilizar en texto, botones, barras de herramientas, navegación, formularios,y otros-->
                     <!--Se inserta un Glyphicon con <span class="glyphicon glyphicon-name"></span>-->
                     <!--La parte del nombre en la sintaxis anterior debe reemplazarse con el nombre propio del glifo.-->
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#">Sing in</a></li>
+                    <li><a href="/InicioSesion/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="/Registrarse/"><>Sing in</a></li>
                 </ul>
             </div>
         </div>
