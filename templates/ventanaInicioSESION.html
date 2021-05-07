@@ -116,6 +116,46 @@
         <p><a href="#">LINK 2</a></p>
         <p><a href="#">LINK 3</a></p>
       </div>
+
+      <div class="container">
+        <!--Los encabezados HTML se definen con las etiquetas <h1> a <h6>.-->
+        <!--<h1> define el encabezado más importante. <h6> define el encabezado menos importante-->
+        <h2>Ingresar</h2>
+
+        <!--El elemento HTML <form> se utiliza para crear un formulario HTML para una "aporte" del usuario-->
+        <!--El atributo de .action define la acción que se realizará cuando se envíe el formulario.-->
+        <!--En el siguiente ejemplo, los datos del formulario se envían a un archivo llamado "action_page.php".-->
+        <form action="/action_page.php">
+        <!--para un formulario horizontal, agregue la clase .form-inline al elemento <form>-->
+        <!--En este caso usamos la cuadricula que provee bootstrap en vez de hacerlo mediante .form-inline para evitar errores con el espaciado de la pagina-->
+        
+        <!--Los controles de formulario individuales reciben automáticamente un estilo global con Bootstrap.-->
+        <!--Todos los elementos textuales <input>, <textarea> y <select> con class = "form-control" se establecen en width: 100%; por defecto.-->
+        <!--incluya las etiquetas y los controles de formulario en <div class = "form-group"> (necesario para un espaciado/organizacion óptimo)-->
+        
+        <!--El sistema de cuadrícula Bootstrap tiene cuatro clases:
+
+        -xs (para teléfonos, pantallas de menos de 768 px de ancho).
+        -sm (para tablets: pantallas iguales o superiores a 768 px de ancho).
+        -md (para portátiles pequeños: pantallas iguales o superiores a 992 px de ancho).
+        -lg (para computadoras portátiles y de escritorio: pantallas iguales o superiores a 1200 px de ancho).
+        
+        Las clases anteriores se pueden combinar para crear diseños más dinámicos y flexibles.-->
+        <div class="form-group; col-xs-4">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" placeholder="Ingresar email" name="email">
+        </div>
+        <div class="form-group; col-xs-4">
+          <label for="pwd">Contraseña:</label>
+          <input type="password" class="form-control" id="pwd" placeholder="Ingresar contraseña" name="pwd">
+        </div>
+        <div class="checkbox ">
+          <label><input type="checkbox" name="remember"> Remember me</label>
+        </div>
+          <button type="submit" class="btn btn-default">Acceder</button>
+          <button type="button" class="btn"><a href="/Registrarse/">Registrarse</a></button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
