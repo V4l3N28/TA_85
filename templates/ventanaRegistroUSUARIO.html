@@ -5,6 +5,15 @@ Para representar el contenido de un bloque definido en la plantilla principal, u
 {% block title %}Registro{% endblock %}
 {% block content %}
 
+{#  - form representa un formulario. En este formulario se agregan los diferentes campos de entrada de datos o de confirmación, así como los botones como el de envío.
+  - label es un componente, que se utilizan para mostrar texto como el contenido de variables, campos o mensajes en pantalla, este control posee propiedades para cambiar la apariencia del texto. 
+  En la tabla encontraras las propiedades que usa el control label o etiqueta, en este caso usamos un for="".
+   - Este formulario es utilizado en nuestro código para nombre, apellido, email, contrasena y usuario.
+  - for se usa cuando queremos repetir un conjunto de instrucciones un número finito de veces, en este caso utilizamos for="usuario".
+  - input se usa para crear controles interactivos para formularios basados en la web con el fin de recibir datos del usuario. 
+  - type es una funcion que  permite averiguar el tipo de dato que estamos tratando.
+  - value se usa para definir el valor de lo que estamos ingresando un el input#}
+
 <div class="flex flex-wrap flex-col justify-center items-center border-content md:p-8 md:mx-64 md:mt-32 bg-gray-200">
   <form action="" method="POST" class="flex flex-col">
     <label for="nombre"> Nombre</label>
