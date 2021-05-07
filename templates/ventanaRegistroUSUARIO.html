@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<h2>REGISTRAR</h2>
-
-<form action="/action_page.php">
-  <label for="fname"> Email:</label><br>
-  <input type="text" id="fname" name="fname"><br>
-  <label for="lname">Contraseña:</label><br>
-  <input type="text" id="lname" name="lname"><br><br>
-  <label for="lname">Confirmar contraseña:</label><br>
-  <input type="text" id="lname" name="lname"><br><br> 
-  <input type="submit" value="Ingresar">
-</form> 
-
-<p>Si da clicken el boton"Ingresar", esta informacion será enviada a una pagina llamada "/action_page.php".</p>
-
-</body>
-</html>
+{%extends 'LAYOUT.html'%}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<div class="flex flex-wrap flex-col justify-center items-center border-content md:p-8 md:mx-64 md:mt-32 bg-gray-200">
+  <form action="" method="POST" class="flex flex-col">
+    <label for="nombre"> Nombre</label>
+    <input type="text" name="nombre" class="border-4 boder-black bg-gray-200"><br>
+    <label for="apellido"> Apellido</label>
+    <input type="text" name="apellido" class="border-4 boder-black bg-gray-200"><br>
+    <label for="email"> Email</label>
+    <input type="email" name="email" class="border-4 boder-black bg-gray-200"><br>
+    <label for="email2"> Confirmar email</label>
+    <input type="email" name="email2" class="border-4 boder-black bg-gray-200"><br>
+    <label for="contrasena">Contraseña:</label>
+    <input type="password" name="contrasena" class="border-4 boder-black bg-gray-200"><br>
+    <label for="contrasena2" >Confirmar contraseña:</label>
+    <input type="password" name="contrasena2" class="border-4 boder-black bg-gray-200"><br>
+    <label for="usuario"> Usuario</label>
+    <input type="text" name="usuario" class="border-4 boder-black bg-gray-200"><br>
+    <input type="submit" value="Guardar" class="border-4 boder-black bg-gray-200">
+  </form><br>
+  <a href="/IniciarSesion/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
+    Ya tengo cuenta
+    </a>
+</div>
+{% endblock %}
