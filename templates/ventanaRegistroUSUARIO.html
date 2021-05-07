@@ -1,6 +1,10 @@
+{# La etiqueta es la clave aquí. Le dice al motor de plantillas que esta plantilla "extiende" otra plantilla. Cuando el sistema de plantillas evalúa esta plantilla, primero localiza al padre. La etiqueta de extensión debe ser la primera etiqueta de la plantilla, usamos {% extends _name_%} para llamar a la plantilla padre.
+Para representar el contenido de un bloque definido en la plantilla principal, usamos {% block _name_%}#}
+
 {%extends 'LAYOUT.html'%}
 {% block title %}Registro{% endblock %}
 {% block content %}
+
 <div class="flex flex-wrap flex-col justify-center items-center border-content md:p-8 md:mx-64 md:mt-32 bg-gray-200">
   <form action="" method="POST" class="flex flex-col">
     <label for="nombre"> Nombre</label>
