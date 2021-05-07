@@ -7,7 +7,12 @@ La declaración no es una etiqueta HTML. Es una "información" para el navegador
   <head>
         <!--Indica el título del documento.
         Este elemento es obligarorio y debe estar ubicado dentro del elemento head.-->
-        <title>PLANTILLA</title>
+        <!--Se hace el uso de bloques para la herencia de plantillas mediante la siguiente estructura {% block __name__ %} donde las llaves y el porcentaje se 
+            utilizan para indicar la apertura de un bloque, block se refiere a bloque y __name__ se utiliza para darle una decripción general
+            al bloque. Para cerrarlo se utiliza 'endblock' en la misma estructura {% endblock %}
+            En este caso se hace un bloque para el título-->
+            <title>{% block title %} PLANTILLA {% endblock %}</title>
+            
     
         <!--El atributo charset especifica la codificación de caracteres para el documento HTML
         le está diciendo a su navegador que use la codificación de caracteres UTF-8, que es un método para convertir los caracteres escritos en código legible por máquina.-->    
@@ -27,13 +32,11 @@ La declaración no es una etiqueta HTML. Es una "información" para el navegador
         css llamado styles por medio de los atributos rel y href. En donde rel especifica la relación del link del documento en href con el documento actual-->
         <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-        <link rel="stylesheet" href="style.css">
-
     </head>
-    <!--fin del head
-    La parte visible del documento HTML se encuentra entre <body> y </body>.
-    inicio del body-->
-    <body>
+        <!--fin del head -->
+        <!--La parte visible del documento HTML se encuentra entre <body> y </body>-->
+        <!--inicio del body-->
+    <body class="h-full">
         <!--Define un conjunto de enlaces de navegación.
         'Class=' asigna nombres de clases al elemento. Por defecto, clases CSS.
         Con Tailwind, los elementos pueden acomodarse al ancho de la página.
@@ -97,19 +100,13 @@ La declaración no es una etiqueta HTML. Es una "información" para el navegador
             </div>
         </nav>
         <!--fin barra de navegación-->
-        <!--DEFINIR FOOTER-->
-        <!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border blue) y algunos elementos de diseño: (padding top, border y relative) -->
-        <footer class="footer bg-gray-200 relative pt-1 border-b-2 border-blue-700">
-            <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
-            <div class="container mx-auto px-6">
-                <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
-                <div class="flex flex-col">
-                    <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->
-                    <span class="font-bold text-gray-700 uppercase mb-2">Pie de página</span>
-                    <!-- En este elemento, al ser un link, se agrega la propiedad de hover para darle un efecto de cambio (de color) para cuando el apuntador pase por encima -->
-                    <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
-                </div>
-            </div>
-        </footer>
+        <!--Se abre un bloque para el contenido dentro de un sección-->
+        <section id="content">
+            {% block content %}
+            {% block footer %}
+        
+        {% endblock%}
+        {% endblock%}
+        </section>
     </body>
 </html>
