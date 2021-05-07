@@ -35,7 +35,8 @@ def ventanaInicioSESION():
       contrasena = request.form['contrasena']
       error = None
       db = get_db() #funcion que se conecta a la BD
-      usuario = db.execute('SELECT * FROM usuarios WHERE usuario = ?', (usuario,) ).fetchone()
+      usuario = db.execute('SELECT * FROM usuarios WHERE usuario = ?', (usuario,)).fetchone()
+      contrasena = db.execute('SELECT * FROM usuarios WHERE contrasena = ?', (contrasena,)).fetchone()
     if user is None:
       return 'Usuario o contraseña Incorrectos'
     else:
