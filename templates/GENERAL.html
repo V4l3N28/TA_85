@@ -1,121 +1,24 @@
-<!--Todos los documentos HTML deben comenzar con una declaración <! DOCTYPE>.
-La declaración no es una etiqueta HTML. Es una "información" para el navegador sobre qué tipo de documento esperar.-->
-<!DOCTYPE html>
-<!--El comando lang se usa para establecer el idioma del documento o un rango de texto-->
-<html lang="en">
- <!-- El espacio que se abre entre provee <head> </head> se usa para configurar la información general del encabezado, incluyendo su título y enlaces a scripts y hojas de estilos.-->
-  <head>
-        <!--Indica el título del documento.
-        Este elemento es obligarorio y debe estar ubicado dentro del elemento head.-->
-        <title>General</title>
-    
-        <!--El atributo charset especifica la codificación de caracteres para el documento HTML
-        le está diciendo a su navegador que use la codificación de caracteres UTF-8, que es un método para convertir los caracteres escritos en código legible por máquina.-->    
-        <meta charset="UTF-8">
-
-        <!--El http-equiv es un atributo que proporciona un encabezado HTTP para la información o valor del atributo content.
-        Se puede utilizar para simular un encabezado de respuesta HTTP.
-        La metaetiqueta X-UA permite elegir la versión de Internet Explorer (IE) que se debe representar.
-        El edge en el atributo content le dice a internet explorer que muestre el contenido en la versión más alta posible-->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      
-        <!--Esto significa que el navegador renderizará el ancho de la página al ancho de su propia pantalla.-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-        <!--Estos siguientes tres renglones se usan para configurar que se esta trabajando con un framework especifico (Tailwind CSS), 
-        también para indicar que se utiliza iconos de Fontawesome, y en el tercer renglon se hace una relacion de este html con un documento
-        css llamado styles por medio de los atributos rel y href. En donde rel especifica la relación del link del documento en href con el documento actual-->
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-        <link rel="stylesheet" href="style.css">
-
-    </head>
-    <!--fin del head
-    La parte visible del documento HTML se encuentra entre <body> y </body>.
-    inicio del body-->
-    <body>
-        <!--Define un conjunto de enlaces de navegación.
-        'Class=' asigna nombres de clases al elemento. Por defecto, clases CSS.
-        Con Tailwind, los elementos pueden acomodarse al ancho de la página.
-        En Tailwind se le coloca estilo al componente o elemento en class="" mediante el uso de propiedades de 
-        flexbox (módulo de diseño que facilita el posicionamiento, tamaño y dirección de los elementos en el espacio disponible de un código)
-        Las propiedades de flexbox utilizadas en este documento se podrán encontrar definidas en el sigiente link-->
-        <link rel="definiciones" href="definiciones.md">
-        <!--La etiqueta nav se utiliza para especificar que se está desarrollando una barra de navegación.
-        Dentro del class de esta etiqueta se especifica el posicionamiento el elemento mediante las propiedades items-center,
-        justify-center y flex-wrap.
-        La dimensión del padding del elemento se especifica con p-6
-        Se da color al fondo de este elemento mediante bg-black-->
-        <nav class="flex items-center justify-between flex-wrap bg-black p-6">
-             <!--Mediante la etiqueta div se crea un componente en donde se agrega una imagen mediante la etiqueta svg y se agrega un nombre PROYECTO.
-            En esta etiqueta div y en su contenido se utilizan propiedades de flexbox como items-center flex-shrink-0 tracking-wide para el posicionamiento de los elementos
-            y text-white mr-6 font-semibold text-2xl para las dimensiones y colores de los elementos-->
-            <div class="flex items-center flex-shrink-0 text-white mr-6">
-                <!--Svg --> 
-                <span class="font-semibold text-2xl tracking-wide">
-                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cloud-sun" class="fill current text-white svg-inline--fa fa-cloud-sun fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M575.2 325.7c.2-1.9.8-3.7.8-5.6 0-35.3-28.7-64-64-64-12.6 0-24.2 3.8-34.1 10-17.6-38.8-56.5-66-101.9-66-61.8 0-112 50.1-112 112 0 3 .7 5.8.9 8.7-49.6 3.7-88.9 44.7-88.9 95.3 0 53 43 96 96 96h272c53 0 96-43 96-96 0-42.1-27.2-77.4-64.8-90.4zm-430.4-22.6c-43.7-43.7-43.7-114.7 0-158.3 43.7-43.7 114.7-43.7 158.4 0 9.7 9.7 16.9 20.9 22.3 32.7 9.8-3.7 20.1-6 30.7-7.5L386 81.1c4-11.9-7.3-23.1-19.2-19.2L279 91.2 237.5 8.4C232-2.8 216-2.8 210.4 8.4L169 91.2 81.1 61.9C69.3 58 58 69.3 61.9 81.1l29.3 87.8-82.8 41.5c-11.2 5.6-11.2 21.5 0 27.1l82.8 41.4-29.3 87.8c-4 11.9 7.3 23.1 19.2 19.2l76.1-25.3c6.1-12.4 14-23.7 23.6-33.5-13.1-5.4-25.4-13.4-36-24zm-4.8-79.2c0 40.8 29.3 74.8 67.9 82.3 8-4.7 16.3-8.8 25.2-11.7 5.4-44.3 31-82.5 67.4-105C287.3 160.4 258 140 224 140c-46.3 0-84 37.6-84 83.9z"></path></svg>
-                    PROYECTO
-                </span>
-            </div>
-            <!--Boton de menú responsive
-            En este div se crea un boton oculto para las pantallas de tamaño lg (1024px) o mayores mediante lg:hidden-->
-            <div class="block lg:hidden">
-                <!--se adicionan propiedades de tipo flex al boton para permitir el manejo de flexbox
-                Se establecen propiedades de diseño como padding (p-X), redondeado, color de texto y borde (text-X  border-X) y propiedades de acción como el hover: con el que cambiamos el color del borde(border-X) y del texto(text-X) cuando se pasa por encima con el mouse--> 
-                <button class="flex items-center p-3 rounded text-gray-300 border-black hover:text-white hover:border-white">
-                <!-- Se establece el color del SVG con la propiedad (fill-current), adicionalmente se establece alto y ancho (h-X w-X)-->
-                    <svg class="fill-current text-gray-200 h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-                </button>
-            </div>
-            <!--Se crea un bloque en donde se utilizan las etiquetas w-full, block, flex-grow, las cuales sirven para modificar el tamaño del componente en la pagina, tambien se especifican algunas propiedades para pantallas mayores a 1024px (items-center, flex, w-auto, flex-grow)
-            la definicion de cada etiqueta esta en el siguiente link-->
-            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                <!--Bloques al lado de proyecto-->
-                <!-- Se establece un display tipo bloque y un margen condicionado en el tamaño de la pantalla, para lg o más se quita el margen.Adicionalmente se establecen condiciones de estilo-->
-                <div class="text-xl lg:flex-grow">
-                    <!-- En los siguientes links <a> se establecen propiedades de bloque, margenes superiores (m-X) y color de texto(text-X ), también se cambia el color del texto al pasar por encima de el (hover:text-)
-                    Adicionalmente se establecen propiedades para un diseño responsive para escritorios (pantallas 1024px o más lg: ) en el que se cambia el display a un tipo de bloques alineados (inline-block) y quitamos el margen superior (mt-0) anteriormente puesto -->
-                    <!--definir href-->
-                    <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-4">
-                    Home
-                    </a>
-                    <a href="/Pronosticos/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-4">
-                    Pronosticos
-                    </a>
-                    <a href="/Estaciones/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-4">
-                    Estaciones
-                    </a>
-                    <a href="/General/" class="block mt-4 lg:inline-block lg:mt-0 text-gray-300 hover:text-white mr-4">
-                    General
-                    </a>
-                </div>
-                <!--bloque de sign in y registrarse-->
-                <div>
-                    <a href="/IniciarSesion/" class="inline-block text-lg px-4 py-2 leading-none border rounded text-gray-300 border-white hover:border-transparent hover:text-white hover:bg-white mt-4 lg:mt-0">Sign in</a>
-                    <a href="/Registrarse/" class="inline-block text-lg px-4 py-2 leading-none border rounded text-gray-300 border-white hover:border-transparent hover:text-white hover:bg-white mt-4 lg:mt-0">Register</a>
-                </div>
-            </div>
-        </nav>
-        <!--fin barra de navegación-->
-        <!--INICIO GRÁFICO-->
-        <div class="flex justify-center flex-col items-center">
-            <svg aria-hidden="true" width="500px" height="500px" focusable="false" data-prefix="fas" data-icon="chart-bar" class="svg-inline--fa fa-chart-bar fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 540"><path fill="black" d="M332.8 320h38.4c6.4 0 12.8-6.4 12.8-12.8V172.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v134.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V76.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v230.4c0 6.4 6.4 12.8 12.8 12.8zm-288 0h38.4c6.4 0 12.8-6.4 12.8-12.8v-70.4c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v70.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V108.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v198.4c0 6.4 6.4 12.8 12.8 12.8zM496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"></path></svg>
-            <svg aria-hidden="true" width="500px" height="500px" focusable="false" data-prefix="fas" data-icon="chart-area" class="svg-inline--fa fa-chart-area fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 540"><path fill="black" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM372.7 159.5L288 216l-85.3-113.7c-5.1-6.8-15.5-6.3-19.9 1L96 248v104h384l-89.9-187.8c-3.2-6.5-11.4-8.7-17.4-4.7z"></path></svg>
+{%extends 'LAYOUT.html'%}
+{% block title %}General{% endblock %}
+{% block content %}
+ <!--INICIO GRÁFICO-->
+ <div class="flex justify-center flex-col items-center">
+    <svg aria-hidden="true" width="500px" height="500px" focusable="false" data-prefix="fas" data-icon="chart-bar" class="svg-inline--fa fa-chart-bar fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 540"><path fill="black" d="M332.8 320h38.4c6.4 0 12.8-6.4 12.8-12.8V172.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v134.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V76.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v230.4c0 6.4 6.4 12.8 12.8 12.8zm-288 0h38.4c6.4 0 12.8-6.4 12.8-12.8v-70.4c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v70.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V108.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v198.4c0 6.4 6.4 12.8 12.8 12.8zM496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"></path></svg>
+    <svg aria-hidden="true" width="500px" height="500px" focusable="false" data-prefix="fas" data-icon="chart-area" class="svg-inline--fa fa-chart-area fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 540"><path fill="black" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM372.7 159.5L288 216l-85.3-113.7c-5.1-6.8-15.5-6.3-19.9 1L96 248v104h384l-89.9-187.8c-3.2-6.5-11.4-8.7-17.4-4.7z"></path></svg>
+</div>
+<!--FIN GRÁFICO-->
+<!--DEFINIR FOOTER-->
+<!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border blue) y algunos elementos de diseño: (padding top, border y relative) -->
+<footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-blue-700">
+    <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
+    <div class="container mx-auto px-6">
+        <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
+        <div class="flex flex-col">
+            <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->
+            <span class="font-bold text-gray-700 uppercase mb-2">Pie de página</span>
+            <!-- En este elemento, al ser un link, se agrega la propiedad de hover para darle un efecto de cambio (de color) para cuando el apuntador pase por encima -->
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
         </div>
-        <!--FIN GRÁFICCO-->
-        <!--DEFINIR FOOTER-->
-        <!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border blue) y algunos elementos de diseño: (padding top, border y relative) -->
-        <footer class="footer bg-gray-200 relative pt-1 border-b-2 border-blue-700">
-            <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
-            <div class="container mx-auto px-6">
-                <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
-                <div class="flex flex-col">
-                    <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->
-                    <span class="font-bold text-gray-700 uppercase mb-2">Pie de página</span>
-                    <!-- En este elemento, al ser un link, se agrega la propiedad de hover para darle un efecto de cambio (de color) para cuando el apuntador pase por encima -->
-                    <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
-                </div>
-            </div>
-        </footer>
-    </body>
-</html>
+    </div>
+</footer>
+{% endblock %}
