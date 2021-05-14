@@ -6,16 +6,6 @@ from defi import get_db, close_db, login_required
 #El constructor de  toma el nombre del módulo actual (__name__) como argumento.
 app= Flask(__name__)
 
-if __name__ == "__main__":
-  #El método run () de la clase Flask ejecuta la aplicación en el servidor de desarrollo local.
-  #app.run(host, port, debug, options) - todos los parametros son opcionales
-
-  ''' host (anfitrion) - El valor predeterminado es 127.0.0.1 (localhost). Configure en "0.0.0.0" para que el servidor esté disponible externamente
-      port(puerto) - El valor predeterminado es 5000
-      debug - El valor predeterminado es falso. Si se establece en verdadero, proporciona información del debug.
-      options(opciones) - Para ser reenviado al servidor de herramientas subyacente.'''
-  
-  app.run(host='127.0.0.1',port=5000, debug=True)
   based()
 #este .py tiene la finalidad de mapear cada uno de los links con su respectiva funcion
 #Conexion a \templates\HOME la cual seria establecida como la pagina principal
@@ -99,3 +89,14 @@ def load_logged_in_user():
         g.user = get_db().execute(
             'SELECT * FROM usuarios WHERE id = ?', (user_id,)
         ).fetchone()
+
+if __name__ == "__main__":
+      #El método run () de la clase Flask ejecuta la aplicación en el servidor de desarrollo local.
+  #app.run(host, port, debug, options) - todos los parametros son opcionales
+
+  ''' host (anfitrion) - El valor predeterminado es 127.0.0.1 (localhost). Configure en "0.0.0.0" para que el servidor esté disponible externamente
+      port(puerto) - El valor predeterminado es 5000
+      debug - El valor predeterminado es falso. Si se establece en verdadero, proporciona información del debug.
+      options(opciones) - Para ser reenviado al servidor de herramientas subyacente.'''
+  
+  app.run(host='127.0.0.1',port=5000, debug=True)
