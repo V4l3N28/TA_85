@@ -5,9 +5,10 @@ import numpy as np
 #data = pd.read_excel(path)
 #df= pd.DataFrame(data, columns=[])
 
-#Utilizamos lo anterior para crear nuestros DataFrame de usuarios, fincas, observadores, veredas y registros registros.
+#Utilizamos lo anterior para crear nuestros DataFrame de usuarios, fincas, observadores, veredas y registros.
 #En data llamamos a la carpeta de excel y le ponemos esa r al inicio para que lea bien, y en df agregamos sus columnas.
 
+#También instalamos (pip instalar xlrd)
 
 #DATAFRAME USUARIOS
 dfu = pd.read_excel(r"C:\Users\valen\OneDrive\Escritorio\TABLA USUARIOS.xlsx")
