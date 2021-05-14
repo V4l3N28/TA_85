@@ -101,3 +101,92 @@ sum2019_idFinca7 = dfr.loc[7248:7521, 'precipitacion'].sum()
 
 print("la sumatoria total del año 2019 es: ", sum2019_idFinca1+sum2019_idFinca2 +
       sum2019_idFinca3+sum2019_idFinca4+sum2019_idFinca5+sum2019_idFinca6+sum2019_idFinca7)
+
+
+"""promedio"""
+"""por temas de exactitus se podria tratar estos promedios no solo por el año si no tambien por el idFinca
+que entrego estos resultados, de esta manera tendiamos promedios anuales generales y promedios anuales especificos"""
+
+#El método .loc con el que seleccionar filas o columnas en base a una etiqueta o seleccionar filas o columnas en base a una condición
+# en los corchetes[:,] establecemos el numero de las filas y de cual columna queremos los datos especificos
+# La función .sum() agrega los elementos de un iterable y devuelve la suma.
+sum2011=dfr.loc[0:365, 'precipitacion'].sum()
+#El método .shape para obtener el número de filas de Dataframe
+num2011=dfr.loc[0:365, 'precipitacion'].shape[0]
+print("El promedio total del año 2011 es: ",sum2011 / num2011)
+
+sum2012=dfr.loc[366:733, 'precipitacion'].sum()
+num2012=dfr.loc[366:733, 'precipitacion'].shape[0]
+print("El promedio total del año 2012 es: ",sum2012 / num2012)
+
+sum2013=dfr.loc[733:1098, 'precipitacion'].sum()
+num2013=dfr.loc[733:1098, 'precipitacion'].shape[0]
+print("El promedio total del año 2013 es: ",sum2013 / num2013)
+
+sum2014=dfr.loc[1098:1462, 'precipitacion'].sum()
+num2014=dfr.loc[1098:1462, 'precipitacion'].shape[0]
+print("El promedio total del año 2014 es: ",sum2014 / num2014)
+
+sum2015=dfr.loc[6120:6150, 'precipitacion'].sum()
+num2015=dfr.loc[6120:6150, 'precipitacion'].shape[0]
+print("El promedio total del año 2015 es: ",sum2015 / num2015)
+
+#en la tabla se organiza la informacion dando prioridad al idFinca y no al año por lo tanto se hace necesario hager varias sum2016 ya que no se puede coger en un solo intervalo
+# Esto tembien ayuda a organizar quien provee que informacion
+sum2016_idFinca1=dfr.loc[1463:1829, 'precipitacion'].sum()
+sum2016_idFinca4=dfr.loc[4167:4289, 'precipitacion'].sum()
+sum2016_idFinca7=dfr.loc[6151:6516, 'precipitacion'].sum()
+
+num2016_idFinca1=dfr.loc[1463:1829, 'precipitacion'].num[0]
+num2016_idFinca4=dfr.loc[4167:4289, 'precipitacion'].num[0]
+num2016_idFinca7=dfr.loc[6151:6516, 'precipitacion'].num[0]
+
+print("El promedio total del año 2016 es: ",(sum2016_idFinca1+sum2016_idFinca4+sum2016_idFinca7) / (num2016_idFinca1+num2016_idFinca4+num2016_idFinca7))
+
+sum2017_idFinca1=dfr.loc[1829:2194, 'precipitacion'].sum()
+sum2017_idFinca3=dfr.loc[3164:3529, 'precipitacion'].sum()
+sum2017_idFinca4=dfr.loc[4289:4654, 'precipitacion'].sum()
+sum2017_idFinca7=dfr.loc[6517:6882, 'precipitacion'].sum()
+
+num2017_idFinca1=dfr.loc[1829:2194, 'precipitacion'].shape[0]
+num2017_idFinca3=dfr.loc[3164:3529, 'precipitacion'].shape[0]
+num2017_idFinca4=dfr.loc[4289:4654, 'precipitacion'].shape[0]
+num2017_idFinca7=dfr.loc[6517:6882, 'precipitacion'].shape[0]
+
+print("El promedio total del año 2017 es: ",(sum2017_idFinca1+sum2017_idFinca3+sum2017_idFinca4+sum2017_idFinca7) / (num2017_idFinca1+num2017_idFinca3+num2017_idFinca4+num2017_idFinca7))
+
+sum2018_idFinca1=dfr.loc[2194:2559, 'precipitacion'].sum()
+sum2018_idFinca2=dfr.loc[2830:2891, 'precipitacion'].sum()
+sum2018_idFinca3=dfr.loc[3529:3894, 'precipitacion'].sum()
+sum2018_idFinca4=dfr.loc[4654:5019, 'precipitacion'].sum()
+sum2018_idFinca5=dfr.loc[5292:5448, 'precipitacion'].sum()
+sum2018_idFinca6=dfr.loc[5725:5847, 'precipitacion'].sum()
+sum2018_idFinca7=dfr.loc[6882:7248, 'precipitacion'].sum()
+
+num2018_idFinca1=dfr.loc[2194:2559, 'precipitacion'].shape[0]
+num2018_idFinca2=dfr.loc[2830:2891, 'precipitacion'].shape[0]
+num2018_idFinca3=dfr.loc[3529:3894, 'precipitacion'].shape[0]
+num2018_idFinca4=dfr.loc[4654:5019, 'precipitacion'].shape[0]
+num2018_idFinca5=dfr.loc[5292:5448, 'precipitacion'].shape[0]
+num2018_idFinca6=dfr.loc[5725:5847, 'precipitacion'].shape[0]
+num2018_idFinca7=dfr.loc[6882:7248, 'precipitacion'].shape[0]
+
+print("El promedio total del año 2018 es: ",(sum2018_idFinca1+sum2018_idFinca2+sum2018_idFinca3+sum2018_idFinca4+sum2018_idFinca5+sum2018_idFinca6+sum2018_idFinca7) / (num2018_idFinca1+num2018_idFinca2+num2018_idFinca3+num2018_idFinca4+num2018_idFinca5+num2018_idFinca6+num2018_idFinca7))
+
+sum2019_idFinca1=dfr.loc[2559:2830, 'precipitacion'].sum()
+sum2019_idFinca2=dfr.loc[2891:3164, 'precipitacion'].sum()
+sum2019_idFinca3=dfr.loc[3894:4167, 'precipitacion'].sum()
+sum2019_idFinca4=dfr.loc[5019:5292, 'precipitacion'].sum()
+sum2019_idFinca5=dfr.loc[5448:5725, 'precipitacion'].sum()
+sum2019_idFinca6=dfr.loc[5847:6120, 'precipitacion'].sum()
+sum2019_idFinca7=dfr.loc[7248:7521, 'precipitacion'].sum()
+
+num2019_idFinca1=dfr.loc[2559:2830, 'precipitacion'].shape[0]
+num2019_idFinca2=dfr.loc[2891:3164, 'precipitacion'].shape[0]
+num2019_idFinca3=dfr.loc[3894:4167, 'precipitacion'].shape[0]
+num2019_idFinca4=dfr.loc[5019:5292, 'precipitacion'].shape[0]
+num2019_idFinca5=dfr.loc[5448:5725, 'precipitacion'].shape[0]
+num2019_idFinca6=dfr.loc[5847:6120, 'precipitacion'].shape[0]
+num2019_idFinca7=dfr.loc[7248:7521, 'precipitacion'].shape[0]
+
+print("El promedio total del año 2019 es: ",(sum2019_idFinca1+sum2019_idFinca2+sum2019_idFinca3+sum2019_idFinca4+sum2019_idFinca5+sum2019_idFinca6+sum2019_idFinca7) / (num2019_idFinca1+num2019_idFinca2+num2019_idFinca3+num2019_idFinca4+num2019_idFinca5+num2019_idFinca6+num2019_idFinca7))
