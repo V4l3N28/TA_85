@@ -1,15 +1,29 @@
+#Importar el módulo de flask en el proyecto es obligatorio. Un objeto de la clase Flask es nuestra aplicación WSGI.
 from flask import Flask, render_template, url_for, current_app, g, request, redirect, session
 from conexion import based
 from defi import get_db, close_db, login_required
 
+#El constructor de  toma el nombre del módulo actual (__name__) como argumento.
 app= Flask(__name__)
 
 if __name__ == "__main__":
+  #El método run () de la clase Flask ejecuta la aplicación en el servidor de desarrollo local.
+  #app.run(host, port, debug, options) - todos los parametros son opcionales
+
+  ''' host (anfitrion) - El valor predeterminado es 127.0.0.1 (localhost). Configure en "0.0.0.0" para que el servidor esté disponible externamente
+      port(puerto) - El valor predeterminado es 5000
+      debug - El valor predeterminado es falso. Si se establece en verdadero, proporciona información del debug.
+      options(opciones) - Para ser reenviado al servidor de herramientas subyacente.'''
+  
   app.run(host='127.0.0.1',port=5000, debug=True)
   based()
 #este .py tiene la finalidad de mapear cada uno de los links con su respectiva funcion
 #Conexion a \templates\HOME la cual seria establecida como la pagina principal
 # este @app.route('/') siempre tiene que estar definido con un solo "/"
+
+'''app.route(rule, options)
+    El parámetro de regla (rule) representa el enlace de URL con la función.
+    Las opciones (options) son una lista de parámetros que se enviarán al objeto Regla subyacente.'''
 @app.route('/')
 def HOME():
   return render_template("HOME.html")
