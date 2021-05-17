@@ -1,12 +1,7 @@
 #Importar el módulo de flask en el proyecto es obligatorio. Un objeto de la clase Flask es nuestra aplicación WSGI.
 from flask import Flask, render_template, url_for, current_app, g, request, redirect, session
-from conexion import based
 from defi import get_db, close_db, login_required
-
-#El constructor de  toma el nombre del módulo actual (__name__) como argumento.
-app= Flask(__name__)
-
-  based()
+from dftosql import sumatoria_prec, promedio_prec, temp_max, temp_min
 #este .py tiene la finalidad de mapear cada uno de los links con su respectiva funcion
 #Conexion a \templates\HOME la cual seria establecida como la pagina principal
 # este @app.route('/') siempre tiene que estar definido con un solo "/"
@@ -90,6 +85,7 @@ def load_logged_in_user():
             'SELECT * FROM usuarios WHERE id = ?', (user_id,)
         ).fetchone()
 
+#El constructor de  toma el nombre del módulo actual (__name__) como argumento.
 if __name__ == "__main__":
       #El método run () de la clase Flask ejecuta la aplicación en el servidor de desarrollo local.
   #app.run(host, port, debug, options) - todos los parametros son opcionales
