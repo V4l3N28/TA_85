@@ -11,7 +11,7 @@ import pandas as pd
 def get_db():
     try:
         if 'db' not in g:
-            g.db = sqlite3.connect('bases_02.db')
+            g.db = sqlite3.connect('bases_04.db')
         return g.db
     except Error:
         print(Error)

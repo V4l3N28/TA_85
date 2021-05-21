@@ -6,7 +6,7 @@ import datetime
 from tablas import veredas,registros,usuarios,fincas,observadores
 
 #Se hace la conexión a la base de datos bases_07.db por medio de la asignación a una variable conn
-conn=sqlite3.connect('bases_02.db')
+conn=sqlite3.connect('bases_04.db')
 #Se crea un cursor 
 cursor = conn.cursor()
 
@@ -19,7 +19,7 @@ cursor = conn.cursor()
 
 #En este punto, se corre el programa para la creación de la base de datos y se comentan las líneas de creación de tablas (debido a que si se dejan, el programa lanzará un mensaje diciendo que las tablas ya fueron creadas anteriormente)
 #Se define una variable df como el Dataframe del contenido de la variable cursor y se define el nombre de sus columnas
-df = pd.DataFrame(cursor, columns=['fecha','precipitacion'])
+df = pd.DataFrame(cursor, columns=['fecha','precipitacion','temperaturaMaxima','temperaturaMaxima'])
 
 #Se procede a la creacion de varias funciones como sumatoria, promedio, valor máximo y valor mínimo del filtro de datos en columnas específicas, cada funcion pide  dos cosas; un año y un dataframe
 def sumatoria_prec(year,df):
@@ -36,27 +36,26 @@ def sumatoria_prec(year,df):
     #Se retorna el dataframe
     return db_to_dataframe
 
-#En las siguientes definiciones se aplica la misma estructura de la funcion sumatoria exceptuando que no se pide un resultado por meses sino que solo se pide un solo valor
-#(No se utiliza GROUP BY month para que la funcion solo nos arroje un resultado general y no por partes)
+#En las siguientes definiciones se aplica la misma estructura de la funcion sumatoria
 def promedio_prec(year,df):
-    cursor.execute("SELECT strftime('%m', fecha) as month, AVG(precipitacion) FROM registros WHERE strftime('%Y', fecha)=?",[year])
+    cursor.execute("SELECT strftime('%m', fecha) as month, AVG(precipitacion) FROM registros WHERE strftime('%Y', fecha)=? GROUP BY month",[year])
     filtered_db= cursor.fetchall()
     db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','precipitacion'])
     return db_to_dataframe
 
 def temp_max(year,df):
-    cursor.execute("SELECT strftime('%m', fecha) as month, MAX(temperaturaMaxima) FROM registros WHERE strftime('%Y', fecha)=?",[year])
+    cursor.execute("SELECT strftime('%m', fecha) as month, MAX(temperaturaMaxima) FROM registros WHERE strftime('%Y', fecha)=? GROUP BY month",[year])
     filtered_db= cursor.fetchall()
     db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','temperaturaMaxima'])
     return db_to_dataframe
 
 def temp_min(year,df):
-    cursor.execute("SELECT strftime('%m', fecha) as month, MIN(temperaturaMinima) FROM registros WHERE strftime('%Y', fecha)=?",[year])
+    cursor.execute("SELECT strftime('%m', fecha) as month, MIN(temperaturaMinima) FROM registros WHERE strftime('%Y', fecha)=? GROUP BY month",[year])
     filtered_db= cursor.fetchall()
     db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','temperaturaMinima'])
     return db_to_dataframe
 
 #Se imprimen las funciones para verificar su funcionamiento
-print(sumatoria_prec(str(2011), df));print(promedio_prec(str(2011),df)); print(temp_max(str(2017), df)); print(temp_min(str(2017), df))
+#print(sumatoria_prec(str(2011), df));print(promedio_prec(str(2011),df)); print(temp_max(str(2017), df)); print(temp_min(str(2017), df))
 
 

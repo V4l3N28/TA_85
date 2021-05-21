@@ -1,29 +1,31 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from dftoql import sumatoria_prec,promedio_prec,temp_max,temp_min,df
 
-#Inicialmente se elige una función que cubra dos cosas y de acuerdo a lo que se necesite, en este caso se elige suma, prom, max, mini; en estas llamamos la fecha que se necesita y al dataframe.
-#Se llama a la función gráfica y a la funcion utilizada anteriormente.Luego se incluye x=fecha, y=precipitación y kind=linea.
-#Variable que solo se muestre cuando yo la llame.
-
+#Se le asigna a una variable llamada suma, una función
 suma= sumatoria_prec(str(2011), df)
+#Se le asigna a una variable llamada grafica el gráfico de la anterior variable por medio de una función plot, la cual define los valores de la columna fecha en el eje x
+#y también define los valores de la columna precipitacion en el eje y. Se define el tipo de gráfico por medio de kind= y se pide que el tipo de gráfico sea en líneas
 grafica = suma.plot(x='fecha', y='precipitacion', kind = 'line')
+#Se le asigna a una variable llamada sumshow la funcion .show() que se encarga de mostrar el gráfico
 sumshow = plt.show()
 
+#Se hace el mismo método anterior para las funciones contenidas en prom,maxi y mini
 prom= promedio_prec(str(2011), df)
 grafica = prom.plot(x='fecha', y='precipitacion', kind = 'line')
 promshow = plt.show()
 
 maxi = temp_max(str(2017), df)
-grafica = maxi.plot(x='fecha', y='precipitacion', kind = 'line')
+grafica = maxi.plot(x='fecha', y='temperaturaMaxima', kind = 'bar')
 maxishow = plt.show()
 
 mini = temp_min(str(2017), df)
-grafica = mini.plot(x='fecha', y='precipitacion', kind = 'line')
+grafica = mini.plot(x='fecha', y='temperaturaMinima', kind = 'bar')
 minishow = plt.show()
 
 #Para importar un archivo de Excel a Python usaremos Pandas. Para lograr este objetivo, deberá utilizar read_excel.
 #en la parte del camino hacia el archivo se tiene que cambiar segun el usuario.
-registros = pd.read_excel(r"C:\Users\Isaac Mesa\OneDrive\Escritorio\UNIVERSIDAD\CURSANDO\FUNDAMETOS DE PROGRAMACIÓN\PROYECTO\virtualenvs\Python\TABLA REGISTROS.xlsx")
+registros = pd.read_excel(r"TABLA REGISTROS.xlsx")
 #Aca establecemos los nombres de las columnas de la tabla excel para python
 dfr = pd.DataFrame(registros, columns=['idFinca','fecha','precipitacion','temperaturaMaxima','temperaturaMinima'])
 
