@@ -154,3 +154,322 @@ print("El promedio total del ano 2019 de idFinca6 es: ",num2019_idFinca6)
 print("El promedio total del ano 2019 de idFinca7 es: ",num2019_idFinca7,"\n")
 
 
+''' En esta parte se trabajaran las futuras graficas con las cuales se analizara los datos con una comparacion mucho mas facil''' 
+#esta parte se uso para verificar el typo de respuesta con el que estamos trabajando ya que no estaba mostrando errores
+# esta es la funcion de type() la cual se usa para revelar como se esta tratando una variable en el codigo 
+# en este caso vimos que estabamos trabajando con valores numpy.float64 los cuales no eran aceptados por la tabla
+# Use .item () para convertir la mayoría de los valores de NumPy a un tipo nativo de Python 
+print(type(sum2011_idFinca1),"\n")
+print(type(sum2011_idFinca1.item()),"\n")
+
+''' graficas idFinca1'''
+
+#en este apartado renombramos las variables segun su año y el usuario que lo proporciono con la finalidad de cambiar de numpy.float64 a float
+#las variables de cada grafica se iran cambiando segun la cantidad de informacion que provea el usuario en cuanto a la recoleccion de los años
+graf_sum2011_idFinca1=sum2011_idFinca1.item()
+graf_sum2012_idFinca1=sum2012_idFinca1.item()
+graf_sum2013_idFinca1=sum2013_idFinca1.item()
+graf_sum2014_idFinca1=sum2014_idFinca1.item()
+''' como el 2015 solo tiene un mes de informacion y fue ingresado por idFinca7 se pondra en su respectiva grafica a pesar de la falta de informacion'''
+graf_sum2016_idFinca1=sum2016_idFinca1.item()
+graf_sum2017_idFinca1=sum2017_idFinca1.item()
+graf_sum2018_idFinca1=sum2018_idFinca1.item()
+graf_sum2019_idFinca1=sum2019_idFinca1.item()
+
+#verificamos que si cambio correctamente
+print(type(graf_sum2011_idFinca1),"\n")
+
+ano = ['A.2011','A.2012','2013','A.2014','A.2016','A.2017','A.2018','A.2019']
+Sum_Anual = [graf_sum2011_idFinca1,
+            graf_sum2012_idFinca1,
+            graf_sum2013_idFinca1,
+            graf_sum2014_idFinca1,
+            graf_sum2016_idFinca1,
+            graf_sum2017_idFinca1,
+            graf_sum2018_idFinca1,
+            graf_sum2019_idFinca1]
+
+#en esta linea declaramos el nombre de las barras que vamos a usar
+plt.bar(ano, Sum_Anual)
+#definimos el titulo de la grafica
+plt.title('Sumatoria de precipitaciones anuales de idFinca1')
+#definimos el nombre del eje x
+plt.xlabel('ano')
+#definimos el nombre del eje y
+plt.ylabel('total precipitaciones idFinca1')
+#normalmente con solo poner plt.show() declaramos que nos muestre el final de la grafica
+#decidimos en vez de mostrar el final de la grafica darle un codigo con el cual lo mostraremos segun nuestra necesidad mediante el print
+graf_sum_idFinca1=plt.show()
+
+
+
+
+
+''' graficas idFinca2'''
+
+graf_sum2018_idFinca2=sum2018_idFinca2.item()
+graf_sum2019_idFinca2=sum2019_idFinca2.item()
+
+ano = ['A.2018','A.2019']
+Sum_Anual = [graf_sum2018_idFinca2,
+            graf_sum2019_idFinca2]
+
+plt.bar(ano, Sum_Anual)
+plt.title('Sumatoria de precipitaciones anuales de idFinca2')
+plt.xlabel('ano')
+plt.ylabel('total precipitaciones idFinca2')
+graf_sum_idFinca2=plt.show()
+
+
+
+
+''' graficas idFinca3'''
+
+graf_sum2017_idFinca3=sum2017_idFinca3.item()
+graf_sum2018_idFinca3=sum2018_idFinca3.item()
+graf_sum2019_idFinca3=sum2019_idFinca3.item()
+
+ano = ['A.2017','A.2018','A.2019']
+Sum_Anual = [graf_sum2017_idFinca3,
+            graf_sum2018_idFinca3,
+            graf_sum2019_idFinca3]
+
+plt.bar(ano, Sum_Anual)
+plt.title('Sumatoria de precipitaciones anuales de idFinca3')
+plt.xlabel('ano')
+plt.ylabel('total precipitaciones idFinca3')
+graf_sum_idFinca3=plt.show()
+
+
+
+
+''' graficas idFinca4'''
+
+graf_sum2016_idFinca4=sum2016_idFinca4.item()
+graf_sum2017_idFinca4=sum2017_idFinca4.item()
+graf_sum2018_idFinca4=sum2018_idFinca4.item()
+graf_sum2019_idFinca4=sum2019_idFinca4.item()
+
+ano = ['A.2016','A.2017','A.2018','A.2019']
+Sum_Anual = [graf_sum2016_idFinca4,
+            graf_sum2017_idFinca4,
+            graf_sum2018_idFinca4,
+            graf_sum2019_idFinca4]
+
+plt.bar(ano, Sum_Anual)
+plt.title('Sumatoria de precipitaciones anuales de idFinca4')
+plt.xlabel('ano')
+plt.ylabel('total precipitaciones idFinca4')
+graf_sum_idFinca4=plt.show()
+
+
+
+
+''' graficas idFinca5'''
+
+graf_sum2018_idFinca5=sum2018_idFinca5.item()
+graf_sum2019_idFinca5=sum2019_idFinca5.item()
+
+ano = ['A.2018','A.2019']
+Sum_Anual = [graf_sum2018_idFinca5,
+            graf_sum2019_idFinca5]
+
+plt.bar(ano, Sum_Anual)
+plt.title('Sumatoria de precipitaciones anuales de idFinca5')
+plt.xlabel('ano')
+plt.ylabel('total precipitaciones idFinca5')
+graf_sum_idFinca5=plt.show()
+
+
+
+
+''' graficas idFinca6'''
+
+graf_sum2018_idFinca6=sum2018_idFinca6.item()
+graf_sum2019_idFinca6=sum2019_idFinca6.item()
+
+ano = ['A.2018','A.2019']
+Sum_Anual = [graf_sum2018_idFinca6,
+            graf_sum2019_idFinca6]
+
+plt.bar(ano, Sum_Anual)
+plt.title('Sumatoria de precipitaciones anuales de idFinca6')
+plt.xlabel('ano')
+plt.ylabel('total precipitaciones idFinca6')
+graf_sum_idFinca6=plt.show()
+
+
+
+
+''' graficas idFinca7'''
+
+graf_sum2015_idFinca7=sum2015_idFinca7.item()
+graf_sum2016_idFinca7=sum2016_idFinca7.item()
+graf_sum2017_idFinca7=sum2017_idFinca7.item()
+graf_sum2018_idFinca7=sum2018_idFinca7.item()
+graf_sum2019_idFinca7=sum2019_idFinca7.item()
+
+
+ano = ['M.2015','A.2016','A.2017','A.2018','A.2019']
+Sum_Anual = [graf_sum2015_idFinca7,
+            graf_sum2016_idFinca7,
+            graf_sum2017_idFinca7,
+            graf_sum2018_idFinca7,
+            graf_sum2019_idFinca7]
+
+plt.bar(ano, Sum_Anual)
+plt.title('Sumatoria de precipitaciones anuales de idFinca7')
+plt.xlabel('ano')
+plt.ylabel('total precipitaciones idFinca7')
+graf_sum_idFinca7=plt.show()
+
+#en este apartado mostraremos todas las tablas mediante su propio codigo y el uso de print()
+print(graf_sum_idFinca1)
+print(graf_sum_idFinca2)
+print(graf_sum_idFinca3)
+print(graf_sum_idFinca4)
+print(graf_sum_idFinca5)
+print(graf_sum_idFinca6)
+print(graf_sum_idFinca7)
+
+'''Graficas del promedio anual de precipitaciones'''
+''' graficas idFinca1'''
+
+#en este apartado renombramos las variables segun su año y el usuario que lo proporciono con la finalidad de cambiar de numpy.float64 a float
+#las variables de cada grafica se iran cambiando segun la cantidad de informacion que provea el usuario en cuanto a la recoleccion de los años
+graf_num2011_idFinca1=num2011_idFinca1.item()
+graf_num2012_idFinca1=num2012_idFinca1.item()
+graf_num2013_idFinca1=num2013_idFinca1.item()
+graf_num2014_idFinca1=num2014_idFinca1.item()
+graf_num2016_idFinca1=num2016_idFinca1.item()
+graf_num2017_idFinca1=num2017_idFinca1.item()
+graf_num2018_idFinca1=num2018_idFinca1.item()
+graf_num2019_idFinca1=num2019_idFinca1.item()
+
+#verificamos que si cambio correctamente
+print(type(graf_sum2011_idFinca1),"\n")
+
+ano = ['A.2011','A.2012','2013','A.2014','A.2016','A.2017','A.2018','A.2019']
+Prom_Anual = [graf_num2011_idFinca1,
+            graf_num2012_idFinca1,
+            graf_num2013_idFinca1,
+            graf_num2014_idFinca1,
+            graf_num2016_idFinca1,
+            graf_num2017_idFinca1,
+            graf_num2018_idFinca1,
+            graf_num2019_idFinca1]
+
+plt.bar(ano, Prom_Anual)
+plt.title('Promedio de precipitaciones anuales de idFinca1')
+plt.xlabel('ano')
+plt.ylabel('Promedio de precipitaciones idFinca1')
+graf_num_idFinca1=plt.show()
+
+
+''' graficas idFinca2'''
+
+graf_num2018_idFinca2=num2018_idFinca2.item()
+graf_num2019_idFinca2=num2019_idFinca2.item()
+
+ano = ['A.2018','A.2019']
+Prom_Anual = [graf_num2018_idFinca2,
+            graf_num2019_idFinca2]
+
+plt.bar(ano, Prom_Anual)
+plt.title('Promedio de precipitaciones anuales de idFinca2')
+plt.xlabel('ano')
+plt.ylabel('Promedio de precipitaciones idFinca2')
+graf_num_idFinca2=plt.show()
+
+
+''' graficas idFinca3'''
+
+graf_num2017_idFinca3=num2017_idFinca3.item()
+graf_num2018_idFinca3=num2018_idFinca3.item()
+graf_num2019_idFinca3=num2019_idFinca3.item()
+
+ano = ['A.2017','A.2018','A.2019']
+Prom_Anual = [graf_num2017_idFinca3,
+            graf_num2018_idFinca3,
+            graf_num2019_idFinca3]
+
+plt.bar(ano, Prom_Anual)
+plt.title('Promedio de precipitaciones anuales de idFinca3')
+plt.xlabel('ano')
+plt.ylabel('Promedio de precipitaciones idFinca3')
+graf_num_idFinca3=plt.show()
+
+
+''' graficas idFinca4'''
+
+graf_num2016_idFinca4=num2016_idFinca4.item()
+graf_num2017_idFinca4=num2017_idFinca4.item()
+graf_num2018_idFinca4=num2018_idFinca4.item()
+graf_num2019_idFinca4=num2019_idFinca4.item()
+
+ano = ['A.2016','A.2017','A.2018','A.2019']
+Prom_Anual = [graf_num2016_idFinca4,
+            graf_num2017_idFinca4,
+            graf_num2018_idFinca4,
+            graf_num2019_idFinca4]
+
+plt.bar(ano, Prom_Anual)
+plt.title('Promedio de precipitaciones anuales de idFinca4')
+plt.xlabel('ano')
+plt.ylabel('Promedio de precipitaciones idFinca4')
+graf_num_idFinca4=plt.show()
+
+
+''' graficas idFinca5'''
+
+graf_num2018_idFinca5=num2018_idFinca5.item()
+graf_num2019_idFinca5=num2019_idFinca5.item()
+
+ano = ['A.2018','A.2019']
+Prom_Anual = [graf_num2018_idFinca5,
+            graf_num2019_idFinca5]
+
+plt.bar(ano, Prom_Anual)
+plt.title('Promedio de precipitaciones anuales de idFinca5')
+plt.xlabel('ano')
+plt.ylabel('Promedio de precipitaciones idFinca5')
+graf_num_idFinca5=plt.show()
+
+
+''' graficas idFinca6'''
+
+graf_num2018_idFinca6=num2018_idFinca6.item()
+graf_num2019_idFinca6=num2019_idFinca6.item()
+
+ano = ['A.2018','A.2019']
+Prom_Anual = [graf_num2018_idFinca6,
+            graf_num2019_idFinca6]
+
+plt.bar(ano, Prom_Anual)
+plt.title('Promedio de precipitaciones anuales de idFinca6')
+plt.xlabel('ano')
+plt.ylabel('Promedio de precipitaciones idFinca6')
+graf_num_idFinca6=plt.show()
+
+
+''' graficas idFinca7'''
+
+graf_num2015_idFinca7=num2015_idFinca7.item()
+graf_num2016_idFinca7=num2016_idFinca7.item()
+graf_num2017_idFinca7=num2017_idFinca7.item()
+graf_num2018_idFinca7=num2018_idFinca7.item()
+graf_num2019_idFinca7=num2019_idFinca7.item()
+
+
+ano = ['M.2015','A.2016','A.2017','A.2018','A.2019']
+Prom_Anual = [graf_num2015_idFinca7,
+            graf_num2016_idFinca7,
+            graf_num2017_idFinca7,
+            graf_num2018_idFinca7,
+            graf_num2019_idFinca7]
+
+plt.bar(ano, Prom_Anual)
+plt.title('Promedio de precipitaciones anuales de idFinca7')
+plt.xlabel('ano')
+plt.ylabel('Promedio de precipitaciones idFinca7')
+graf_num_idFinca7=plt.show()
