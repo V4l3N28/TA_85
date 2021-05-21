@@ -1,5 +1,22 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+#Inicialmente se elige una función que cubra dos cosas y de acuerdo a lo que se necesite, en este caso se elige suma, prom, max, mini; en estas llamamos la fecha que se necesita y al dataframe.
+#
+suma= sumatoria_prec(str(2011), df)
+grafica = suma.plot(x='fecha', y='precipitacion', kind = 'line')
+sumshow = plt.show()
+
+prom= promedio_prec(str(2011), df)
+grafica = prom.plot(x='fecha', y='precipitacion', kind = 'line')
+promshow = plt.show()
+
+maxi = temp_max(str(2017), df)
+grafica = maxi.plot(x='fecha', y='precipitacion', kind = 'line')
+maxishow = plt.show()
+
+mini = temp_min(str(2017), df)
+grafica = mini.plot(x='fecha', y='precipitacion', kind = 'line')
+minishow = plt.show()
 
 #Para importar un archivo de Excel a Python usaremos Pandas. Para lograr este objetivo, deberá utilizar read_excel.
 #en la parte del camino hacia el archivo se tiene que cambiar segun el usuario.
