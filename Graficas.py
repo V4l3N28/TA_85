@@ -1,7 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+
 #Inicialmente se elige una función que cubra dos cosas y de acuerdo a lo que se necesite, en este caso se elige suma, prom, max, mini; en estas llamamos la fecha que se necesita y al dataframe.
-#
+#Se llama a la función gráfica y a la funcion utilizada anteriormente.Luego se incluye x=fecha, y=precipitación y kind=linea.
+#Variable que solo se muestre cuando yo la llame.
+
 suma= sumatoria_prec(str(2011), df)
 grafica = suma.plot(x='fecha', y='precipitacion', kind = 'line')
 sumshow = plt.show()
