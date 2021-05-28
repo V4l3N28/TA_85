@@ -158,7 +158,10 @@ def RecuperarCLAVE():
 ##Conexion a \templates\PRONOSTICOS
 @app.route('/Pronosticos/')
 def PRONOSTICOS():
-  return render_template("PRONOSTICOS.html")
+  precipitacion=[("lluvias por encima de lo normal",50),("lluvias dentro de lo normal",16),("lluvias poor debajo de lo normal",10)]
+  labels = [item[0] for item in precipitacion]
+  values = [row[1] for row in precipitacion]
+  return render_template("PRONOSTICOS.html",labels= labels,values=values)
 
 ##Conexion a \templates\GENERAL
 @app.route('/General/')
@@ -166,12 +169,28 @@ def GENERAL():
   if g.user is None:
     return redirect( url_for( 'iniciosesion' ) ) 
   else:    
-    return render_template("GENERAL.html")
+    temperaturaMinima=[("enero",12,13,24,10,17,21,32),("febrero",14,12,22,10,19,28,30),("marzo",14,23,24,11,17,21,31),("abril",10,19,27,10,16,21,35)]
+    labels1 = [item[0] for item in temperaturaMinima]
+    value1 = [row[1] for row in temperaturaMinima]
+    value2 = [row[2] for row in temperaturaMinima]
+    value3 = [row[3] for row in temperaturaMinima]
+    value4 = [row[4] for row in temperaturaMinima]
+    value5 = [row[5] for row in temperaturaMinima]
+    value6 = [row[6] for row in temperaturaMinima]
+    value7 = [row[7] for row in temperaturaMinima]
+    
+    temperaturaMaxima=[("productor1",14),("productor2",25),("productor3",37)]
+    labels2 = [item[0] for item in temperaturaMaxima]
+    values = [row[1] for row in temperaturaMaxima]
+    return render_template("GENERAL.html",labels1= labels1,labels2= labels2,values=values, value1=value1,value2=value2,value3=value3,value4=value4,value5=value5,value6=value6,value7=value7)
 
 ##Conexion a \templates\ESTACIONES
 @app.route('/Estaciones/')
 def ESTACIONES():
-  return render_template("ESTACIONES.html")
+  temperaturaMaxima=[("productor1",34),("productor2",56),("productor3",17)]
+  labels = [item[0] for item in temperaturaMaxima]
+  values = [row[1] for row in temperaturaMaxima]
+  return render_template("ESTACIONES.html",labels= labels,values=values)
 
 
 #El constructor de  toma el nombre del módulo actual (__name__) como argumento.

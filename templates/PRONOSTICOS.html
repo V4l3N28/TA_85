@@ -62,10 +62,31 @@
     </div>
     <div class="bg-gray-300">
         <!--IMAGEN-->
-        <div class="border border-black rounded">
-            <p class="p-4">tabla probabilidad</p>
-            <img src="torta70.png" alt="grafico_probabilidad.png" width="300" height="300">
+        <div class="flex justify-center">
+            <canvas id="myChart" width="900" height="500"></canvas>
         </div>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'pie',
+    
+                // The data for our dataset
+                data: {
+                    labels: {{ labels | safe}}, //eje x
+                    datasets: [{
+                        label: ['var1','var2','var3'], //titulo
+                        backgroundColor:['lightgreen','rgb(54, 162, 235)','rgb(255, 205, 86)'],
+                        borderColor: 'green',
+                        data: {{ values | safe }} //valores a graficar
+                    }]
+                },        
+                // Configuration options go here
+                options: {
+                    responsive: false
+                }
+            });
+        </script>
         <!--BOTON INFORMACION BASICA-->
         <div class="border border-black rounded">
             <p class="p-4">Informacion Basica</p>
