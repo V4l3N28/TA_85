@@ -1,6 +1,3 @@
-from dftoql import sumatoria_prec,df, promedio_prec, temp_max,temp_min
-import matplotlib.pyplot  as plt
-
 #Para crear una tabla a partir de un dataframe con matplotlib se utiliza una función
 #.subplots la cual retorna una figura (fig) con un específico número de  ejes (ax =axes), los cuales definen la dimendión de la figura
 # la función de la siguiente manera .subplots() define una dimensión de 1 ,1 (sería lo mismo si se escribe así .subplots(1,1))
@@ -17,7 +14,7 @@ ax.axis('off')
 #el contenido de las celdas, el nombre de las columnas y la ubicación de aquella tabla dentro de la gráfica
 ax.table(cellText=df.values,colLabels=df.columns,loc="center")
 #Ahora definimos una variable a la cual de asignamos la función .show() que es la que muestra el gráfico
-sumatableshow = plt.show()
+#sumatableshow = plt.show()
 
 #En las siguientes líneas de código se hacen otras tablas de la misma manera que la anterior pero con diferentes funciones
 fig, ax =plt.subplots(1,1)
@@ -26,7 +23,7 @@ df=promedio_prec(str(2011), df)
 ax.axis('tight')
 ax.axis('off')
 ax.table(cellText=df.values,colLabels=df.columns,loc="center")
-promtableshow = plt.show()
+#promtableshow = plt.show()
 
 fig, ax =plt.subplots(1,1)
 column_labels=["fecha", "temperaturaMaxima"]
@@ -34,7 +31,7 @@ df=temp_max(str(2017), df)
 ax.axis('tight')
 ax.axis('off')
 ax.table(cellText=df.values,colLabels=df.columns,loc="center")
-maxtableshow = plt.show()
+#maxtableshow = plt.show()
 
 fig, ax =plt.subplots(1,1)
 column_labels=["fecha", "temperaturaMinima"]
@@ -42,6 +39,4 @@ df=temp_min(str(2017), df)
 ax.axis('tight')
 ax.axis('off')
 ax.table(cellText=df.values,colLabels=df.columns,loc="center")
-mintableshow = plt.show()
-
-#print(sumatableshow,promtableshow,maxtableshow,mintableshow)
+#mintableshow = plt.show()
