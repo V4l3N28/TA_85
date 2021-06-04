@@ -11,16 +11,28 @@ Para representar el contenido de un bloque definido en la plantilla principal, u
   - input se usa para crear controles interactivos para formularios basados en la web con el fin de recibir datos del usuario. 
   - type es una funcion que  permite averiguar el tipo de dato que estamos tratando.
    - value se usa para definir el valor de lo que estamos ingresando un el input#}
+
+
+<script>
+  document.getElementById('iniciarsesionButton').style.display = 'inline-block';
+  document.getElementById('registrarseButton').style.display = 'inline-block';
+  document.getElementById('cerrarsesionButton').style.display = 'none';
+    
+</script>
+
 <div class="flex flex-wrap flex-col justify-center items-center border-content md:p-8 md:mx-64 md:mt-32 bg-gray-200">
   <form action="" method="POST" class="flex flex-col">
   <label for="usuario"> Usuario</label>
   <input type="text" name="usuario" class="border-4 boder-black bg-gray-200"><br>
   <label for="contrasena">Contraseña:</label>
-  <input type="text" name="contrasena" class="border-4 boder-black bg-gray-200"><br>
-  <input type="submit" value="Ingresar" class="border-4 boder-black bg-gray-200">
+  <input type="password" name="contrasena" class="border-4 boder-black bg-gray-200"><br>
+  <input type="submit" value="Ingresar" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded">
   </form><br>
-  <a href="/Registrarse/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
-  Sign in
+  <hr>
+  <h3>¿No tienes cuenta? Dale click al siguiente botón para registrarte</h3>
+  <br>
+  <a href="/Registrarse/" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded">
+  Registrarse
   </a>
 </div>
 {% endblock %}

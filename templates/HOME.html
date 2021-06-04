@@ -1,26 +1,31 @@
 {%extends 'LAYOUT.html'%}
 {% block title %}inicio{% endblock %}
 {% block content %}
-<div class="flex items-center">
-  <div class="flex container items-start flex-col bg-gray-300 p-4">
-  <p><a href="#" class="text-blue-400" >LINK 1</a></p><br>
-  <p><a href="#"class="text-blue-400">LINK 2</a></p><br>
-  <p><a href="#"class="text-blue-400">LINK 3</a></p>
-  </div>
-  <div class="flex container items-center flex-col p-4"> 
-  <h1 class="text-black text-5xl">PLANTILLA</h1>
-  <p>plantilla hecha a partir de establecer el framework que se va a usar, para dar orden a la pagina</p><br>
-  <h3 class="text-left text-black text-3xl">Test</h3>
-  <p>se usara bootstrap tres como ejemplo con la posibilidad de cambiarlo en el informe_05 </p>
-  </div>
- 
-  <div class="flex container items-end flex-col align-top bg-gray-300 p-4">
-      <div class="inline-block border border-black rounded p-4">
-          <p>Informacion Basica</p>
-      </div><br>
-      <div class="inline-block border border-black rounded p-4">
-          <p>Informacion Basica</p>
-      </div>
-  </div>
+<script>
+    document.getElementById('iniciarsesionButton').style.display = 'inline-block';
+    document.getElementById('registrarseButton').style.display = 'inline-block';
+    document.getElementById('cerrarsesionButton').style.display = 'none';
+    
+</script>
+<div class="flex items-center mt-6">
+    <div class="flex container items-center flex-col bg-green-600 p-4">
+    <p><a href="/Pronosticos/" class="text-gray-200" >Pronósticos</a></p><br>
+    <p><a href="/Estaciones/"class="text-gray-200">Estaciones</a></p><br>
+    <p><a href="/General/"class="text-gray-200">General</a></p>
+    </div>
+    <div class="flex container border border-green-300 rounded items-center flex-col p-4 bg-green-200 mt-7"> 
+    <h1 class="text-green-700 text-5xl">SOCIAL CLIMA</h1>
+    <h3 class="text-left text-black text-3xl"> </h3>
+    <p class="flex p-8">Para poder acceder a los enlaces de la izquierda debes primero registrarte o iniciar sesión en los botones a tu derecha</p>
+    </div>
+   
+    <div class="flex container items-center flex-col align-top bg-green-600 p-4">
+        <div class="inline-block border border-gray-200 rounded p-4 text-gray-200">
+            <p><a href="/IniciarSesion/" class="text-gray-200" >Iniciar Sesión</a></p>        
+        </div><br>
+        <div class="flex items-center inline-block border border-gray-200 rounded p-4 text-gray-200">
+            <p><a href="/Registrarse/"class="text-gray-200">Registrarse</a></p>
+        </div>
+    </div>
 </div>
 {% endblock %}

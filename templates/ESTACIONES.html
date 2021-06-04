@@ -1,175 +1,99 @@
 {%extends 'LAYOUT.html'%}
 {% block title %}Estaciones{% endblock %}
 {% block content %} 
+<script>
+  document.getElementById('iniciarsesionButton').style.display = 'none';
+  document.getElementById('registrarseButton').style.display = 'none';
+  document.getElementById('cerrarsesionButton').style.display = 'inline-block';
+</script>
  <!--inicio botones de click mes y año-->
- <div class="p-10 flex flex-col items-center justify-center space-y-16">
+ 
+<div class="p-10 flex flex-col items-center justify-center space-y-16">
   <!-- Se crea una división de tipo inlineblock para darle organización paralela a los selectores.
-  Se crean los selectores, dandoles propiedades de disño como color de fondo (bg), al texto (text-gray), negrilla "semi" al texto (font-semibold) padding horizontal y vertical (px py), redondear las esquinas, alinear los elementos con flexbox (inline-flex) y centrar los elementos -->
-    <div class="inline-block relative">
-      <!--Definir select y option-->
-      <select class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-        <!--dentro de las opciones se establecen margenes (mr), redondear los bordes superiores (rounded), darle color de fondo (bg) padding horizontal y vertical (px py), proopiedades de bloque (block) y se determina el manejo de los espacios en blanco del texto para que no permita que se adicionen nuevas lineas (whitespace- nowrap) 
-        Adicionalmente se agrega un cambio de color a un color mas oscuro cuando el mouse pase por encima del elemento--->
-        <option class="mr-1">Mes</option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">ENERO</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">FEBRERO</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">MARZO</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">ABRIL</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">MAYO</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">JUNIO</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">JULIO</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">AGOSTO</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">SEPTIEMBRE</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">OCTUBRE</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">NOVIEMBRE</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">DICIEMBRE</a></option>
-      </select>
-    </div>
-  <!-- Se crea una división de tipo inlineblock para darle organización paralela a los selectores.
-  Se crean los selectores, dandoles propiedades de disño como color de fondo (bg), al texto (text-gray), negrilla "semi" al texto (font-semibold) padding horizontal y vertical (px py), redondear las esquinas, alinear los elementos con flexbox (inline-flex) y centrar los elementos -->
-    <div class="inline-block relative">
-      <select class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-        <!-- dentro de las opciones se establecen margenes (mr), redondear los bordes superiores (rounded), darle color de fondo (bg) padding horizontal y vertical (px py), proopiedades de bloque (block) y se determina el manejo de los espacios en blanco del texto para que no permita que se adicionen nuevas lineas (whitespace- nowrap) 
-        Adicionalmente se agrega un cambio de color a un color mas oscuro cuando el mouse pase por encima del elemento--->
-        <option class="mr-1">Año</option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2010</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2011</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2012</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2013</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2014</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2015</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2016</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2017</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2018</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2020</a></option>
-        <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2021</a></option>                   
-      </select>
+  Se crean los selectores, dandoles propiedades de disño como color de fondo (bg), al texto (text-gray), negrilla "semi" al texto (font-semibold) padding horizontal y vertical (px py), redondear las esquinas, alinear los elementos con flexbox (inline-flex) y centrar los elementos -->  
+  <div class="inline-block relative">
+    <p class="font-serif italic font-bold">Selecciona aquí el año</p>
+      <form  method="POST" action="{{ url_for('ESTACIONES') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+       <!--Definir select y option-->
+        <select name="ano"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <!--dentro de las opciones se establecen margenes (mr), redondear los bordes superiores (rounded), darle color de fondo (bg) padding horizontal y vertical (px py), proopiedades de bloque (block) y se determina el manejo de los espacios en blanco del texto para que no permita que se adicionen nuevas lineas (whitespace- nowrap) 
+          Adicionalmente se agrega un cambio de color a un color mas oscuro cuando el mouse pase por encima del elemento--->
+          <option class="">---</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2010</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2011</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2012</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2013</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2014</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2015</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2016</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2017</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2018</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2020</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2021</a></option>                   
+        </select>
+        <button type="submit">OPRIME AQUI PARA ENVIAR</button>
+      </form>  
     </div>
   <!--fin click-->
   <!--INICIO GRÁFICO-->
-<div class="flex justify-center">
-    <canvas id="grafico" width="900" height="500"></canvas>
+  <div class="flex justify-center">
+      <canvas id="grafico" width="900" height="500"></canvas>
+  </div>
+    <script>
+      var ctx = document.getElementById('grafico').getContext('2d');
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'bar',
+    
+          // The data for our dataset
+          data: {
+              labels: {{ labels | safe}}, //eje x
+              datasets: [{
+                  label: ['precipitacion'], //titulo
+                  backgroundColor:['#FA4014','#D4A9F3','#E3BB1E','#15FA14','#13A5F0','#FA8864','#73D8F0','#CA4EF5','#AFFABA','#E3BB1E','#73A2F0','#E2BCF5'],
+                  borderColor: 'green',
+                  data: {{ values | safe }}, //valores a graficar
+              }]
+          },        
+          // Configuration options go here
+          options: {
+              
+          }
+      });
+    </script>
+  <!--FIN GRÁFICCO-->
+  <!-- Se coloca un parrafo (p) para separar y determinar el inicio tabla-->
+  <p class="text-lg text-center font-bold m-5">DATOS ESTACIONES</p>
+  <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
+    <thead class="text-left border-b border-green-300">
+      <th class="px-4 py-3">fecha</th>
+      <th class="px-4 py-3">Precipitacion</th>
+    </thead>
+    <tbody class="text-left bg-green-700 border-b border-green-600">
+      {%for i in range(12)%}
+      <tr>
+        <th>{{labels[i]}}</th>
+        <th class="px-4 py-3">{{values[i]}}</th>
+      </tr>
+      {%endfor %}
+    </tbody>
+  </table>
+    <!--Fin fila -->
 </div>
-  <script>
-    var ctx = document.getElementById('grafico').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-  
-        // The data for our dataset
-        data: {
-            labels: {{ labels | safe}}, //eje x
-            datasets: [{
-                label: ['temperatura máxima'], //titulo
-                backgroundColor:['lightgreen','rgb(54, 162, 235)','rgb(255, 205, 86)'],
-                borderColor: 'green',
-                data: {{ values | safe }} //valores a graficar
-            }]
-        },        
-        // Configuration options go here
-        options: {
-            responsive: false
-        }
-    });
-  </script>
-<!--FIN GRÁFICCO-->
-<!-- Se coloca un parrafo (p) para separar y determinar el inicio tabla-->
-<p class="text-lg text-center font-bold m-5">DATOS ESTACIONES</p>
-<!-- Las siguientes características se aplican para los elementos que componen la tabla.
-En la tabla: se establece una posición relativa,table-auto para ajustar el tamaño de las columnas al texto, elementos de diseño como rounded para lo bordes(b-X), margenes (m-X mx-auto), color de fondo (bg), color de texto (text gray),
-En las filas: se condiciona la posición del texto (text left), se añaden propiedades de diseño: borde (border-b) y su color: border-gray-600, dandole efecto de separación con un color más profundo (bg 700 )
-En las celdas: se añade padding horizontal (px) y vertical (py) con relación 4:3 respectivamente 
--->
-<table class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
-  <tr class="text-left border-b border-gray-300">
-    <th class="px-4 py-3">VEREDAS</th>
-  </tr>
-  <tr class="text-left bg-gray-700 border-b border-gray-600">
-    <th class="px-4 py-3">id</th>
-    <th class="px-4 py-3">departamento</th>
-    <th class="px-4 py-3">ciudad</th>
-    <th class="px-4 py-3">vereda</th>
-  </tr>
-  <tr class="bg-gray-600 border-b border-gray-500">
-    <td class="px-4 py-3">1</td>
-    <td class="px-4 py-3">Cauca</td>
-    <td class="px-4 py-3">Popayan</td>
-    <td class="px-4 py-3">Santa Rosa</td>
-  </tr>    
-  <!-- Fin fila -->
-  <tr class="bg-gray-600 border-b border-gray-500">
-    <td class="px-4 py-3">2</td>
-    <td class="px-4 py-3">Cauca</td>
-    <td class="px-4 py-3">Popayan</td>
-    <td class="px-4 py-3">Santa Rafael</td>
-  </tr>    
-  <!--Fin fila -->
-  <tr class="bg-gray-600 border-b border-gray-500">
-    <td class="px-4 py-3">3</td>
-    <td class="px-4 py-3">Cauca</td>
-    <td class="px-4 py-3">Popayan</td>
-    <td class="px-4 py-3">Cerrillos</td>
-  </tr>      
-  <!--Fin fila -->
-</table>
-<!-- Las siguientes características se aplican para los elementos que componen la tabla.
-En la tabla: se establece una posición relativa,table-auto para ajustar el tamaño de las columnas al texto, elementos de diseño como rounded para lo bordes(b-X), margenes (m-X mx-auto), color de fondo (bg), color de texto (text gray),
-En las filas: se condiciona la posición del texto (text left), se añaden propiedades de diseño: borde (border-b) y su color: border-gray-600, dandole efecto de separación con un color más profundo (bg 700 )
-En las celdas: se añade padding horizontal (px) y vertical (py) con relación 4:3 respectivamente 
--->
-<table class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
-  <tr class="text-left border-b border-gray-300">
-    <th class="px-4 py-3">Registros</th>
-  </tr>
-  <tr class="text-left bg-gray-700 border-b border-gray-600">
-    <th class="px-4 py-3">id</th>
-    <th class="px-4 py-3">idFinca</th>
-    <th class="px-4 py-3">fecha</th>
-    <th class="px-4 py-3">Precipitacion</th>
-    <th class="px-4 py-3">temperatura maxima</th>
-    <th class="px-4 py-3">temperatura minima</th>
-  </tr>
-  <tr class="text-left bg-gray-700 border-b border-gray-600">
-    <th class="px-4 py-3">1</th>
-    <th class="px-4 py-3">1</th>
-    <th class="px-4 py-3">20/02/2020</th>
-    <th class="px-4 py-3">350</th>
-    <th class="px-4 py-3">25</th>
-    <th class="px-4 py-3">14</th>
-  </tr>    
-  <!-- Fin fila -->
-  <tr class="text-left bg-gray-700 border-b border-gray-600">
-    <th class="px-4 py-3">2</th>
-    <th class="px-4 py-3">1</th>
-    <th class="px-4 py-3">20/02/2020</th>
-    <th class="px-4 py-3">250</th>
-    <th class="px-4 py-3">23</th>
-    <th class="px-4 py-3">15</th>
-  </tr>       
-  <tr class="text-left bg-gray-700 border-b border-gray-600">
-    <th class="px-4 py-3">3</th>
-    <th class="px-4 py-3">1</th>
-    <th class="px-4 py-3">20/02/2020</th>
-    <th class="px-4 py-3">270</th>
-    <th class="px-4 py-3">20</th>
-    <th class="px-4 py-3">13</th>
-  </tr>    
-  <!-- Fin fila -->
-</table>
-<!--fin tabla-->
- </div>
 <!--DEFINIR FOOTER-->
-<!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border blue) y algunos elementos de diseño: (padding top, border y relative) -->
-<footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-blue-700">
+<!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border green) y algunos elementos de diseño: (padding top, border y relative) -->
+<footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-green-700">
   <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
   <div class="container mx-auto px-6">
-      <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
-      <div class="flex flex-col">
-          <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->
-          <span class="font-bold text-gray-700 uppercase mb-2">Pie de página</span>
-          <!-- En este elemento, al ser un link, se agrega la propiedad de hover para darle un efecto de cambio (de color) para cuando el apuntador pase por encima -->
-          <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+    <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
+    <div class="flex flex-col">
+        <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->  
+        <span class="font-bold text-green-700 uppercase mb-2">Creado por</span>
+        <!-- Los siguientes elementos son de tipo párrafo -->
+        <p class="font-bold text-gray-700 font-bold mb-2">Valentina Ortega Paz</p>
+        <p class="font-bold text-gray-700 font-bold mb-2">Isaac Mesa Maya</p>
+        <p class="font-bold text-gray-700 font-bold mb-2">Karen Valentina Obando</p>
       </div>
   </div>
 </footer>

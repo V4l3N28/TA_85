@@ -13,7 +13,12 @@ Para representar el contenido de un bloque definido en la plantilla principal, u
   - input se usa para crear controles interactivos para formularios basados en la web con el fin de recibir datos del usuario. 
   - type es una funcion que  permite averiguar el tipo de dato que estamos tratando.
   - value se usa para definir el valor de lo que estamos ingresando un el input#}
-
+  <script>
+    document.getElementById('iniciarsesionButton').style.display = 'inline-block';
+    document.getElementById('registrarseButton').style.display = 'inline-block';
+    document.getElementById('cerrarsesionButton').style.display = 'none';
+      
+  </script>
 <div class="flex flex-wrap flex-col justify-center items-center border-content md:p-8 md:mx-64 md:mt-32 bg-gray-200">
   <form action="" method="POST" class="flex flex-col">
     <label for="nombre"> Nombre</label>
@@ -30,9 +35,12 @@ Para representar el contenido de un bloque definido en la plantilla principal, u
     <input type="password" name="contrasena2" class="border-4 boder-black bg-gray-200"><br>
     <label for="usuario"> Usuario</label>
     <input type="text" name="usuario" class="border-4 boder-black bg-gray-200"><br>
-    <input type="submit" value="Guardar" class="border-4 boder-black bg-gray-200">
+    <input type="submit" value="Registrarse" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded">
   </form><br>
-  <a href="/IniciarSesion/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded">
+  <hr> 
+  <p>¿Ya tienes cuenta?, dale click al siguiente botón </p>
+  <br>
+  <a href="/IniciarSesion/" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded">
     Ya tengo cuenta
     </a>
 </div>

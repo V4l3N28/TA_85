@@ -1,68 +1,68 @@
 {%extends 'LAYOUT.html'%}
 {% block title %}Pronosticos{% endblock %}
 {% block content %}
+<script>
+    document.getElementById('iniciarsesionButton').style.display = 'none';
+    document.getElementById('registrarseButton').style.display = 'none';
+    document.getElementById('cerrarsesionButton').style.display = 'inline-block';
+    
+</script>
 <div class="flex items-stretch justify-center">
-    <!--BOTONES LATERALES-->
-    <div class="bg-gray-300">
-        <button type="button" class="p-4"><span class="glyphicon glyphicon-info-sign"></span>Info</button><br>
-        <button type="button" class="p-4"><span class="glyphicon glyphicon-picture"></span>download</button><br>
-        <button type="button" class="p-4"><span class="glyphicon glyphicon-print"></span>Print</button>
-    </div>
-    <!--FIN BOTONES LATERALES-->
-    <div class="flex flex-col p-4"> 
+    <div class="flex flex-col p-4 bg-green-200 mt-6 ml-6"> 
         <!--INICIO PARRAFO ANALISIS-->
-        <h1 class="text-5xl">Analisis</h1><br>
-        <p>Los pronósticos se hacen colectando tantos datos como sea posible acerca del estado de la atmósfera<br>
-        (particularmente temperatura, presión atmosférica, vientos, humedad y precipitaciones) y usando <br>
-        conocidos procesos atmosféricos (a través de la meteorología) para determinar los patrones futuros<br>
+        <h1 class="text-4xl text-green-900">Información Básica</h1><br>
+        <p class="text-left">Los pronósticos se hacen colectando tantos datos como sea posible acerca del estado de la atmósfera
+        (particularmente temperatura, presión atmosférica, vientos, humedad y precipitaciones) y usando 
+        conocidos procesos atmosféricos (a través de la meteorología) para determinar los patrones futuros
         atmosféricos.
         </p>
         <!--FIN PARRAFO ANALISIS-->
         <hr>
+        <br>
         <!--INICIO PARRAFO TEST-->
-        <h3 class="text-3xl">Test</h3><br>
-        <p>Históricamente, en la estación {{ locInt_FincaPronostico | safe }} de Popayán, durante el mes de {{ locStr_MesPronostico | safe }}, caen {{ locInt_PrecipitacionenmmPronostico | safe }} de lluvia. Las probabilidades nos dicen que se espera que caigan {{ locInt_ProbabilidadprecipitacionPronostico | safe }} de lluvia</p>
+        <p class="text-left">Históricamente, en la estación {{ locInt_FincaPronostico | safe }} de Popayán, durante el mes de {{ locStr_MesPronostico | safe }}, caen {{ locInt_PrecipitacionenmmPronostico | safe }} de lluvia. Las probabilidades nos dicen que se espera que caigan {{ locInt_ProbabilidadprecipitacionPronostico | safe }} de lluvia</p>
         <!--FIN PARRAFO TEST-->
         <hr>
+        <br>
         <!--INNICIO PARRAFO TABLA-->
         <div class="container">  
-            <h2 class="text-4xl">Tabla de datos</h2><br>
-            <p>esta tabla esta diseñada mediante html, donde se le implementaron los datos manualmente, pero en su<br> version final sacara los datos de una base de datos</p>
+            <h2 class="text-4xl text-green-900">Tabla de datos</h2><br>
+            <p class="text-left">Esta tabla esta diseñada mediante html, donde se le implementaron los datos manualmente, pero en su versión final sacará los datos de una base de datos</p>
         </div><br>
         <!--FIN PARRAFO TABLA-->
         <!--INICIO TABLA-->
         <div class="p-4">
             <table class="border border-black rounded">
                     <tr class="border border-black rounded">
-                    <th class="border border-black rounded p-4">MESES</th>
-                    <th class="border border-black rounded p-4">TEMPERATURA MAXIMA</th>
-                    <th class="border border-black rounded p-4" >#DIAS QUE LLOVIO</th>
+                    <th class="border border-black rounded p-4 text-green-900">MESES</th>
+                    <th class="border border-black rounded p-4 text-green-900">TEMPERATURA MÁXIMA</th>
+                    <th class="border border-black rounded p-4 text-green-900" >#DÍAS QUE LLOVIÓ</th>
                     </tr>
 
                     <tr class="border border-black rounded">
                     <td class="border border-black rounded p-4">Julio</td>
                     <td class="border border-black rounded p-4">27 grados</td>
-                    <td class="border border-black rounded p-4">13 dias</td>
+                    <td class="border border-black rounded p-4">13 días</td>
                     </tr>
 
                     <tr class="border border-black rounded">
                     <td class="border border-black rounded p-4">Agosto</td>
                     <td class="border border-black rounded p-4">26 grados</td>
-                    <td class="border border-black rounded p-4">23 dias</td>
+                    <td class="border border-black rounded p-4">23 días</td>
                     </tr>
 
                     <tr class="border border-black rounded">
                     <td class="border border-black rounded p-4">Septiembre</td>
                     <td class="border border-black rounded p-4">24 grados</td>
-                    <td class="border border-black rounded p-4">16 dias</td>
+                    <td class="border border-black rounded p-4">16 días</td>
                     </tr>
             </table>   
         </div>
         <!--FIN TABLA-->
     </div>
-    <div class="bg-gray-300">
+    <div class="mt-6 bg-gray-50">
         <!--IMAGEN-->
-        <div class="flex justify-center">
+        <div class=" mt-20  flex justify-center ">
             <canvas id="myChart" width="900" height="500"></canvas>
         </div>
         <script>
@@ -78,7 +78,7 @@
                         label: ['var1','var2','var3'], //titulo
                         backgroundColor:['lightgreen','rgb(54, 162, 235)','rgb(255, 205, 86)'],
                         borderColor: 'green',
-                        data: {{ values | safe }} //valores a graficar
+                        data: [{{ values1 | safe }},{{ values2 | safe }},{{ values3 | safe }}] //valores a graficar
                     }]
                 },        
                 // Configuration options go here
@@ -87,23 +87,13 @@
                 }
             });
         </script>
-        <!--BOTON INFORMACION BASICA-->
-        <div class="border border-black rounded">
-            <p class="p-4">Informacion Basica</p>
-        </div>
-        <!--FIN BOTON-->
     </div>
 </div><br>
 <!--DEFINIR FOOTER-->
-<!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border blue) y algunos elementos de diseño: (padding top, border y relative) -->
 <footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-blue-700">
-    <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
     <div class="container mx-auto px-6">
-        <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
         <div class="flex flex-col">
-            <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->
             <span class="font-bold text-gray-700 uppercase mb-2">Pie de página</span>
-            <!-- En este elemento, al ser un link, se agrega la propiedad de hover para darle un efecto de cambio (de color) para cuando el apuntador pase por encima -->
             <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
         </div>
     </div>
