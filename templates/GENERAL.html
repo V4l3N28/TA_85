@@ -102,12 +102,18 @@
   </script>
 <!--FIN GRÁFICO-->
 <!--DEFINIR FOOTER-->
-<footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-blue-700">
+<footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-green-700">
+    <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
     <div class="container mx-auto px-6">
-        <div class="flex flex-col">
-            <span class="font-bold text-gray-700 uppercase mb-2">Pie de página</span>
-            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+      <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
+      <div class="flex flex-col">
+          <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->  
+          <span class="font-bold text-green-700 uppercase mb-2">Creado por</span>
+          <!-- En este elemento, al ser un link, se agrega la propiedad de hover para darle un efecto de cambio (de color) para cuando el apuntador pase por encima -->
+          <p class="font-bold text-gray-700 font-bold mb-2">Valentina Ortega Paz</p>
+          <p class="font-bold text-gray-700 font-bold mb-2">Isaac Mesa Maya</p>
+          <p class="font-bold text-gray-700 font-bold mb-2">Karen Valentina Obando</p>
         </div>
     </div>
-</footer>
+  </footer>
 {% endblock %}
