@@ -15,7 +15,7 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             flash('Primero necesitas iniciar sesión')
-            return redirect( url_for( 'iniciosesion' ) )
+            return redirect( '/IniciarSesion/' )
         return view( **kwargs )
     return wrapped_view
 #Se define una funcion get_db() en donde se utiliza un bloque try except el cual captura un error en el caso de que suceda
@@ -138,7 +138,7 @@ def HOME():
 @app.route('/IniciarSesion/', methods=('GET','POST'))
 def iniciosesion():
   if g.user:
-    return redirect( url_for('GENERAL' ))
+    return redirect( '/General/')
   if request.method == 'POST':
     usuario = request.form['usuario']
     contrasena = request.form['contrasena']
@@ -158,7 +158,7 @@ def iniciosesion():
       return  redirect('/General/')
     else:
       flash('Contraseña incorrecta')
-      return redirect( url_for('iniciosesion' ))
+      return redirect( '/IniciarSesion/')
   return render_template("ventanaInicioSESION.html")
 
 ##Conexion a \templates\entanvaRegistroUSUARIO
@@ -168,7 +168,7 @@ def iniciosesion():
 # Y se insertan esos valores en la base de datos, si los correos y contraseñas no son iguales se redirige a la ventana de registro de usuario
 def ventanaRegistroUSUARIO():
   if g.user:
-    return redirect( url_for( 'HOME' ) )
+    return redirect( '/' )
   try:
     if request.method == 'POST':
       nombre = request.form['nombre']
@@ -182,7 +182,7 @@ def ventanaRegistroUSUARIO():
         db = get_db()
         db.execute("INSERT INTO usuarios(nombre, apellido, usuario, email, contrasena) VALUES ('%s','%s','%s','%s','%s')" % (nombre, apellido, usuario, correo, contrasena))
         db.commit()
-        return redirect(url_for('iniciosesion'))
+        return redirect('/IniciarSesion/')
       else:
         flash('Correo o contraseñas no coinciden')
         return render_template("ventanaRegistroUSUARIO.html", nombre = nombre, Apellido = apellido, Usuario=usuario)
@@ -249,8 +249,8 @@ def CerrarSesion():
       g.user = None
   if g.user is None:
     flash('Has cerrado sesión satisfactoriamente')
-    return redirect(url_for('HOME'))
-  return redirect( url_for( 'iniciosesion' ) )
+    return redirect('/')
+  return redirect( '/IniciarSesion/' )
   
     
 #El constructor de  toma el nombre del módulo actual (__name__) como argumento.
