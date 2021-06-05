@@ -1,6 +1,7 @@
 #Importar el módulo de flask en el proyecto es obligatorio. Un objeto de la clase Flask es nuestra aplicación WSGI.
 from flask import Flask, flash,render_template, url_for, current_app, g, request, redirect, session
 import sqlite3,os,functools
+from functools import wraps
 import pandas as pd
 import numpy as np
 
@@ -12,11 +13,11 @@ app.secret_key = os.urandom( 24 )
 
 def login_required(view):
     @functools.wraps( view )
-    def wrapped_view(**kwargs):
+    def wrapped_view(*args,**kwargs):
         if g.user is None:
-            flash('Primero necesitas iniciar sesión')
-            return redirect( '/IniciarSesion/' )
-        return view( **kwargs )
+            #flash('Primero necesitas iniciar sesión')
+            return redirect( url_for('iniciosesion'))
+        return view( *args, **kwargs )
     return wrapped_view
 #Se define una funcion get_db() en donde se utiliza un bloque try except el cual captura un error en el caso de que suceda
 #Dentro de try abrimos un condicional if en donde verificamos si una variable 'db' no está en g (variables globales)
@@ -138,7 +139,7 @@ def HOME():
 @app.route('/IniciarSesion/', methods=('GET','POST'))
 def iniciosesion():
   if g.user:
-    return redirect( '/General/')
+    return redirect( '/General')
   if request.method == 'POST':
     usuario = request.form['usuario']
     contrasena = request.form['contrasena']
@@ -148,17 +149,17 @@ def iniciosesion():
     if user is None or contraseña_bd is None:
       message = 'Usuario o contraseña Incorrectos'
       flash(message)
-      return redirect('/IniciarSesion/')
+      return redirect('/IniciarSesion')
     else:
       contraseña_b=contraseña_bd[0]
     if contrasena==contraseña_b:
       session.clear()
       session['user_id'] = user[0]
       flash('Ingresaste a la página')
-      return  redirect('/General/')
+      return  redirect('/General')
     else:
       flash('Contraseña incorrecta')
-      return redirect( '/IniciarSesion/')
+      return redirect( '/IniciarSesion')
   return render_template("ventanaInicioSESION.html")
 
 ##Conexion a \templates\entanvaRegistroUSUARIO
@@ -182,7 +183,7 @@ def ventanaRegistroUSUARIO():
         db = get_db()
         db.execute("INSERT INTO usuarios(nombre, apellido, usuario, email, contrasena) VALUES ('%s','%s','%s','%s','%s')" % (nombre, apellido, usuario, correo, contrasena))
         db.commit()
-        return redirect('/IniciarSesion/')
+        return redirect('/IniciarSesion')
       else:
         flash('Correo o contraseñas no coinciden')
         return render_template("ventanaRegistroUSUARIO.html", nombre = nombre, Apellido = apellido, Usuario=usuario)
@@ -248,7 +249,7 @@ def CerrarSesion():
   if g.user is None:
     flash('Has cerrado sesión satisfactoriamente')
     return redirect('/')
-  return redirect( '/IniciarSesion/' )
+  return redirect( '/IniciarSesion' )
   
     
 #El constructor de  toma el nombre del módulo actual (__name__) como argumento.
