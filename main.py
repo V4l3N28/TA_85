@@ -190,6 +190,7 @@ def ventanaRegistroUSUARIO():
 
 ##Conexion a \templates\PRONOSTICOS
 @app.route('/Pronosticos/')
+@login_required
 def PRONOSTICOS():
   df = dataframe()
   suma = promedio_prec(str(2017), df)
@@ -221,6 +222,7 @@ def GENERAL():
 
 ##Conexion a \templates\ESTACIONES
 @app.route('/Estaciones/', methods=('GET', 'POST'))
+@login_required
 def ESTACIONES():
   if request.method == 'POST':
     select_ano = request.form.get('ano')
