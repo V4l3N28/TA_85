@@ -196,8 +196,8 @@ def PRONOSTICOS():
   suma = promedio_prec(str(2017), df)
   labels = ['lluvias por encima de lo normal','lluvias dentro de lo normal','lluvias poor debajo de lo normal']
   values1 = list(suma['precipitacion'][:1])
-  values2 = list(suma['precipitacion'][:2])
-  values3 = list(suma['precipitacion'][:3])
+  values2 = list(suma['precipitacion'][:5])
+  values3 = list(suma['precipitacion'][:7])
   return render_template("PRONOSTICOS.html",labels= labels,values1=values1,values2=values2,values3=values3)
 
 ##Conexion a \templates\GENERAL

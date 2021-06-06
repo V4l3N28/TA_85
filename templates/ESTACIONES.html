@@ -11,16 +11,16 @@
 <div class="p-10 flex flex-col items-center justify-center space-y-16">
   <!-- Se crea una división de tipo inlineblock para darle organización paralela a los selectores.
   Se crean los selectores, dandoles propiedades de disño como color de fondo (bg), al texto (text-gray), negrilla "semi" al texto (font-semibold) padding horizontal y vertical (px py), redondear las esquinas, alinear los elementos con flexbox (inline-flex) y centrar los elementos -->  
+  <h2 class="text-4xl text-center font-bold m-5 text-green-900">Gráfica de datos</h2>
+  <p class="text-center font-semibold">Esta gráfica saca los datos de una base de datos, representa la sumatoria de la precipitación de diferentes años en los diferentes meses del año</p>
   <div class="inline-block relative">
-    <p class="font-serif italic font-bold">Selecciona aquí el año</p>
+    <p class="italic font-bold">Selecciona aquí el año</p>
       <form  method="POST" action="{{ url_for('ESTACIONES') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-      
       <!--Definir select y option-->
         <select name="ano"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
           <!--dentro de las opciones se establecen margenes (mr), redondear los bordes superiores (rounded), darle color de fondo (bg) padding horizontal y vertical (px py), proopiedades de bloque (block) y se determina el manejo de los espacios en blanco del texto para que no permita que se adicionen nuevas lineas (whitespace- nowrap) 
           Adicionalmente se agrega un cambio de color a un color mas oscuro cuando el mouse pase por encima del elemento--->
           <option class="">---</option>
-          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2010</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2011</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2012</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2013</a></option>
@@ -29,9 +29,7 @@
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2016</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2017</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2018</a></option>
-          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>
-          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2020</a></option>
-          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2021</a></option>                   
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>                  
         </select>
        
           <button type="submit">OPRIME AQUI PARA ENVIAR</button>
@@ -64,9 +62,13 @@
           }
       });
     </script>
+
   <!--FIN GRÁFICCO-->
   <!-- Se coloca un parrafo (p) para separar y determinar el inicio tabla-->
-  <p class="text-lg text-center font-bold m-5">DATOS ESTACIONES</p>
+  <div class="container">  
+    <p class="text-lg text-center font-bold m-5">DATOS ESTACIONES</p>
+    <p class="text-center font-semibold">Esta tabla muestra los datos de la gráfica en dos columnas, fecha y precipitación</p>
+  </div>
   <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
     <thead class="text-left border-b border-green-300">
       <th class="px-4 py-3">fecha</th>
