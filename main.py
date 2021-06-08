@@ -61,11 +61,11 @@ def dataframe():
   conn=sqlite3.connect('bases_04.db')
   #Se crea un cursor 
   cursor = conn.cursor()
-  #En este punto, se corre el programa para la creación de la base de datos y se comentan las líneas de creación de tablas (debido a que si se dejan, el programa lanzará un mensaje diciendo que las tablas ya fueron creadas anteriormente)
+  
   #Se define una variable df como el Dataframe del contenido de la variable cursor y se define el nombre de sus columnas
   df = pd.DataFrame(cursor, columns=['fecha','precipitacion','temperaturaMaxima','temperaturaMinima'])
   return df
-
+#En este punto, se corre el programa para la creación de la base de datos y se comentan las líneas de creación de tablas (debido a que si se dejan, el programa lanzará un mensaje diciendo que las tablas ya fueron creadas anteriormente)
 #Dentro de la conexion se convierten las tablas importadas de la hoja tablas.py a tablas de sql
 #veredas.to_sql('veredas', conn)
 #observadores.to_sql('dfo', conn)
