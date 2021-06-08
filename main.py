@@ -12,14 +12,14 @@ app = Flask(
 app.secret_key = os.urandom( 24 )
 
 
-def login_required(view):
-    @functools.wraps( view )
-    def wrapped_view(*args,**kwargs):
-        if g.user is None:
-            flash('Primero necesitas iniciar sesión')
+def login_required(view):               #1 se define el decorador que coge el bloque de código de la función que querermos decorar
+    @functools.wraps( view )            #2 utilizamos el módulo functools y la función .wrap para poder trabajar sobre otras funciones
+    def wrapped_view(**kwargs):   #4 Revisamos si el usuario está o no en sesión, 
+        if g.user is None:              
+            flash('Primero necesitas iniciar sesión')     # 4.1 Si el usuario no está en sesión lo redireccionamos a la página de inicio de sesión
             return redirect( '/IniciarSesion/' )
-        return view( **kwargs )
-    return wrapped_view
+        return view(**kwargs )                           #4.2 Si el usuario está en sesión, lo envía a la página (view) que solicitó
+    return wrapped_view                 #3 retornamos /// llamamos a la funcion y retornamos su respuesta
 
 #Se define una funcion get_db() en donde se utiliza un bloque try except el cual captura un error en el caso de que suceda
 #Dentro de try abrimos un condicional if en donde verificamos si una variable 'db' no está en g (variables globales)
@@ -27,7 +27,7 @@ def login_required(view):
 #CONEXION BASE DATOS
 def get_db():
     try:
-        if 'db' not in g:
+        if 'db' not in g:             #Se revisa si la variable "db" está dentro de las variables globales, si no lo está, se conecta a la base de datos
             g.db = sqlite3.connect('bases_04.db')
         return g.db
     except Exception as e:
@@ -35,8 +35,8 @@ def get_db():
 
 #Se define una funcion close_db() en donde borramos db de las variables globales y verificamos si esa variable fue borrada
 #Luego cerramos la base de datos
-def close_db():
-    db = g.pop( 'db', None )
+def close_db():                 #En esta función se cierra la conexión a la base de datos
+    db = g.pop( 'db', None )    
 
     if db is not None:
         db.close()
@@ -48,13 +48,13 @@ def close_db():
 def load_logged_in_user():
     user_id = session.get( 'user_id' )
 
-    if user_id is None:
-        g.user = None
+    if user_id is None:    
+        g.user = None              
     else:
         g.user = get_db().execute(
             'SELECT * FROM usuarios WHERE id = ?', (user_id,)
         ).fetchone()
-
+#Se usa una variable global para manejarla en todo el código y no tener que estar llamando a la sesion de usuario cada vez que queramos verificar si el usuario está o no en la sesión
 #DATAFRAME DATOS DE BASE DE DATOS
 def dataframe():
   #Se hace la conexión a la base de datos bases_07.db por medio de la asignación a una variable conn
