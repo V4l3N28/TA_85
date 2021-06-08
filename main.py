@@ -74,7 +74,7 @@ def dataframe():
 #usuarios.to_sql('usuarios', conn)
 
 #FUNCIONES DATOS CLIMÁTICOS
-#Se procede a la creacion de varias funciones como sumatoria, promedio, valor máximo y valor mínimo del filtro de datos en columnas específicas, cada funcion pide  dos cosas; un año y un dataframe
+#Se procede a la creacion de varias funciones como sumatoria y promedio del filtro de datos en columnas específicas, cada funcion pide  dos cosas; un año y un dataframe
 def sumatoria_prec(year,df):
   conn=sqlite3.connect('bases_04.db')
   #Se crea un cursor 
