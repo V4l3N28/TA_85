@@ -93,7 +93,7 @@ def sumatoria_prec(year,df):
   #Se retorna el dataframe
   return db_to_dataframe
 
-#En las siguientes definiciones se aplica la misma estructura de la funcion sumatoria exceptuando que no se pide un resultado por meses sino que solo se pide un solo valor
+#En las siguiente definicione se aplica la misma estructura de la funcion sumatoria exceptuando que no se pide un resultado por meses sino que solo se pide un solo valor
 #(No se utiliza GROUP BY month para que la funcion solo nos arroje un resultado general y no por partes)
 def promedio_prec(year,df):
     conn=sqlite3.connect('bases_04.db')
@@ -101,22 +101,6 @@ def promedio_prec(year,df):
     cursor.execute("SELECT strftime('%m', fecha) as month, AVG(precipitacion) FROM registros WHERE strftime('%Y', fecha)=?",[year])
     filtered_db= cursor.fetchall()
     db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','precipitacion'])
-    return db_to_dataframe
-
-def temp_max(year,df):
-    conn=sqlite3.connect('bases_04.db')
-    cursor = conn.cursor() 
-    cursor.execute("SELECT strftime('%m', fecha) as month, MAX(temperaturaMaxima) FROM registros WHERE strftime('%Y', fecha)=?",[year])
-    filtered_db= cursor.fetchall()
-    db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','temperaturaMaxima'])
-    return db_to_dataframe
-
-def temp_min(year,df):
-    conn=sqlite3.connect('bases_04.db')
-    cursor = conn.cursor() 
-    cursor.execute("SELECT strftime('%m', fecha) as month, MIN(temperaturaMinima) FROM registros WHERE strftime('%Y', fecha)=?",[year])
-    filtered_db= cursor.fetchall()
-    db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','temperaturaMinima'])
     return db_to_dataframe
 
 #este .py tiene la finalidad de mapear cada uno de los links con su respectiva funcion
@@ -259,5 +243,5 @@ if __name__ == "__main__":
       debug - El valor predeterminado es falso. Si se establece en verdadero, proporciona información del debug.
       options(opciones) - Para ser reenviado al servidor de herramientas subyacente.'''
 
-  app.run( host='0.0.0.0', debug=True, port=random.randint(2000, 9000) )
+  app.run( host='127.0.0.1', debug=True, port=5000 )
   
