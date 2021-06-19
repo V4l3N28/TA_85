@@ -1,7 +1,7 @@
 {%extends 'LAYOUT.html'%}
 {% block title %}General{% endblock %}
 {% block content %}
- <!--INICIO GRÁFICO-->
+ 
  <script>
     document.getElementById('iniciarsesionButton').style.display = 'none';
     document.getElementById('registrarseButton').style.display = 'none';
@@ -9,104 +9,71 @@
     
 </script>
 
-<h2 class=" text-center text-4xl text-green-900">Gráficas de datos</h2><br>
-<p class="text-center">Las siguientes gráficas reciben datos de listas aleatorias. </p>    
-<p class="text-center">La primer gráfica muestra una comparación entre 7 variantes de un mismo mes, mientras que la segunda muestra datos de 3 personas </p>
-<br>
-<div class="flex justify-center">
-    <canvas id="grafico" width="900" height="500"></canvas>
-</div>
-<script>
-    var ctx = document.getElementById('grafico').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
+<div class="p-10 flex flex-col items-center justify-center space-y-16">
+    <!--SELECTOR-->
+    <div class="inline-block relative">
+        <p class="italic font-bold">Selecciona aquí el año para visualizar los datos</p>
+        <form  method="POST" action="{{ url_for('GENERAL') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">  
+          <select name="ano"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+            <option class="">Año</option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2011</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2012</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2013</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2014</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2015</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2016</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2017</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2018</a></option>
+            <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>                  
+          </select>
+          <button type="submit">OPRIME AQUÍ PARA VER LOS RESULTADOS</button>
+        </form>
+    </div>
+    <p>En esta tabla puedes encontrar la precipitación (agua lluvia) en milímetros de cada mes 1 año seleccionado para cada una de las estaciones climáticas</p>
+    <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
+        <thead class="text-left border-b border-green-300">
+          <th class="px-4 py-3">estación</th>
+          <th class="px-4 py-3">mes</th>
+          <th class="px-4 py-3">precipitación (mm)</th>
+        </thead>
+        <tbody class="text-left bg-green-700 border-b border-green-600">
+          {% if labels4 %}  
+            {%for i in range(values9|length)%}
+            <tr>
+              <th>{{values7[i]}}</th>
+              <th>{{values8[i]}}</th>
+              <th class="px-4 py-3">{{values9[i]}}</th>
+            </tr>
+            {%endfor %}
+          {% endif %}
+        </tbody>
+    </table>
 
-        // The data for our dataset
-        data: {
-            labels: {{ labels1 | safe}}, //eje x
-            datasets: [{
-                label: ['enero'], //titulo
-                borderColor: '#F0998C',
-                fill: false,
-                tension: 0.1,
-                data: {{ value1 | safe }}, //valores a graficar
-            },
-            {
-                label: ['febrero'], //titulo
-                borderColor: '#F0663C',
-                fill: false,
-                tension: 0.1,
-                data: {{ value2 | safe }}, //valores a graficar
-            },
-            {
-                label: ['marzo'], //titulo
-                borderColor: '#FAD43E',
-                fill: false,
-                tension: 0.1,
-                data: {{ value3 | safe }} //valores a graficar
-            },{
-                label: ['abril'], //titulo
-                borderColor: '#70D9F8',
-                fill: false,
-                tension: 0.1,
-                data: {{ value4 | safe }} //valores a graficar
-            },
-            {
-                label: ['mayo'], //titulo
-                borderColor: '#8A38F5',
-                fill: false,
-                tension: 0.1,
-                data: {{ value5 | safe }} //valores a graficar
-            },
-            {
-                label: ['junio'], //titulo
-                borderColor: '#D7A5F5',
-                fill: false,
-                tension: 0.1,
-                data: {{ value6 | safe }} //valores a graficar
-            },
-            {
-                label: ['julio'], //titulo
-                borderColor: '#51E344',
-                fill: false,
-                tension: 0.1,
-                data: {{ value7 | safe }} //valores a graficar
-            },]
-        },        
-        // Configuration options go here
-        options: {
-            responsive: false
-        }
-    });
-</script>
-  <div class="flex justify-center">
-    <canvas id="myChart" width="900" height="500"></canvas>
-  </div>
-  <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-  
-        // The data for our dataset
-        data: {
-            labels: {{ labels2 | safe}}, //eje x
-            datasets: [{
-                label: ['temperatura máxima'], //titulo
-                borderColor: 'green',
-                backgroundColor:['lightgreen','rgb(54, 162, 235)','rgb(255, 205, 86)'],
-                data: {{ values | safe }} //valores a graficar
-            }]
-        },        
-        // Configuration options go here
-        options: {
-            responsive: false
-        }
-    });
-  </script>
-<!--FIN GRÁFICO-->
-<!--DEFINIR FOOTER-->
+    <p>En esta tabla puedes encontrar la temperatura máxima promedio en grados centígrados de cada mes de un año seleccionado para cada una de las estaciones</p>
+    <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
+      <thead class="text-left border-b border-green-300">
+        <th class="px-4 py-3">estación</th>
+        <th class="px-4 py-3">mes</th>
+        <th class="px-4 py-3">temperatura máxima promedio</th>
+        <th class="px-4 py-3">temperatura mínima promedio</th>
+      </thead>
+      <tbody class="text-left bg-green-700 border-b border-green-600">
+        {% if labels5 %}  
+          {%for i in range(values12|length)%}
+          <tr>
+            <th>{{values10[i]}}</th>
+            <th class="px-4 py-3"
+            >{{values11[i]}}</th>
+            <th>{{values12[i]}}</th>
+            <th class="px-4 py-3">{{values13[i]}}</th>
+          </tr>
+          {%endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+</div>
+
+<!--PIE DE PAGINA-->
 <footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-green-700">
     <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
     <div class="container mx-auto px-6">

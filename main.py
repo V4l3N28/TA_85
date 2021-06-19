@@ -1,15 +1,390 @@
 #Importar el módulo de flask en el proyecto es obligatorio. Un objeto de la clase Flask es nuestra aplicación WSGI.
 from flask import Flask, flash,render_template, url_for, current_app, g, request, redirect, session
-import sqlite3,os,functools
+import os,functools
 from functools import wraps
 import pandas as pd
 import numpy as np
 import random
+import pyrebase
+
 
 app = Flask(
   __name__,
   template_folder='templates')
 app.secret_key = os.urandom( 24 )
+
+#CONEXION BASE DATOS
+firebaseConfig = {  
+  "apiKey": "AIzaSyAvHOAhYaQN5B_1fgeTwCahxXlfy_DbqJM",
+  "authDomain": "tesacdb-51ebe.firebaseapp.com",
+  "databaseURL": "https://tesacdb-51ebe-default-rtdb.firebaseio.com",
+  "projectId": "tesacdb-51ebe",
+  "storageBucket": "tesacdb-51ebe.appspot.com",
+  "messagingSenderId": "681673063098",
+  "appId": "1:681673063098:web:57785e1179130ceed2a083"}
+
+
+firebase = pyrebase.initialize_app(firebaseConfig)
+def database():
+    db = firebase.database()
+    estaciones=db.child("ESTACIONES").get()
+    data = pd.DataFrame(estaciones.val())
+    return data
+
+
+
+#push data
+def insert(name,lastname,user,mail,password):
+  db = firebase.database()
+  data= {"FIELD1":"","nombre":name,"apellido":lastname,"usuario":user,"email":mail,"contraseña":password}
+  datas = db.child("USUARIOS").child("2").set(data)
+  return datas
+
+
+#Retrieve data
+def usuario_equal_usuario(var):
+  db = firebase.database()
+  usuarios = db.child("USUARIOS").order_by_child("usuario").equal_to(var).get()
+  filtro = usuarios.val()
+  data = pd.DataFrame(filtro)
+  change = data.transpose()
+  usuario = change['usuario'].tolist()
+  return usuario
+
+def usuario_equal_contrasena(var):
+  db = firebase.database()
+  usuarios = db.child("USUARIOS").order_by_child("contraseña").equal_to(var).get()
+  filtro = usuarios.val()
+  data = pd.DataFrame(filtro)
+  change = data.transpose()
+  contrasena = change['contraseña'].tolist()
+  return contrasena
+
+
+#ANALISIS Y LIMPIEZA DE DATOS
+
+def df_filtered():
+    db= database()
+    date= db['fecha'].str.split('/',expand=True)
+    date.columns = ['dia','mes','año']
+
+    df = pd.concat([db,date],axis=1)
+    return df
+
+df =df_filtered()
+
+
+#PÁGINA PRONOSTICOS
+def funcion_1(estacion,mes,ano,df):
+    #FILTRO
+    filtro = df.query("año == @ano and idFinca == @estacion and mes == @mes")
+    
+    #DATA
+    dia1= filtro['dia'].unique()
+    precipitacion1 = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+
+    #LISTA DE DATOS A RETORNAR
+    dias = dia1.tolist()
+    preci_1= precipitacion1.tolist()
+
+    return (dias,preci_1)
+
+def funcion_2(estacion,mes,ano,df):
+    #FILTRO
+    filtro = df.query("año == @ano & mes == @mes and idFinca == @estacion")
+    
+    #DATA
+    data =filtro['mes'].unique()
+    data_1 = ''.join(data)
+    
+    data_2 = filtro['año'].unique()
+    data_3 = ''.join(data_2)
+    
+    data_4 = filtro['idFinca'].unique()
+    data_5 = ''.join(data_4)
+
+    subset_df = filtro[filtro["precipitacion"]>'0']
+    column_count = subset_df['precipitacion'].count()
+    
+    #LISTA DE DATOS A RETORNAR
+    data1 = [data_5,data_1,data_3,column_count]
+    label= ['estacion','mes','año','numero_de_días_con_lluvia']
+    
+    return (label,data1)
+
+def funcion_3(estacion,ano,df):
+    #FILTRO
+    filtro = df.query("año == @ano and idFinca == @estacion")
+    
+    seleccion_columna_mes = filtro['mes']
+    estacion = filtro['idFinca'].unique()
+    
+    #DATA
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma = concatenacion.groupby('mes').sum().precipitacion
+    s_tota = [suma.sum()]
+    total = ['TOTAL']
+    concaten = total + s_tota
+    
+    #LISTA DE DATOS A RETORNAR
+    data_2 = seleccion_columna_mes.unique()
+    data_3 = data_2.tolist()
+    val1 = suma.tolist()
+    val2 = estacion.tolist()
+    val3 = concaten
+
+    return (data_3,val1, val2,val3)
+
+#PÁGINA ESTACIONES
+def funcion_4(estacion,mes,ano,df):
+    #FILTRO
+    filtro = df.query("año == @ano and idFinca == @estacion and mes == @mes ")
+    
+    #DATA
+    dia0= filtro['dia']
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    
+    #LISTA DE DATOS A RETORNAR
+    dia = dia0.tolist()
+    precipitacion = columna_a_numeric.tolist()
+    
+    return (dia,precipitacion)
+
+def funcion_5(estacion, mes,ano,df):
+    #FILTRO
+    filtro = df.query("año == @ano & mes == @mes & idFinca == @estacion")
+    seleccion_columna_dia = filtro['dia']
+    
+    #DATA
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric_1 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_dia,columna_a_numeric,columna_a_numeric_1],axis=1)
+    
+    #LISTA DE DATOS A RETORNAR
+    dia = concatenacion['dia'].tolist()
+    tempmax = concatenacion['temperaturaMaxima'].tolist()
+    tempmin = concatenacion['temperaturaMinima'].tolist()
+
+    return (dia,tempmax,tempmin)
+
+def funcion_6(estacion, mes,ano,df):
+    #FILTRO
+    filtro = df.query("año == @ano & mes == @mes & idFinca == @estacion")
+    seleccion_columna_dia = filtro['dia']
+    
+    #DATA
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric_1 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    
+    concatenacion = pd.concat([columna_a_numeric,columna_a_numeric_1],axis=1)
+    
+    variacion = concatenacion['temperaturaMaxima'] - concatenacion['temperaturaMinima']
+    new_concat = pd.concat([seleccion_columna_dia,variacion],axis=1)
+    new_concat.columns = ['dia','variacion']
+    
+    #LISTA DE DATOS A RETORNAR
+    dia = new_concat['dia'].tolist()
+    variacion = new_concat['variacion'].tolist()
+
+    return (dia,variacion)
+
+#GENERAL
+def funcion_7(ano,df):
+    #SUBCONJUNTO E1:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E1'") 
+        #DATA
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion0= filtro['idFinca'][:12]
+    mes0= filtro['mes'].unique()
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma0 = concatenacion.groupby(['idFinca','mes']).sum().precipitacion
+    
+    #SUBCONJUNTO E2
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E2'")    
+        #DATA
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion1= filtro['idFinca'][:12]
+    mes1= filtro['mes'].unique()
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma1 = concatenacion.groupby(['idFinca','mes']).sum().precipitacion
+
+    #SUBCONJUNTO E3
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E3'")
+        #DATA
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion2= filtro['idFinca'][:12]
+    mes2= filtro['mes'].unique()
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma2 = concatenacion.groupby(['idFinca','mes']).sum().precipitacion
+
+    #SUBCONJUNTO E4
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E4'")
+        #DATA
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion3= filtro['idFinca'][:12]
+    mes3= filtro['mes'].unique()
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma3 = concatenacion.groupby(['idFinca','mes']).sum().precipitacion
+
+    #SUBCONJUNTO E5
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E5'")
+        #DATA
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion4= filtro['idFinca'][:12]
+    mes4= filtro['mes'].unique()
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma4 = concatenacion.groupby(['idFinca','mes']).sum().precipitacion
+
+    #SUBCONJUNTO E6
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E6'")
+        #DATA
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion5= filtro['idFinca'][:12]
+    mes5= filtro['mes'].unique()
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma5 = concatenacion.groupby(['idFinca','mes']).sum().precipitacion
+
+    #SUBCONJUNTO E7
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E7'")
+        #DATA
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion6= filtro['idFinca'][:12]
+    mes6= filtro['mes'].unique()
+    columna_a_numeric = pd.to_numeric(filtro['precipitacion'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    suma6 = concatenacion.groupby(['idFinca','mes']).sum().precipitacion
+
+    #LISTAS PARA RETORNAR
+    labels = ['estaciones','mes','sumatoria precipitacion']
+    estacion = estacion0.tolist() + estacion1.tolist() + estacion2.tolist() + estacion3.tolist() + estacion4.tolist() + estacion5.tolist() + estacion6.tolist()
+    mes = mes0.tolist() + mes1.tolist() + mes2.tolist() + mes3.tolist() + mes4.tolist() + mes5.tolist() + mes6.tolist()
+    suma = suma0.tolist() + suma1.tolist() + suma2.tolist() + suma3.tolist() + suma4.tolist() + suma5.tolist() + suma6.tolist()
+    return (labels,estacion,mes,suma)
+
+def funcion_8(ano,df):
+    #SUBCONJUNTO E1:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E1'")
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion1= filtro['idFinca'][:12]
+    mes1= filtro['mes'].unique()
+        #DATA
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric1 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    concatenacion0 = pd.concat([seleccion_columna_mes,columna_a_numeric1],axis=1)
+    suma1 = concatenacion.groupby(['idFinca','mes'])['temperaturaMaxima'].mean()
+    suma0_1 = concatenacion0.groupby(['idFinca','mes'])['temperaturaMinima'].mean()
+    
+    #SUBCONJUNTO E2:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E2'")
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion2= filtro['idFinca'][:12]
+    mes2= filtro['mes'].unique()
+        #DATA
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric2 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    concatenacion2 = pd.concat([seleccion_columna_mes,columna_a_numeric2],axis=1)
+    suma2 = concatenacion.groupby(['idFinca','mes'])['temperaturaMaxima'].mean()
+    suma0_2 = concatenacion2.groupby(['idFinca','mes'])['temperaturaMinima'].mean()
+
+    #SUBCONJUNTO E3:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E3'")
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion3= filtro['idFinca'][:12]
+    mes3= filtro['mes'].unique()
+        #DATA    
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric3 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    concatenacion3 = pd.concat([seleccion_columna_mes,columna_a_numeric3],axis=1)
+    suma3 = concatenacion.groupby(['idFinca','mes'])['temperaturaMaxima'].mean()
+    suma0_3 = concatenacion3.groupby(['idFinca','mes'])['temperaturaMinima'].mean()
+
+    #SUBCONJUNTO E4:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E4'")
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion4= filtro['idFinca'][:12]
+    mes4= filtro['mes'].unique()
+        #DATA    
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric4 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    concatenacion4 = pd.concat([seleccion_columna_mes,columna_a_numeric4],axis=1)
+    suma4 = concatenacion.groupby(['idFinca','mes'])['temperaturaMaxima'].mean()
+    suma0_4 = concatenacion4.groupby(['idFinca','mes'])['temperaturaMinima'].mean()
+
+    #SUBCONJUNTO E5:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E5'")
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion5= filtro['idFinca'][:12]
+    mes5= filtro['mes'].unique()
+        #DATA    
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric5 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    concatenacion5 = pd.concat([seleccion_columna_mes,columna_a_numeric5],axis=1)
+    suma5 = concatenacion.groupby(['idFinca','mes'])['temperaturaMaxima'].mean()
+    suma0_5 = concatenacion5.groupby(['idFinca','mes'])['temperaturaMinima'].mean()
+
+    #SUBCONJUNTO E1:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E6'")
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion6= filtro['idFinca'][:12]
+    mes6= filtro['mes'].unique()
+        #DATA    
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric6 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    concatenacion6 = pd.concat([seleccion_columna_mes,columna_a_numeric6],axis=1)
+    suma6 = concatenacion.groupby(['idFinca','mes'])['temperaturaMaxima'].mean()
+    suma0_6 = concatenacion6.groupby(['idFinca','mes'])['temperaturaMinima'].mean()
+
+    #SUBCONJUNTO E7:
+        #FILTRO
+    filtro = df.query("año == @ano and idFinca == 'E7'")
+    seleccion_columna_mes = filtro[['mes','idFinca']]
+    estacion7= filtro['idFinca'][:12]
+    mes7= filtro['mes'].unique()
+        #DATA
+    columna_a_numeric = pd.to_numeric(filtro['temperaturaMaxima'],errors='coerce')
+    columna_a_numeric7 = pd.to_numeric(filtro['temperaturaMinima'],errors='coerce')
+    concatenacion = pd.concat([seleccion_columna_mes,columna_a_numeric],axis=1)
+    concatenacion7 = pd.concat([seleccion_columna_mes,columna_a_numeric7],axis=1)
+    suma7 = concatenacion.groupby(['idFinca','mes'])['temperaturaMaxima'].mean()
+    suma0_7 = concatenacion7.groupby(['idFinca','mes'])['temperaturaMinima'].mean()
+
+    #LISTAS PARA RETORNAR
+    labels= ['estacion','mes','promedio temperatura máxima','promedio temperatura mínima']
+    tempmax = suma1.tolist() + suma2.tolist() + suma3.tolist() + suma4.tolist() + suma5.tolist() + suma6.tolist() + suma7.tolist()
+    tempmin = suma0_1.tolist() + suma0_2.tolist() + suma0_3.tolist() + suma0_4.tolist() + suma0_5.tolist() + suma0_6.tolist() + suma0_7.tolist()
+    estaciones = estacion1.tolist() + estacion2.tolist() + estacion3.tolist() + estacion4.tolist() + estacion5.tolist() + estacion6.tolist() + estacion7.tolist()
+    meses = mes1.tolist() + mes2.tolist() + mes3.tolist() + mes4.tolist() + mes5.tolist() + mes6.tolist() + mes7.tolist()
+
+    return (labels,estaciones,meses,tempmax,tempmin)
+
+
+
 
 
 def login_required(view):               #1 se define el decorador que coge el bloque de código de la función que querermos decorar
@@ -21,29 +396,23 @@ def login_required(view):               #1 se define el decorador que coge el bl
         return view(**kwargs )                           #4.2 Si el usuario está en sesión, lo envía a la página (view) que solicitó
     return wrapped_view                 #3 retornamos /// llamamos a la funcion y retornamos su respuesta
 
-#Se define una funcion get_db() en donde se utiliza un bloque try except el cual captura un error en el caso de que suceda
-#Dentro de try abrimos un condicional if en donde verificamos si una variable 'db' no está en g (variables globales)
-# si 'db' no está en g, entonces nos conectamos a la base de datos y le asignamos db a las variables globales
+
 #CONEXION BASE DATOS
 def get_db():
     try:
         if 'db' not in g:             #Se revisa si la variable "db" está dentro de las variables globales, si no lo está, se conecta a la base de datos
-            g.db = sqlite3.connect('bases_04.db')
+            g.db = firebase.database()
         return g.db
     except Exception as e:
         print(e)
 
-#Se define una funcion close_db() en donde borramos db de las variables globales y verificamos si esa variable fue borrada
-#Luego cerramos la base de datos
+
 def close_db():                 #En esta función se cierra la conexión a la base de datos
     db = g.pop( 'db', None )    
 
     if db is not None:
         db.close()
 
-#Se define una funcion load_logged_in_user() en la cual se obtiene un user_id de la sesion y se guarda en una variable para trabajarlo más comodamente
-#Si el usuario de la sesion (user_id) está vacío, se le asigna a None a la variable global de user
-#En el caso contrario, si el usuario de la sesión no está vacío, se obtiene ese dato de la base de datos y se le asigna la variable global
 @app.before_request
 def load_logged_in_user():
     user_id = session.get( 'user_id' )
@@ -51,65 +420,8 @@ def load_logged_in_user():
     if user_id is None:    
         g.user = None              
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM usuarios WHERE id = ?', (user_id,)
-        ).fetchone()
-#Se usa una variable global para manejarla en todo el código y no tener que estar llamando a la sesion de usuario cada vez que queramos verificar si el usuario está o no en la sesión
-#DATAFRAME DATOS DE BASE DE DATOS
-def dataframe():
-  #Se hace la conexión a la base de datos bases_07.db por medio de la asignación a una variable conn
-  conn=sqlite3.connect('bases_04.db')
-  #Se crea un cursor 
-  cursor = conn.cursor()
-  
-  #Se define una variable df como el Dataframe del contenido de la variable cursor y se define el nombre de sus columnas
-  df = pd.DataFrame(cursor, columns=['fecha','precipitacion','temperaturaMaxima','temperaturaMinima'])
-  return df
-#En este punto, se corre el programa para la creación de la base de datos y se comentan las líneas de creación de tablas (debido a que si se dejan, el programa lanzará un mensaje diciendo que las tablas ya fueron creadas anteriormente)
-#Dentro de la conexion se convierten las tablas importadas de la hoja tablas.py a tablas de sql
-#veredas.to_sql('veredas', conn)
-#observadores.to_sql('dfo', conn)
-#fincas.to_sql('fincas', conn)
-#registros.to_sql('registros', conn)
-#usuarios.to_sql('usuarios', conn)
+        g.user = usuario_equal_usuario(user_id)
 
-#FUNCIONES DATOS CLIMÁTICOS
-#Se procede a la creacion de varias funciones como sumatoria y promedio del filtro de datos en columnas específicas, cada funcion pide  dos cosas; un año y un dataframe
-def sumatoria_prec(year,df):
-  conn=sqlite3.connect('bases_04.db')
-  #Se crea un cursor 
-  cursor = conn.cursor()
-  #En la línea 31 se utiliza la siguiente estructura (línea 27) para obtener la sumatoria de la precipitacion por mes de un año en específico
-  #cursor.execute("SELECT strftime('%m', date) as valmonth, SUM(column) FROM registros WHERE strftime('%Y', date)='year_number' GROUP BY valmonth")
-  #En la estructura anterior se hace una seleccion (por medio de un SELECT) de los meses dentro de una columna (asignandole un nombre por medio de 'as' un nombre 'month') y de la sumatoria de otra columna(por medio de la funcion SUM()) 
-  #Estos datos se recolectan de una tabla de datos (por medio de FROM) y se utiliza un filtro de datos (WHERE) en el que se pide que esos datos estén dentro de un valor de año dado por la variable year. 
-  #Además, se agrupan estos datos por meses (por medio de GROUP BY month).
-
-  cursor.execute("SELECT strftime('%m', fecha) as month, SUM(precipitacion) FROM registros WHERE strftime('%Y', fecha)=? GROUP BY month",[year])
-  #Por medio de un fetchall() se recolectan los datos filtrados del cursor
-  filtered_db= cursor.fetchall()
-  #Estos datos se convierten a Dataframe con nombre de columnas especificados
-  db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','precipitacion'])
-  #Se retorna el dataframe
-  return db_to_dataframe
-
-#En las siguiente definicione se aplica la misma estructura de la funcion sumatoria exceptuando que no se pide un resultado por meses sino que solo se pide un solo valor
-#(No se utiliza GROUP BY month para que la funcion solo nos arroje un resultado general y no por partes)
-def promedio_prec(year,df):
-    conn=sqlite3.connect('bases_04.db')
-    cursor = conn.cursor() 
-    cursor.execute("SELECT strftime('%m', fecha) as month, AVG(precipitacion) FROM registros WHERE strftime('%Y', fecha)=?",[year])
-    filtered_db= cursor.fetchall()
-    db_to_dataframe= pd.DataFrame(filtered_db,columns=['fecha','precipitacion'])
-    return db_to_dataframe
-
-#este .py tiene la finalidad de mapear cada uno de los links con su respectiva funcion
-#Conexion a \templates\HOME la cual seria establecida como la pagina principal
-# este @app.route('/') siempre tiene que estar definido con un solo "/"
-
-'''app.route(rule, options)
-    El parámetro de regla (rule) representa el enlace de URL con la función.
-    Las opciones (options) son una lista de parámetros que se enviarán al objeto Regla subyacente.'''
 
 @app.route('/')
 def HOME():
@@ -123,16 +435,15 @@ def iniciosesion():
   if request.method == 'POST':
     usuario = request.form['usuario']
     contrasena = request.form['contrasena']
-    db = get_db()
-    user= db.execute('SELECT * FROM usuarios WHERE usuario = ?', (usuario,) ).fetchone()
-    contraseña_bd = db.execute('SELECT contrasena FROM usuarios WHERE contrasena = ?', (contrasena,) ).fetchone()
+    user= usuario_equal_usuario(usuario)
+    contraseña_bd = usuario_equal_contrasena(contrasena)
     if user is None or contraseña_bd is None:
       message = 'Usuario o contraseña Incorrectos'
       flash(message)
       return redirect('/IniciarSesion/')
     else:
       contraseña_b=contraseña_bd[0]
-    if contrasena==contraseña_b:
+    if contrasena==contraseña_b :
       session.clear()
       session['user_id'] = user[0]
       flash('Ingresaste a la página')
@@ -144,9 +455,6 @@ def iniciosesion():
 
 ##Conexion a \templates\ventanaRegistroUSUARIO
 @app.route('/Registrarse/', methods=('GET','POST'))
-#Se define una función ventanaRegistroUSUARIO(), la cual verifica si el usuario ya está registrado y lo envía al home
-#Se abre un bloque try except en donde se toman los datos del formulario (request.form), se verifica que el correo y las contraseñas sean iguales
-# Y se insertan esos valores en la base de datos, si los correos y contraseñas no son iguales se redirige a la ventana de registro de usuario
 def ventanaRegistroUSUARIO():
   if g.user:
     return redirect( '/' )
@@ -160,10 +468,8 @@ def ventanaRegistroUSUARIO():
       contrasena = request.form['contrasena']
       contrasena2 = request.form['contrasena2']
       if correo == correo2 and contrasena == contrasena2:
-        db = get_db()
-        db.execute("INSERT INTO usuarios(nombre, apellido, usuario, email, contrasena) VALUES ('%s','%s','%s','%s','%s')" % (nombre, apellido, usuario, correo, contrasena))
-        db.commit()
-        return redirect('/IniciarSesion/')
+        insert(nombre, apellido, usuario, correo, contrasena2)
+        return redirect(url_for('iniciosesion'))
       else:
         flash('Correo o contraseñas no coinciden')
         return render_template("ventanaRegistroUSUARIO.html", nombre = nombre, Apellido = apellido, Usuario=usuario)
@@ -173,53 +479,102 @@ def ventanaRegistroUSUARIO():
     return render_template("ventanaRegistroUSUARIO.html")
 
 ##Conexion a \templates\PRONOSTICOS
-@app.route('/Pronosticos/')
-@login_required
+@app.route('/Pronosticos/', methods=('GET','POST'))
 def PRONOSTICOS():
-  df = dataframe()
-  suma = promedio_prec(str(2017), df)
-  labels = ['lluvias por encima de lo normal','lluvias dentro de lo normal','lluvias poor debajo de lo normal']
-  values1 = list(suma['precipitacion'][:1])
-  values2 = list(suma['precipitacion'][:5])
-  values3 = list(suma['precipitacion'][:7])
-  return render_template("PRONOSTICOS.html",labels= labels,values1=values1,values2=values2,values3=values3)
+    if request.method == 'POST':
+        #GET DATA
+        select_ano = request.form.get('ano')
+        select_mes = request.form.get('mes')
+        select_estacion = request.form.get('estacion')
+        df= df_filtered()
 
-##Conexion a \templates\GENERAL
+        #FUNCION 1 DATA GRÁFICA
+        fun_1 = funcion_1(select_estacion,select_mes, select_ano, df)
+        labels1 = fun_1[0]
+        preci1 = fun_1[1]
 
-@app.route('/General/', methods=('GET','POST'))
-@login_required
-def GENERAL():
-  temperaturaMinima=[("1",12,13,24,10,17,21,32),("1",14,12,22,10,19,28,30),("1",14,23,24,11,17,21,31),("1",10,19,27,10,16,21,35)]
-  labels1 = [item[0] for item in temperaturaMinima]
-  value1 = [row[1] for row in temperaturaMinima]
-  value2 = [row[2] for row in temperaturaMinima]
-  value3 = [row[3] for row in temperaturaMinima]
-  value4 = [row[4] for row in temperaturaMinima]
-  value5 = [row[5] for row in temperaturaMinima]
-  value6 = [row[6] for row in temperaturaMinima]
-  value7 = [row[7] for row in temperaturaMinima]
-  
-  temperaturaMaxima=[("1",14),("2",25),("3",37)]
-  labels2 = [item[0] for item in temperaturaMaxima]
-  values = [row[1] for row in temperaturaMaxima]
-  return render_template("GENERAL.html",labels1= labels1,labels2= labels2,values=values, value1=value1,value2=value2,value3=value3,value4=value4,value5=value5,value6=value6,value7=value7)
+        #FUNCION 2 DATA TABLA 1
+        fun_2 = funcion_2(select_estacion,select_mes, select_ano, df)
+        labels_2 = fun_2[0] 
+        year = fun_2[1] 
+        
+        #FUNCION 3 DATA TABLA 2
+        fun_3 = funcion_3(select_estacion,select_ano, df)
+        labels_3= ['mes','sumatoria precipitacion']
+        month = fun_3[0]
+        suma_precipitacion = fun_3[1]
+        estacion = fun_3[2]
+        total= fun_3[3][0]
+        total1= fun_3[3][1]
+
+
+        return render_template("PRONOSTICOS.html",labels1=labels1,labels2=labels_2,labels3=labels_3,values1=preci1,values2=year,values3=month,values4=suma_precipitacion,values5=estacion,values6=total,values7=total1)
+    
+    return render_template("PRONOSTICOS.html")
 
 ##Conexion a \templates\ESTACIONES
 @app.route('/Estaciones/', methods=('GET', 'POST'))
-@login_required
 def ESTACIONES():
-  if request.method == 'POST':
-    select_ano = request.form.get('ano')
-    df = dataframe()
-    suma = sumatoria_prec(select_ano, df)
-    labels = list(suma['fecha'][:])
-    values = list(suma['precipitacion'][:])
-    return render_template("ESTACIONES.html",labels= labels,values=values)
 
-  temperaturaMaxima=[("productor1",34),("productor2",56),("productor3",17)]
-  labels = [item[0] for item in temperaturaMaxima]
-  values = [row[1] for row in temperaturaMaxima]
-  return render_template("ESTACIONES.html",labels= labels,values=values)
+    if request.method == 'POST':
+        #GET DATA
+        select_ano = request.form.get('ano')
+        select_mes = request.form.get('mes')
+        select_estacion = request.form.get('estacion')
+
+        #FUNCIONES Y ASIGNACIÓN VARIABLES PARA RETORNO DE DATA
+        df= df_filtered()
+        
+        #FUNCION 4 DATA GRÁFICA
+        fun_4 = funcion_4(select_estacion,select_mes, select_ano, df)
+        labels_6 = fun_4[0] 
+        precipitacion = fun_4[1]
+
+        #FUNCION 5 DATA GRÁFICA
+        fun_5 = funcion_5(select_estacion, select_mes, select_ano, df)
+        labels_7 = fun_5[0]
+        tempmax = fun_5[1]
+        tempmin = fun_5[2]
+
+        #FUNCION 6 DATA GRÁFICA
+        fun_6 = funcion_6(select_estacion, select_mes, select_ano, df)
+        labels_8 = fun_6[0]
+        variacion = fun_6[1]
+
+        return render_template("ESTACIONES.html",labels6=labels_6,labels7=labels_7,labels8=labels_8,values14=precipitacion,values15=tempmax,values16=tempmin,values17=variacion)
+
+    return render_template("ESTACIONES.html")
+
+##Conexion a \templates\GENERAL
+@app.route('/General/', methods=('GET','POST'))
+@login_required
+def GENERAL():
+
+    if request.method == 'POST':
+        #GET DATA
+        select_ano = request.form.get('ano')
+        
+        #FUNCIONES Y ASIGNACIÓN VARIABLES PARA RETORNO DE DATA
+        df= df_filtered()
+        
+        #FUNCION 7 DATA TABLA 1
+        fun_7 = funcion_7(select_ano, df)
+        labels_4 = fun_7[0]
+        estaciones = fun_7[1]
+        mes = fun_7[2]
+        suma_precipitacion = fun_7[3]
+
+        #FUNCION 8 DATA TABLA 2
+        fun_8 = funcion_8(select_ano, df)
+        labels_5 = fun_8[0]
+        estacion = fun_8[1]
+        month = fun_8[2]
+        suma_tempmax = fun_8[3]
+        suma_tempmin = fun_8[4]
+
+        return render_template("GENERAL.html",labels4=labels_4,labels5=labels_5,values7=estaciones,values8=mes,values9=suma_precipitacion,values10=estacion,values11=month,values12=suma_tempmax,values13=suma_tempmin)
+
+    return render_template("GENERAL.html")    
 
 @app.route('/CerrarSesion/')
 @login_required
@@ -232,16 +587,8 @@ def CerrarSesion():
     flash('Has cerrado sesión satisfactoriamente')
     return redirect('/')
   return redirect( '/IniciarSesion/' )
+
   
-#El constructor de  toma el nombre del módulo actual (__name__) como argumento.    
 if __name__ == "__main__":
-        #El método run () de la clase Flask ejecuta la aplicación en el servidor de desarrollo local.
-  #app.run(host, port, debug, options) - todos los parametros son opcionales
-
-  ''' host (anfitrion) - El valor predeterminado es 127.0.0.1 (localhost). Configure en "0.0.0.0" para que el servidor esté disponible externamente
-      port(puerto) - El valor predeterminado es 5000
-      debug - El valor predeterminado es falso. Si se establece en verdadero, proporciona información del debug.
-      options(opciones) - Para ser reenviado al servidor de herramientas subyacente.'''
-
   app.run( host='127.0.0.1', debug=True, port=5000 )
   

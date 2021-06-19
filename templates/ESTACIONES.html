@@ -2,25 +2,29 @@
 {% block title %}Estaciones{% endblock %}
 {% block content %} 
 <script>
-    document.getElementById('iniciarsesionButton').style.display = 'none';
-    document.getElementById('registrarseButton').style.display = 'none';
-    document.getElementById('cerrarsesionButton').style.display = 'inline-block';
+    document.getElementById('iniciarsesionButton').style.display = 'inline-block';
+    document.getElementById('registrarseButton').style.display = 'inline-block';
+    document.getElementById('cerrarsesionButton').style.display = 'none';
 </script>
  <!--inicio botones de click mes y año-->
  
 <div class="p-10 flex flex-col items-center justify-center space-y-16">
-  <!-- Se crea una división de tipo inlineblock para darle organización paralela a los selectores.
-  Se crean los selectores, dandoles propiedades de disño como color de fondo (bg), al texto (text-gray), negrilla "semi" al texto (font-semibold) padding horizontal y vertical (px py), redondear las esquinas, alinear los elementos con flexbox (inline-flex) y centrar los elementos -->  
-  <h2 class="text-4xl text-center font-bold m-5 text-green-900">Gráfica de datos</h2>
-  <p class="text-center font-semibold">Esta gráfica saca los datos de una base de datos, representa la sumatoria de la precipitación de diferentes años en los diferentes meses del año</p>
-  <div class="inline-block relative">
-    <p class="italic font-bold">Selecciona aquí el año</p>
+    <!--SELECTORES *(ORGANIZARLOS HORIZONTALMENTE)*-->
+    <div class="inline-block relative">
+      <p class="italic font-bold">Selecciona aquí el año, mes  y estación para visualizar los datos</p>
       <form  method="POST" action="{{ url_for('ESTACIONES') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-      <!--Definir select y option-->
+        <select name="estacion"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <option class="">Estación</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E1</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E2</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E3</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E4</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E5</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E6</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E7</a></option>
+        </select>    
         <select name="ano"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-          <!--dentro de las opciones se establecen margenes (mr), redondear los bordes superiores (rounded), darle color de fondo (bg) padding horizontal y vertical (px py), proopiedades de bloque (block) y se determina el manejo de los espacios en blanco del texto para que no permita que se adicionen nuevas lineas (whitespace- nowrap) 
-          Adicionalmente se agrega un cambio de color a un color mas oscuro cuando el mouse pase por encima del elemento--->
-          <option class="">---</option>
+          <option class="">Año</option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2011</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2012</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2013</a></option>
@@ -31,61 +35,124 @@
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2018</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>                  
         </select>
-       
-          <button type="submit">OPRIME AQUI PARA ENVIAR</button>
-      </form>  
+        <select name="mes"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <option class="">Mes</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">01</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">02</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">03</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">04</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">05</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">06</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">07</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">08</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">09</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">10</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">11</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">12</a></option>                  
+        </select>
+        
+        <button type="submit">OPRIME AQUÍ PARA VER LOS RESULTADOS</button>
+      </form>
     </div>
-  <!--fin click-->
-  <!--INICIO GRÁFICO-->
-  <div class="flex justify-center">
-      <canvas id="grafico" width="900" height="500"></canvas>
-  </div>
+  
+  
+    <p>En esta gráfica puedes encontrar la temperatura máxima (línea superior) y la temperatura mínima (línea inferior) en grados centígrados de cada día en una estación durante un mes y un año seleccionado</p>
+    <p>Si quieres ver el valor de temperatura, coloca el cursor sobre el punto</p>
+    <div class="flex justify-center">
+      <canvas id="myChart" width="900" height="500"></canvas>
+    </div>
     <script>
-      var ctx = document.getElementById('grafico').getContext('2d');
+      var ctx = document.getElementById('myChart').getContext('2d');
       var chart = new Chart(ctx, {
           // The type of chart we want to create
           type: 'bar',
     
           // The data for our dataset
           data: {
-              labels: {{ labels | safe}}, //eje x
+              labels: {{ labels6 | safe}}, //eje x
               datasets: [{
-                  label: ['precipitacion'], //titulo
-                  backgroundColor:['#FA4014','#D4A9F3','#E3BB1E','#15FA14','#13A5F0','#FA8864','#73D8F0','#CA4EF5','#AFFABA','#E3BB1E','#73A2F0','#E2BCF5'],
+                  label: ['precipitación'], //titulo
                   borderColor: 'green',
-                  data: {{ values | safe }}, //valores a graficar
+                  backgroundColor:['#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB'],
+                  data: {{ values14 | safe }} //valores a graficar
               }]
           },        
           // Configuration options go here
           options: {
-              
+
+              responsive: false
           }
       });
     </script>
+    <br>
 
-  <!--FIN GRÁFICCO-->
-  <!-- Se coloca un parrafo (p) para separar y determinar el inicio tabla-->
-  <div class="container">  
-    <p class="text-lg text-center font-bold m-5">DATOS ESTACIONES</p>
-    <p class="text-center font-semibold">Esta tabla muestra los datos de la gráfica en dos columnas, fecha y precipitación</p>
-  </div>
-  <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
-    <thead class="text-left border-b border-green-300">
-      <th class="px-4 py-3">fecha</th>
-      <th class="px-4 py-3">Precipitacion</th>
-    </thead>
-    <tbody class="text-left bg-green-700 border-b border-green-600">
-      {%for i in range(12)%}
-      <tr>
-        <th>{{labels[i]}}</th>
-        <th class="px-4 py-3">{{values[i]}}</th>
-      </tr>
-      {%endfor %}
-    </tbody>
-  </table>
-    <!--Fin fila -->
+    <p>En esta gráfica puedes encontrar la diferencia entre la temperatura máxima y la temperatura mínima en grados centígrados de cada día en una estación durnte un mes y un año seleccionado</p>
+    <p>Si quieres ver el valor de temperatura, coloca el cursor sobre el punto</p>
+    <div class="flex justify-center">
+      <canvas id="grafico" width="900" height="500"></canvas>
+    </div>
+    <script>
+        var ctx = document.getElementById('grafico').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: {{ labels7 | safe}}, //eje x
+                datasets: [{
+                    label: ['temperatura maxima (°C)'], //titulo
+                    borderColor: '#67FC85',
+                    fill: false,
+                    tension: 0.1,
+                    data: {{ values15 | safe }}, //valores a graficar
+                },
+                {
+                    label: ['temperatura minima (°C)'], //titulo
+                    borderColor: '#67CEFC',
+                    fill: false,
+                    tension: 0.1,
+                    data: {{ values16 | safe }}, //valores a graficar
+                },]
+            },        
+            // Configuration options go here
+            options: {
+                responsive: false
+            }
+        });
+    </script>
+    <br>
+    <!--AQUI VA UN PÁRRAFO DE DESCRIPCIÓN DE LA GRÁFICA3-->
+
+    <div class="flex justify-center">
+      <canvas id="graph" width="900" height="500"></canvas>
+    </div>
+    <script>
+      var ctx = document.getElementById('graph').getContext('2d');
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'line',
+    
+          // The data for our dataset
+          data: {
+              labels: {{ labels8 | safe}}, //eje x
+              datasets: [{
+                  label: ['variación de temperatura (°C)'], //titulo
+                  borderColor:'#62A863',
+                  fill: false,
+                  tension: 0.1,
+                  data: {{ values17 | safe }} //valores a graficar
+              }]
+          },        
+          // Configuration options go here
+          options: {
+
+              responsive: false
+          }
+      });
+    </script>
 </div>
-<!--DEFINIR FOOTER-->
+
 <!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border green) y algunos elementos de diseño: (padding top, border y relative) -->
 <footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-green-700">
   <!-- se crea un contenedor con margen y padding a los lados (mx px) -->

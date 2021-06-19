@@ -2,109 +2,135 @@
 {% block title %}Pronosticos{% endblock %}
 {% block content %}
 <script>
-    document.getElementById('iniciarsesionButton').style.display = 'none';
-    document.getElementById('registrarseButton').style.display = 'none';
-    document.getElementById('cerrarsesionButton').style.display = 'inline-block';
+    document.getElementById('iniciarsesionButton').style.display = 'inline-block';
+    document.getElementById('registrarseButton').style.display = 'inline-block';
+    document.getElementById('cerrarsesionButton').style.display = 'none';
     
 </script>
-<div class="flex items-stretch justify-center">
-    <div class="flex flex-col p-4 bg-green-200 mt-6 ml-6"> 
-        <!--INICIO PARRAFO ANALISIS-->
-        <h1 class="text-4xl text-green-900">Información Básica</h1><br>
-        <p class="text-left">Los pronósticos se hacen colectando tantos datos como sea posible acerca del estado de la atmósfera
-        (particularmente temperatura, presión atmosférica, vientos, humedad y precipitaciones) y usando 
-        conocidos procesos atmosféricos (a través de la meteorología) para determinar los patrones futuros
-        atmosféricos.
-        </p>
-        
-        <!--FIN PARRAFO ANALISIS-->
-        <hr>
-        <br>
-        
-        <!--INICIO PARRAFO TEST-->
-        <p class="text-left">Históricamente, en la estación {{ locInt_FincaPronostico | safe }} de Popayán, durante el mes de {{ locStr_MesPronostico | safe }}, caen {{ locInt_PrecipitacionenmmPronostico | safe }} de lluvia. Las probabilidades nos dicen que se espera que caigan {{ locInt_ProbabilidadprecipitacionPronostico | safe }} de lluvia</p>
-        
-        <!--FIN PARRAFO TEST-->
-        <hr>
-        <br>
-        
-        <!--INICIO PARRAFO TABLA-->
-        <div class="container">  
-            <h2 class="text-4xl text-green-900">Tabla de datos</h2><br>
-            <p class="text-left">Esta tabla esta diseñada mediante html, donde se le implementaron los datos manualmente, pero en su versión final a futuro sacará los datos de una base de datos</p>
-        </div><br>
-        
-        <!--FIN PARRAFO TABLA-->
-        <!--INICIO TABLA-->
-        <div class="p-4">
-            <!--La etiqueta <table> define una tabla HTML.-->
-            <table class="border border-black rounded">
-                    <!--Cada fila de la tabla se define con una etiqueta <tr>.
-                    <!--Cada encabezado de tabla se define con una etiqueta <th>.--> 
-                    <!--Cada celda / datos de la tabla se define con una etiqueta <td>.-->
-                    <tr class="border border-black rounded">
-                    <th class="border border-black rounded p-4 text-green-900">MESES</th>
-                    <th class="border border-black rounded p-4 text-green-900">TEMPERATURA MÁXIMA</th>
-                    <th class="border border-black rounded p-4 text-green-900" >#DÍAS QUE LLOVIÓ</th>
-                    </tr>
 
-                    <tr class="border border-black rounded">
-                    <td class="border border-black rounded p-4">Julio</td>
-                    <td class="border border-black rounded p-4">27 grados</td>
-                    <td class="border border-black rounded p-4">13 días</td>
-                    </tr>
-
-                    <tr class="border border-black rounded">
-                    <td class="border border-black rounded p-4">Agosto</td>
-                    <td class="border border-black rounded p-4">26 grados</td>
-                    <td class="border border-black rounded p-4">23 días</td>
-                    </tr>
-
-                    <tr class="border border-black rounded">
-                    <td class="border border-black rounded p-4">Septiembre</td>
-                    <td class="border border-black rounded p-4">24 grados</td>
-                    <td class="border border-black rounded p-4">16 días</td>
-                    </tr>
-            </table>   
-        </div>
-        <!--FIN TABLA-->
+<div class="p-10 flex flex-col items-center justify-center space-y-16">
+      <!--SELECTORES *(ORGANIZARLOS HORIZONTALMENTE)*-->
+    <div class="inline-block relative">
+      <p class="italic font-bold">Selecciona aquí el año y mes para visualizar los datos</p>
+      <form  method="POST" action="{{ url_for('PRONOSTICOS') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">  
+        <select name="estacion"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <option class="">Estación</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E1</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E2</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E3</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E4</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E5</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E6</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E7</a></option>
+        </select> 
+        <select name="ano"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <option class="">Año</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2011</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2012</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2013</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2014</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2015</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2016</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2017</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2018</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>                  
+        </select>
+        <select name="mes"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <option class="">Mes</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">01</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">02</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">03</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">04</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">05</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">06</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">07</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">08</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">09</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">10</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">11</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">12</a></option>                  
+        </select>
+        
+        <button type="submit">OPRIME AQUÍ PARA VER LOS RESULTADOS</button>
+      </form>
     </div>
 
-    <div class="mt-6 ml-4 mr-8 bg-gray-50">
-        <div class="container">  
-            <h2 class="text-4xl text-green-900">Gráfica de datos</h2><br>
-            <p class="text-left">Esta gráfica saca los datos de una base de datos, representa el promedio de la precipitacion de un año en diferentes rangos del mismo</p>
-        </div><br>
-        <!--IMAGEN-->
-        <div class=" mt-20  flex justify-center ">
-            <canvas id="myChart" width="900" height="500"></canvas>
-        </div>
-        <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'pie',
     
-                // The data for our dataset
-                data: {
-                    labels: {{ labels | safe}}, //eje x
-                    datasets: [{
-                        label: ['var1','var2','var3'], //titulo
-                        backgroundColor:['lightgreen','rgb(54, 162, 235)','rgb(255, 205, 86)'],
-                        borderColor: 'green',
-                        data: [{{ values1 | safe }},{{ values2 | safe }},{{ values3 | safe }}] //valores a graficar
-                    }]
-                },        
-                // Configuration options go here
-                options: {
-                    responsive: false
-                }
-            });
-        </script>
+    <p class="text-lg">En esta gráfica puedes encontrar la precipitación (agua lluvia) en milímetros diaria de una estación durante un mes y año seleccionado</p>
+    <p class="text-sm">Si quieres ver el valor de precipitación, coloca el cursor sobre la barra</p>
+    <div class="flex justify-center">
+      <canvas id="myChart" width="600" ></canvas>
     </div>
+    <script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'bar',
+    
+          // The data for our dataset
+          data: {
+              labels: {{ labels1 | safe}}, //eje x
+              datasets: [{
+                  label: ['precipitación (mm)'], //titulo
+                  borderColor: 'green',
+                  backgroundColor:['#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB','#3489EB'],
+                  data: {{ values1 | safe }} //valores a graficar
+              }]
+          },        
+          // Configuration options go here
+          options: {
 
-</div><br>
+              responsive: false
+          }
+      });
+    </script>
 
+    <p class="text-lg">En esta tabla puedes encontrar el número de días en los que ha llovido en una estación durante un mes y año seleccionado</p>
+    <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
+      <thead class="text-left border-b border-green-300">
+        <th class="px-4 py-3">estación</th>
+        <th class="px-4 py-3">mes</th>
+        <th class="px-4 py-3">año</th>
+        <th class="px-4 py-3">número de días con lluvia</th>
+      </thead>
+      <tbody class="text-left bg-green-700 border-b border-green-600">
+        {% if labels2 %}  
+          <tr>
+            <td>{{values2[0]}}</td>
+            <td class="px-4 py-3">{{values2[1]}}</td>
+            <td>{{values2[2]}}</td>
+            <td>{{values2[3]}}</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+
+    <p class="text-lg">En esta tabla vas a encontrar la precipitación (agua lluvia) en milímetros en una estación durante cada uno de los meses del año</p>
+    <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
+      <thead class="text-left border-b border-green-300">
+        <th class="px-4 py-3">estación</th>
+        <th class="px-4 py-3">mes</th>
+        <th class="px-4 py-3">precipitación (mm)</th>
+      </thead>
+      <tbody class="text-left bg-green-700 border-b border-green-600">
+        {% if labels3 %}  
+          {%for i in range(values4|length)%}
+          <tr>
+            <th class="px-4 py-3">{{values5[i]}}</th>
+            <th>{{values3[i]}}</th>
+            <th class="px-4 py-3">{{values4[i]}}</th>
+          </tr>
+          {%endfor %}
+          <tr>
+          <th class="px-4 py-3">{{values6}}</th>
+          <th class="px-4 py-3"></th>
+          <th class="px-4 py-3">{{values7}}</th>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    
+</div>
 <!--DEFINIR FOOTER-->
 <footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-green-700">
     <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
