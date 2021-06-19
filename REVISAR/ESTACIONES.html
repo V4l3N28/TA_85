@@ -1,0 +1,156 @@
+{%extends 'LAYOUT.html'%}
+{% block title %}Estaciones{% endblock %}
+{% block content %} 
+<script>
+    document.getElementById('iniciarsesionButton').style.display = 'none';
+    document.getElementById('registrarseButton').style.display = 'none';
+    document.getElementById('cerrarsesionButton').style.display = 'inline-block';
+</script>
+ <!--inicio botones de click mes y año-->
+ 
+<div class="p-10 flex flex-col items-center justify-center space-y-16">
+  <!-- Se crea una división de tipo inlineblock para darle organización paralela a los selectores.
+  Se crean los selectores, dandoles propiedades de disño como color de fondo (bg), al texto (text-gray), negrilla "semi" al texto (font-semibold) padding horizontal y vertical (px py), redondear las esquinas, alinear los elementos con flexbox (inline-flex) y centrar los elementos -->  
+  <h2 class="text-4xl text-center font-bold m-5 text-green-900">Gráfica de datos</h2>
+  <p class="text-center font-semibold">Esta gráfica saca los datos de una base de datos, representa la sumatoria de la precipitación de diferentes años en los diferentes meses del año</p>
+  <div class="inline-block relative">
+    <p class="italic font-bold">Selecciona aquí el año</p>
+      <form  method="POST" action="{{ url_for('ESTACIONES') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+      <!--Definir select y option-->
+        <select name="ano"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <!--dentro de las opciones se establecen margenes (mr), redondear los bordes superiores (rounded), darle color de fondo (bg) padding horizontal y vertical (px py), proopiedades de bloque (block) y se determina el manejo de los espacios en blanco del texto para que no permita que se adicionen nuevas lineas (whitespace- nowrap) 
+          Adicionalmente se agrega un cambio de color a un color mas oscuro cuando el mouse pase por encima del elemento--->
+          <option class="">---</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2011</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2012</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2013</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2014</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2015</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2016</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2017</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2018</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">2019</a></option>                  
+        </select>
+       
+          <button type="submit">OPRIME AQUI PARA ENVIAR</button>
+      </form>  
+  </div>
+  <!--fin click-->
+  <!--INICIO GRÁFICO-->
+  <div class="flex justify-center">
+      <canvas id="grafico" width="900" height="500"></canvas>
+  </div>
+    <script>
+      var ctx = document.getElementById('grafico').getContext('2d');
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'bar',
+    
+          // The data for our dataset
+          data: {
+              labels: {{ labels | safe}}, //eje x
+              datasets: [{
+                  label: ['precipitacion'], //titulo
+                  backgroundColor:['#FA4014','#D4A9F3','#E3BB1E','#15FA14','#13A5F0','#FA8864','#73D8F0','#CA4EF5','#AFFABA','#E3BB1E','#73A2F0','#E2BCF5'],
+                  borderColor: 'green',
+                  data: {{ values | safe }}, //valores a graficar
+              }]
+          },        
+          // Configuration options go here
+          options: {
+              
+          }
+      });
+    </script>
+
+  <!--FIN GRÁFICCO-->
+  <!-- Se coloca un parrafo (p) para separar y determinar el inicio tabla-->
+  <div class="container">  
+    <p class="text-lg text-center font-bold m-5">DATOS ESTACIONES</p>
+    <p class="text-center font-semibold">Esta tabla muestra los datos de la gráfica en dos columnas, fecha y precipitación</p>
+  </div>
+  <table id='result' class="relative table-auto rounded-t-lg m-5 w-5/6 mx-auto bg-green-800 text-green-200">
+    <thead class="text-left border-b border-green-300">
+      <th class="px-4 py-3">fecha</th>
+      <th class="px-4 py-3">Precipitacion</th>
+    </thead>
+    <tbody class="text-left bg-green-700 border-b border-green-600">
+      {%for i in range(12)%}
+      <tr>
+        <th>{{labels[i]}}</th>
+        <th class="px-4 py-3">{{values[i]}}</th>
+      </tr>
+      {%endfor %}
+    </tbody>
+  </table>
+    <!--Fin fila -->
+</div>
+
+<h2 class="text-4xl text-center font-bold m-5 text-green-900">Gráfica de datos</h2>
+  <p class="text-center font-semibold">Esta gráfica saca los datos de una base de datos, representa la sumatoria de la precipitación de diferentes años segun los usuarios que actualizaron los datos</p>
+  <div class="inline-block relative">
+    <p class="italic font-bold">Selecciona aquí el Usuario</p>
+      <form  method="POST" action="{{ url_for('ESTACIONES') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+      <!--Definir select y option-->
+        <select name="idFinca"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+          <!--dentro de las opciones se establecen margenes (mr), redondear los bordes superiores (rounded), darle color de fondo (bg) padding horizontal y vertical (px py), proopiedades de bloque (block) y se determina el manejo de los espacios en blanco del texto para que no permita que se adicionen nuevas lineas (whitespace- nowrap) 
+          Adicionalmente se agrega un cambio de color a un color mas oscuro cuando el mouse pase por encima del elemento--->
+          <option class="">---</option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">idFinca1</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">idFinca2</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">idFinca3</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">idFinca4</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">idFinca5</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">idFinca6</a></option>
+          <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">idFinca</a></option>
+        </select>
+       
+          <button type="submit">OPRIME AQUI PARA ENVIAR</button>
+      </form>  
+  </div>
+  <!--fin click-->
+  <!--INICIO GRÁFICO-->
+  <div class="flex justify-center">
+      <canvas id="grafico" width="900" height="500"></canvas>
+  </div>
+    <script>
+      var ctx = document.getElementById('grafico').getContext('2d');
+      var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'bar',
+    
+          // The data for our dataset
+          data: {
+              labels: {{ labels | safe}}, //eje x
+              datasets: [{
+                  label: ['precipitacion'], //titulo
+                  backgroundColor:['#FA4014','#D4A9F3','#E3BB1E','#15FA14','#13A5F0','#FA8864','#73D8F0','#CA4EF5','#AFFABA','#E3BB1E','#73A2F0','#E2BCF5'],
+                  borderColor: 'green',
+                  data: {{ values | safe }}, //valores a graficar
+              }]
+          },        
+          // Configuration options go here
+          options: {
+              
+          }
+      });
+    </script>
+
+  <!--FIN GRÁFICCO-->
+<!--DEFINIR FOOTER-->
+<!-- Se crea el footer de la página, agregandole la clase footer para darle , colores (border green) y algunos elementos de diseño: (padding top, border y relative) -->
+<footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-green-700">
+  <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
+  <div class="container mx-auto px-6">
+    <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
+    <div class="flex flex-col">
+        <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->  
+        <span class="font-bold text-green-700 uppercase mb-2">Creado por</span>
+        <!-- Los siguientes elementos son de tipo párrafo -->
+        <p class="font-bold text-gray-700 font-bold mb-2">Valentina Ortega Paz</p>
+        <p class="font-bold text-gray-700 font-bold mb-2">Isaac Mesa Maya</p>
+        <p class="font-bold text-gray-700 font-bold mb-2">Karen Valentina Obando</p>
+      </div>
+  </div>
+</footer>
+{% endblock %}

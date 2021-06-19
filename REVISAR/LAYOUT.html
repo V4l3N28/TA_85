@@ -1,0 +1,115 @@
+<!--Este documetno es la plantilla base bajo a cual se trbajara todos los archivos HTML-->
+<!--Esto es debido a que estamos usando jinja (es un motor de plantillas web para el lenguaje de programación Python), lo estamos usando por "herencia"-->
+<!--esta "herencia" es la plantilla, cuando determinamos esta plantilla usamos jinja como metodo para que los otros archivos HTML queden menos cargados de palabras y solo sea necesario poner lo especifico del template-->
+<!--Todos los documentos HTML deben comenzar con una declaración <! DOCTYPE>.
+La declaración no es una etiqueta HTML. Es una "información" para el navegador sobre qué tipo de documento esperar.-->
+<!DOCTYPE html>
+<!--El comando lang se usa para establecer el idioma del documento o un rango de texto-->
+<html lang="en">
+ <!-- El espacio que se abre entre provee <head> </head> se usa para configurar la información general del encabezado, incluyendo su título y enlaces a scripts y hojas de estilos.-->
+  <head>
+        <!--Indica el título del documento.
+        Este elemento es obligarorio y debe estar ubicado dentro del elemento head.-->
+        <!--Se hace el uso de bloques para la herencia de plantillas mediante la siguiente estructura {% block __name__ %} donde las llaves y el porcentaje se 
+            utilizan para indicar la apertura de un bloque, block se refiere a bloque y __name__ se utiliza para darle una decripción general
+            al bloque. Para cerrarlo se utiliza 'endblock' en la misma estructura {% endblock %}
+            En este caso se hace un bloque para el título-->
+            <title>{% block title %} PLANTILLA {% endblock %}</title>
+            
+    
+        <!--El atributo charset especifica la codificación de caracteres para el documento HTML
+        le está diciendo a su navegador que use la codificación de caracteres UTF-8, que es un método para convertir los caracteres escritos en código legible por máquina.-->    
+        <meta charset="UTF-8">
+
+        <!--El http-equiv es un atributo que proporciona un encabezado HTTP para la información o valor del atributo content.
+        Se puede utilizar para simular un encabezado de respuesta HTTP.
+        La metaetiqueta X-UA permite elegir la versión de Internet Explorer (IE) que se debe representar.
+        El edge en el atributo content le dice a internet explorer que muestre el contenido en la versión más alta posible-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      
+        <!--Esto significa que el navegador renderizará el ancho de la página al ancho de su propia pantalla.-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+        <!--Estos siguientes tres renglones se usan para configurar que se esta trabajando con un framework especifico (Tailwind CSS), 
+        también para indicar que se utiliza iconos de Fontawesome, y en el tercer renglon se hace una relacion de este html con un documento
+        css llamado styles por medio de los atributos rel y href. En donde rel especifica la relación del link del documento en href con el documento actual-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+        <!--fin del head -->
+        <!--La parte visible del documento HTML se encuentra entre <body> y </body>-->
+        <!--inicio del body-->
+    <body class="h-full">
+        <!--Define un conjunto de enlaces de navegación.
+        'Class=' asigna nombres de clases al elemento. Por defecto, clases CSS.
+        Con Tailwind, los elementos pueden acomodarse al ancho de la página.
+        En Tailwind se le coloca estilo al componente o elemento en class="" mediante el uso de propiedades de 
+        flexbox (módulo de diseño que facilita el posicionamiento, tamaño y dirección de los elementos en el espacio disponible de un código)
+        Las propiedades de flexbox utilizadas en este documento se podrán encontrar definidas en el sigiente link-->
+        <link rel="definiciones" href="definiciones.md">
+        <!--La etiqueta nav se utiliza para especificar que se está desarrollando una barra de navegación.
+        Dentro del class de esta etiqueta se especifica el posicionamiento el elemento mediante las propiedades items-center,
+        justify-center y flex-wrap.
+        La dimensión del padding del elemento se especifica con p-6
+        Se da color al fondo de este elemento mediante bg-black-->
+        <nav class="flex items-center justify-between flex-wrap bg-green-800 p-6">
+            <!--Mediante la etiqueta div se crea un componente en donde se agrega una imagen mediante la etiqueta svg y se agrega un nombre PROYECTO.
+            En esta etiqueta div y en su contenido se utilizan propiedades de flexbox como items-center flex-shrink-0 tracking-wide para el posicionamiento de los elementos
+            y text-white mr-6 font-semibold text-2xl para las dimensiones y colores de los elementos-->
+            <div class="flex items-center flex-shrink-0 text-white mr-6">
+                <!--Svg --> 
+                <span class="font-semibold text-2xl tracking-wide">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cloud-sun" class="fill current text-white svg-inline--fa fa-cloud-sun fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M575.2 325.7c.2-1.9.8-3.7.8-5.6 0-35.3-28.7-64-64-64-12.6 0-24.2 3.8-34.1 10-17.6-38.8-56.5-66-101.9-66-61.8 0-112 50.1-112 112 0 3 .7 5.8.9 8.7-49.6 3.7-88.9 44.7-88.9 95.3 0 53 43 96 96 96h272c53 0 96-43 96-96 0-42.1-27.2-77.4-64.8-90.4zm-430.4-22.6c-43.7-43.7-43.7-114.7 0-158.3 43.7-43.7 114.7-43.7 158.4 0 9.7 9.7 16.9 20.9 22.3 32.7 9.8-3.7 20.1-6 30.7-7.5L386 81.1c4-11.9-7.3-23.1-19.2-19.2L279 91.2 237.5 8.4C232-2.8 216-2.8 210.4 8.4L169 91.2 81.1 61.9C69.3 58 58 69.3 61.9 81.1l29.3 87.8-82.8 41.5c-11.2 5.6-11.2 21.5 0 27.1l82.8 41.4-29.3 87.8c-4 11.9 7.3 23.1 19.2 19.2l76.1-25.3c6.1-12.4 14-23.7 23.6-33.5-13.1-5.4-25.4-13.4-36-24zm-4.8-79.2c0 40.8 29.3 74.8 67.9 82.3 8-4.7 16.3-8.8 25.2-11.7 5.4-44.3 31-82.5 67.4-105C287.3 160.4 258 140 224 140c-46.3 0-84 37.6-84 83.9z"></path></svg>
+                    SOCIAL CLIMA
+                </span>
+            </div>
+            <!--Se crea un bloque en donde se utilizan las etiquetas w-full, block, flex-grow, las cuales sirven para modificar el tamaño del componente en la pagina, tambien se especifican algunas propiedades para pantallas mayores a 1024px (items-center, flex, w-auto, flex-grow)
+            la definicion de cada etiqueta esta en el siguiente link-->
+            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                <!--Bloques al lado de proyecto-->
+                <!-- Se establece un display tipo bloque y un margen condicionado en el tamaño de la pantalla, para lg o más se quita el margen.Adicionalmente se establecen condiciones de estilo-->
+                <div class="text-xl lg:flex-grow">
+                    <!-- En los siguientes links <a> se establecen propiedades de bloque, margenes superiores (m-X) y color de texto(text-X ), también se cambia el color del texto al pasar por encima de el (hover:text-)
+                    Adicionalmente se establecen propiedades para un diseño responsive para escritorios (pantallas 1024px o más lg: ) en el que se cambia el display a un tipo de bloques alineados (inline-block) y quitamos el margen superior (mt-0) anteriormente puesto -->
+                    <!--definir href-->
+                    <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-green-500 hover:text-white mr-4">
+                    Home
+                    </a>
+                    <a href="/Pronosticos/" class="block mt-4 lg:inline-block lg:mt-0 text-green-500 hover:text-white mr-4">
+                    Pronosticos
+                    </a>
+                    <a href="/Estaciones/" class="block mt-4 lg:inline-block lg:mt-0 text-green-500 hover:text-white mr-4">
+                    Estaciones
+                    </a>
+                    <a href="/General/" class="block mt-4 lg:inline-block lg:mt-0 text-green-500 hover:text-white mr-4">
+                    General
+                    </a>
+                    <a href="/Informacion/" class="block mt-4 lg:inline-block lg:mt-0 text-green-500 hover:text-white mr-4">
+                    Informacion
+                    </a>
+                </div>
+                <!--bloque de sign in y registrarse-->
+                <div>
+                    <a href="/IniciarSesion/" id="iniciarsesionButton" class="inline-block text-lg px-4 py-2 leading-none border rounded text-gray-300 border-white hover:border-transparent hover:text-white hover:bg-white mt-4 lg:mt-0">Iniciar Sesión</a>
+                    <a href="/Registrarse/" id="registrarseButton" class="inline-block text-lg px-4 py-2 leading-none border rounded text-gray-300 border-white hover:border-transparent hover:text-white hover:bg-white mt-4 lg:mt-0">Registrarse</a>
+                    <a href="/CerrarSesion/" id="cerrarsesionButton" class="inline-block text-lg px-4 py-2 leading-none border rounded text-gray-300 border-white hover:border-transparent hover:text-white hover:bg-white mt-4 lg:mt-0">Cerrar sesión</a>
+                </div>
+            </div>
+        </nav>
+        <!--fin barra de navegación-->
+        <!--Se abre un bloque para el contenido dentro de un sección-->
+        <section id="content">
+            {% with messages = get_flashed_messages()%}
+                {% if messages%}
+                        {% for message in messages %} 
+                            <p class="flex justify-center text-green-800">{{message}} </p>
+                        {% endfor%}
+                {% endif %}
+            {% endwith %}
+            {% block content %}
+
+        {% endblock%}
+        </section>
+    </body>
+</html>

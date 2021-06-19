@@ -1,0 +1,55 @@
+{%extends 'LAYOUT.html'%}
+{% block title %}Informacion{% endblock %}
+{% block content %}
+
+<div class="flex items-stretch justify-center">
+    <div class="flex flex-col p-4 bg-green-200 mt-6 ml-6"> 
+        <!--INICIO PARRAFO ANALISIS-->
+        <h1 class="text-4xl text-green-900">CONTEXTO</h1><br>
+        <p class="text-left">Este proyecto se realizó con el propósito de crear un primer modelo para una posible
+             implementación en un proyecto de diseño de página web de la Fundación Ecohabitats en el que se 
+             comparten diferentes análisis de datos basados en información climática (variables de precipitación, 
+             temperatura máxima y temperatura mínima) con los campesinos de las veredas del noroccidente de Popayán.
+        </p>
+              <img src="imagenes/fundacion-ecohabitats-colombia.png" alt="ecohabitats" width="500">
+
+        
+        <!--FIN PARRAFO ANALISIS-->
+        <hr>
+        <br>
+        
+        <!--INICIO PARRAFO TEST-->
+        <p class="text-left">Históricamente, en la estación {{ locInt_FincaPronostico | safe }} de Popayán, durante el mes de {{ locStr_MesPronostico | safe }}, caen {{ locInt_PrecipitacionenmmPronostico | safe }} de lluvia. Las probabilidades nos dicen que se espera que caigan {{ locInt_ProbabilidadprecipitacionPronostico | safe }} de lluvia</p>
+        
+        <!--FIN PARRAFO TEST-->
+        <hr>
+        <br>
+        
+        <!--INICIO PARRAFO TABLA-->
+        <div class="container">  
+            <h2 class="text-4xl text-green-900">Tabla de datos</h2><br>
+            <p class="text-left">Esta tabla esta diseñada mediante html, donde se le implementaron los datos manualmente, pero en su versión final a futuro sacará los datos de una base de datos</p>
+        </div><br>
+        
+        <!--FIN PARRAFO TABLA-->
+        
+    </div>
+</div><br>
+
+
+<!--DEFINIR FOOTER-->
+<footer class="flex justify-end items-end footer bg-gray-200 relative pt-1 border-b-2 border-green-700">
+    <!-- se crea un contenedor con margen y padding a los lados (mx px) -->
+    <div class="container mx-auto px-6">
+      <!-- se brindan atributos de flexbox para darle alineación vertical a los elementos (flex col) -->
+      <div class="flex flex-col">
+          <!-- Se añaden propiedades al texto como uppercase, que pone el texto en mayusculas y font-bold (negrilla), propiedades de color (text gray), adicionalmente un margen (abajo)  -->  
+          <span class="font-bold text-green-700 uppercase mb-2">Creado por</span>
+          <!-- En este elemento, al ser un link, se agrega la propiedad de hover para darle un efecto de cambio (de color) para cuando el apuntador pase por encima -->
+          <p class="font-bold text-gray-700 font-bold mb-2">Valentina Ortega Paz</p>
+          <p class="font-bold text-gray-700 font-bold mb-2">Isaac Mesa Maya</p>
+          <p class="font-bold text-gray-700 font-bold mb-2">Karen Valentina Obando</p>
+        </div>
+    </div>
+  </footer>
+{% endblock %}
