@@ -400,7 +400,7 @@ def login_required(view):               #1 se define el decorador que coge el bl
 #CONEXION BASE DATOS
 def get_db():
     try:
-        if 'db' not in g:             #Se revisa si la variable "db" está dentro de las variables globales, si no lo está, se conecta a la base de datos
+        if "db" not in g:             #Se revisa si la variable "db" está dentro de las variables globales, si no lo está, se conecta a la base de datos
             g.db = firebase.database()
         return g.db
     except Exception as e:
@@ -415,7 +415,7 @@ def close_db():                 #En esta función se cierra la conexión a la ba
 
 @app.before_request
 def load_logged_in_user():
-    user_id = session.get( 'user_id' )
+    user_id = session.get( "user_id" )
 
     if user_id is None:    
         g.user = None              
@@ -433,8 +433,8 @@ def iniciosesion():
   if g.user:
     return redirect( '/General/')
   if request.method == 'POST':
-    usuario = request.form['usuario']
-    contrasena = request.form['contrasena']
+    usuario = request.form["usuario"]
+    contrasena = request.form["contrasena"]
     user= usuario_equal_usuario(usuario)
     contraseña_bd = usuario_equal_contrasena(contrasena)
     if user is None or contraseña_bd is None:
@@ -445,7 +445,7 @@ def iniciosesion():
       contraseña_b=contraseña_bd[0]
     if contrasena==contraseña_b :
       session.clear()
-      session['user_id'] = user[0]
+      session["user_id"] = user[0]
       flash('Ingresaste a la página')
       return  redirect('/General')
     else:
@@ -460,13 +460,13 @@ def ventanaRegistroUSUARIO():
     return redirect( '/' )
   try:
     if request.method == 'POST':
-      nombre = request.form['nombre']
-      apellido = request.form['apellido']
-      usuario = request.form['usuario']
-      correo = request.form['email']
-      correo2 = request.form['email2']
-      contrasena = request.form['contrasena']
-      contrasena2 = request.form['contrasena2']
+      nombre = request.form["nombre"]
+      apellido = request.form["apellido"]
+      usuario = request.form["usuario"]
+      correo = request.form["email"]
+      correo2 = request.form["email2"]
+      contrasena = request.form["contrasena"]
+      contrasena2 = request.form["contrasena2"]
       if correo == correo2 and contrasena == contrasena2:
         insert(nombre, apellido, usuario, correo, contrasena2)
         return redirect(url_for('iniciosesion'))
