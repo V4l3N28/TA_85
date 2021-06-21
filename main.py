@@ -47,7 +47,7 @@ def usuario_equal_usuario(var):
   usuarios = db.child("USUARIOS").order_by_child("usuario").equal_to('{}'.format(var)).get()
   filtro = usuarios.val()
   data = pd.DataFrame(filtro)
-  usuario = data.transpose()
+  change = data.transpose()
   usuario = change["usuario"].tolist()
   return usuario
 
