@@ -37,7 +37,7 @@ def database():
 def insert(name,lastname,user,mail,password):
   db = firebase.database()
   data= {"FIELD1":"1","nombre":name,"apellido":lastname,"usuario":user,"email":mail,"contraseña":password}
-  datas = db.child("USUARIOS").chil().set(data)
+  datas = db.child("USUARIOS").child().set(data)
   return datas
 
 
