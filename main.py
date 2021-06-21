@@ -44,7 +44,7 @@ def insert(name,lastname,user,mail,password):
 #Retrieve data
 def usuario_equal_usuario(var):
   db = firebase.database()
-  usuarios = db.child("USUARIOS").order_by_child("usuario").equal_to(var).get()
+  usuarios = db.child("USUARIOS").order_by_child("usuario").equal_to('{}'.format(var)).get()
   filtro = usuarios.val()
   data = pd.DataFrame(filtro)
   change = data.transpose()
@@ -53,7 +53,7 @@ def usuario_equal_usuario(var):
 
 def usuario_equal_contrasena(var):
   db = firebase.database()
-  usuarios = db.child("USUARIOS").order_by_child("contraseña").equal_to(var).get()
+  usuarios = db.child("USUARIOS").order_by_child("contraseña").equal_to('{}'.format(var)).get()
   filtro = usuarios.val()
   data = pd.DataFrame(filtro)
   change = data.transpose()
