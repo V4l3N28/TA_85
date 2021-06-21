@@ -44,7 +44,7 @@ def insert(name,lastname,user,mail,password):
 #Retrieve data
 def usuario_equal_usuario(var):
   db = firebase.database()
-  usuarios = db.child("USUARIOS").order_by("usuario").equal_to('{}'.format(var)).get()
+  usuarios = db.child("USUARIOS").order_By_Child("usuario").equal_to('{}'.format(var)).get()
   filtro = usuarios.val()
   data = pd.DataFrame(filtro)
   change = data.transpose()
