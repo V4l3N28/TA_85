@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import random
 import pyrebase
+import requests
+import json
 
 
 app = Flask(
@@ -31,34 +33,43 @@ def database():
     data = pd.DataFrame(estaciones.val())
     return data
 
-
-
 #push data
 def insert(name,lastname,user,mail,password):
-  db = firebase.database()
-  data= {"FIELD1":"1","nombre":name,"apellido":lastname,"usuario":user,"email":mail,"contraseña":password}
-  datas = db.child("USUARIOS").child().set(data)
-  return datas
+    db = firebase.database()
+    usuarios = db.child("USUARIOS").get()
+    filtro = usuarios.val()
+    data = pd.DataFrame(filtro)
+    var = (data['usuario'] == user) & (data['nombre'] == name) & (data['apellido'] == lastname) & (data['email'] == mail) & (data['contraseña'] == password)
+    if var.any() == False:
+      data= {"FIELD1":"1","nombre":name,"apellido":lastname,"usuario":user,"email":mail,"contraseña":password}
+      datas = db.child("USUARIOS").child("1").set(data)
+      print(datas)
+      return datas
+    else:
+      return ' ya registrado'
 
+def user_identi(var):
+    db = firebase.database()
+    usuarios = db.child("USUARIOS").order_by_child("usuario").equal_to('{}'.format(var)).get()
+    filtro = usuarios.val()
+    data = pd.DataFrame(filtro)
+    change = data.transpose()
+    usuario = change["usuario"].tolist()
+    return usuario
 
-#Retrieve data
-def usuario_equal_usuario(var):
+def usuario_equal_usuario():
   db = firebase.database()
-  usuarios = db.child("USUARIOS").order_by_child("usuario").equal_to('{}'.format(var)).get()
+  usuarios = db.child("USUARIOS").get()
   filtro = usuarios.val()
   data = pd.DataFrame(filtro)
-  change = data.transpose()
-  usuario = change["usuario"].tolist()
-  return usuario
+  return data
 
-def usuario_equal_contrasena(var):
+def usuario_equal_contrasena():
   db = firebase.database()
-  usuarios = db.child("USUARIOS").order_by_child("contraseña").equal_to('{}'.format(var)).get()
+  usuarios = db.child("USUARIOS").get()
   filtro = usuarios.val()
   data = pd.DataFrame(filtro)
-  change = data.transpose()
-  contrasena = change['contraseña'].tolist()
-  return contrasena
+  return data
 
 
 #ANALISIS Y LIMPIEZA DE DATOS
@@ -415,12 +426,12 @@ def close_db():                 #En esta función se cierra la conexión a la ba
 
 @app.before_request
 def load_logged_in_user():
-    user_id = session.get( "user_id" )
+    user_id = session.get( 'user_id' )
 
     if user_id is None:    
         g.user = None              
     else:
-        g.user = usuario_equal_usuario(user_id)
+        g.user = user_identi(user_id)
 
 
 @app.route('/')
@@ -433,11 +444,11 @@ def iniciosesion():
   if g.user:
     return redirect( '/General/')
   if request.method == 'POST':
-    usuario = request.form["usuario"]
-    contrasena = request.form["contrasena"]
-    user= usuario_equal_usuario(usuario)
-    contraseña_bd = usuario_equal_contrasena(contrasena)
-    if user is None or contraseña_bd is None:
+    usuario = request.form['usuario']
+    contrasena = request.form['contrasena']
+    user= usuario_equal_usuario()['usuario'].tolist()
+    contraseña_bd = usuario_equal_contrasena()['contraseña'].tolist()
+    if usuario is None or contraseña_bd is None:
       message = 'Usuario o contraseña Incorrectos'
       flash(message)
       return redirect('/IniciarSesion/')
@@ -445,7 +456,7 @@ def iniciosesion():
       contraseña_b=contraseña_bd[0]
     if contrasena==contraseña_b :
       session.clear()
-      session["user_id"] = user[0]
+      session['user_id'] = user[0]
       flash('Ingresaste a la página')
       return  redirect('/General')
     else:
@@ -460,15 +471,15 @@ def ventanaRegistroUSUARIO():
     return redirect( '/' )
   try:
     if request.method == 'POST':
-      nombre = request.form["nombre"]
-      apellido = request.form["apellido"]
-      usuario = request.form["usuario"]
-      correo = request.form["email"]
-      correo2 = request.form["email2"]
-      contrasena = request.form["contrasena"]
-      contrasena2 = request.form["contrasena2"]
+      nombre = request.form['nombre']
+      apellido = request.form['apellido']
+      usuario = request.form['usuario']
+      correo = request.form['email']
+      correo2 = request.form['email2']
+      contrasena = request.form['contrasena']
+      contrasena2 = request.form['contrasena2']
       if correo == correo2 and contrasena == contrasena2:
-        insert(nombre, apellido, usuario, correo, contrasena2)
+        insert(nombre, apellido, usuario, correo, contraseña)
         return redirect(url_for('iniciosesion'))
       else:
         flash('Correo o contraseñas no coinciden')
