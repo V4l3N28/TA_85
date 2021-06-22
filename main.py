@@ -33,20 +33,6 @@ def database():
     data = pd.DataFrame(estaciones.val())
     return data
 
-#push data
-def insert(name,lastname,user,mail,password):
-    db = firebase.database()
-    usuarios = db.child("USUARIOS").get()
-    filtro = usuarios.val()
-    data = pd.DataFrame(filtro)
-    var = (data['usuario'] == user) & (data['nombre'] == name) & (data['apellido'] == lastname) & (data['email'] == mail) & (data['contraseña'] == password)
-    if var.any() == False:
-      data= {"FIELD1":"1","nombre":name,"apellido":lastname,"usuario":user,"email":mail,"contraseña":password}
-      datas = db.child("USUARIOS").child("1").set(data)
-      print(datas)
-      return datas
-    else:
-      return ' ya registrado'
 
 def user_identi(var):
     db = firebase.database()
@@ -443,25 +429,28 @@ def HOME():
 def iniciosesion():
   if g.user:
     return redirect( '/General/')
+
   if request.method == 'POST':
     usuario = request.form['usuario']
     contrasena = request.form['contrasena']
     user= usuario_equal_usuario()['usuario'].tolist()
     contraseña_bd = usuario_equal_contrasena()['contraseña'].tolist()
+
     if usuario is None or contraseña_bd is None:
       message = 'Usuario o contraseña Incorrectos'
       flash(message)
       return redirect('/IniciarSesion/')
-    else:
-      contraseña_b=contraseña_bd[0]
-    if contrasena==contraseña_b :
+    
+    if contrasena in contraseña_bd and usuario in user:
       session.clear()
-      session['user_id'] = user[0]
+      session['user_id'] = usuario
       flash('Ingresaste a la página')
       return  redirect('/General')
+
     else:
       flash('Contraseña incorrecta')
       return redirect('/IniciarSesion/')
+      
   return render_template("ventanaInicioSESION.html")
 
 ##Conexion a \templates\ventanaRegistroUSUARIO
@@ -469,6 +458,7 @@ def iniciosesion():
 def ventanaRegistroUSUARIO():
   if g.user:
     return redirect( '/' )
+
   try:
     if request.method == 'POST':
       nombre = request.form['nombre']
@@ -478,13 +468,25 @@ def ventanaRegistroUSUARIO():
       correo2 = request.form['email2']
       contrasena = request.form['contrasena']
       contrasena2 = request.form['contrasena2']
+
       if correo == correo2 and contrasena == contrasena2:
-        insert(nombre, apellido, usuario, correo, contraseña)
-        return redirect(url_for('iniciosesion'))
+        db = firebase.database()
+        usuarios = db.child("USUARIOS").get()
+        filtro = usuarios.val()
+        data = pd.DataFrame(filtro)
+
+        if nombre in data['nombre'] and apellido in data['apellido'] and usuario in data['usuario'] and correo in data['correo'] and contrasena in data['contraseña']:
+          data= {"FIELD1":"2","nombre":nombre,"apellido":apellido,"usuario":usuario,"email":correo,"contraseña":contrasena}
+          datas = db.child("USUARIOS").child("2").set(data)
+          return redirect(url_for('iniciosesion'))
+
+        flash('Este correo o usuario ya están registrados')
+        return redirect(url_for('ventanaRegistroUSUARIO'))  
       else:
         flash('Correo o contraseñas no coinciden')
         return render_template("ventanaRegistroUSUARIO.html", nombre = nombre, Apellido = apellido, Usuario=usuario)
     return render_template("ventanaRegistroUSUARIO.html")
+    
   except:
     flash('Este correo o usuario ya están registrados') 
     return render_template("ventanaRegistroUSUARIO.html")
