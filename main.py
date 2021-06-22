@@ -33,6 +33,10 @@ def database():
     data = pd.DataFrame(estaciones.val())
     return data
 
+def insert(nombre,apellido,correo,contrasena,usuario):
+    db = firebase.database()
+    data= {"FIELD1":"2","nombre":nombre,"apellido":apellido,"usuario":usuario,"email":correo,"contraseña":contrasena}
+    datas = db.child("USUARIOS").child("2").set(data)
 
 def user_identi(var):
     db = firebase.database()
@@ -474,19 +478,17 @@ def ventanaRegistroUSUARIO():
         usuarios = db.child("USUARIOS").get()
         filtro = usuarios.val()
         data = pd.DataFrame(filtro)
-
-        if nombre in data['nombre'] and apellido in data['apellido'] and usuario in data['usuario'] and correo in data['correo'] and contrasena in data['contraseña']:
-          data= {"FIELD1":"2","nombre":nombre,"apellido":apellido,"usuario":usuario,"email":correo,"contraseña":contrasena}
-          datas = db.child("USUARIOS").child("2").set(data)
-          return redirect(url_for('iniciosesion'))
-
-        flash('Este correo o usuario ya están registrados')
-        return redirect(url_for('ventanaRegistroUSUARIO'))  
+        if nombre in data['nombre'].tolist() and apellido in data['apellido'].tolist() and usuario in data['usuario'].tolist() and correo in data['email'].tolist() and contrasena in data['contraseña'].tolist():
+          flash('Este correo o usuario ya están registrados')
+          return redirect(url_for('iniciosesion'))  
+        elif nombre not in data['nombre'].tolist() and apellido not in data['apellido'].tolist() and usuario not in data['usuario'].tolist() and correo not in data['email'].tolist() and contrasena not in data['contraseña'].tolist():
+          insert(nombre, apellido, correo, contrasena, usuario)
+          flash('se han registrado tus datos')
+          return redirect(url_for('ventanaRegistroUSUARIO'))  
       else:
         flash('Correo o contraseñas no coinciden')
         return render_template("ventanaRegistroUSUARIO.html", nombre = nombre, Apellido = apellido, Usuario=usuario)
     return render_template("ventanaRegistroUSUARIO.html")
-    
   except:
     flash('Este correo o usuario ya están registrados') 
     return render_template("ventanaRegistroUSUARIO.html")
