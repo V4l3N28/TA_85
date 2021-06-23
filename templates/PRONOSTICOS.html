@@ -8,13 +8,40 @@
     
 </script>
 
+<!--El atributo de clase se usa a menudo para señalar un nombre de clase en una hoja de estilo.-->
+<!--Las clases se nombran usando el formato {propiedad} {lados} - {tamaño} para xs y {propiedad} 
+{lados} - {punto de interrupción} - {tamaño} para sm, md, lg y xl.-->
+
+<!--Donde la propiedad es una de:
+      m - para clases que establecen margen
+      p - para clases que establecen relleno-->
+
+<!--flex - Administra el diseño, la alineación y el tamaño de las columnas de la cuadrícula,
+   la navegación, los componentes y más con un conjunto completo de utilidades receptivas de Flexbox.-->
+
+<!--Para implementaciones más complejas, puede ser necesario CSS personalizado.-->
+
+<!--flex direction - Utilidades para controlar la dirección de los elementos flexibles.
+    flex-col -> flex-direction: columna-->
 <div class="p-10 flex flex-col items-center justify-center space-y-16">
       <!--SELECTORES *(ORGANIZARLOS HORIZONTALMENTE)*-->
     <div class="inline-block relative">
       <p class="italic font-bold">Selecciona aquí el año y mes para visualizar los datos</p>
+      <!--Se utiliza form HTML para recopilar la entrada del usuario. La entrada del
+         usuario se envía con mayor frecuencia a un servidor para su procesamiento.-->
       <form  method="POST" action="{{ url_for('PRONOSTICOS') }}" class="flex flex-col bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">  
+        <!--El elemento <select> se utiliza para crear una lista desplegable.-->
+
+        <!--El elemento <select> se usa con mayor frecuencia en un formulario para recopilar la entrada del usuario.-->
         <select name="estacion"class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+         <!--La etiqueta <option> define una opción en una lista de selección.-->
+          <!--Los elementos <option> van dentro de un elemento <select>, <optgroup> o <datalist>.-->
           <option class="">Estación</option>
+          <!-- rounded-t - se utiliza para controlar el radio de borde de un elemento.-->
+          <!--bg-gray-200 - es la selección de color que se le da a las opciones en estado predeterminado-->
+          <!--hover:bg-gray-400 - es la selección de color que se le da a las opciones en estado de hover (o cuando es señalado por el cursor)-->
+          <!--py-2 px-4 - es el padding que se determina para las opciones donde determinamos el espacio que se determina entre el contenido y el contenedor-->
+          <!--La propiedad de whitespace especifica cómo se maneja el espacio en blanco dentro de un elemento.-->
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E1</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E2</a></option>
           <option class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">E3</a></option>
